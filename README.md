@@ -129,7 +129,7 @@ Pure physics functions are independent of React and Canvas. Zustand is the sole 
 - Baseline and learning progress are in memory; reload clears them. Lessons have no answer grading or generated explanations.
 - UI retains Day 1 Chinese labels while new learning panels use English. A full localization pass is deferred.
 - Chromium automation covers 1280/1024/390 CSS-pixel widths, DPR 2, and dynamic DPR 2 → 1.5 → 1. Physical multi-monitor switching, real browser zoom UI, Safari/Firefox, mobile hardware and production deployment remain unverified.
-- AI uses one OpenAI-compatible JSON-mode Chat Completions provider; support for `response_format` and `max_completion_tokens` is required. Structured validation does not guarantee educational correctness. Real provider verification is pending because no credentials are configured.
+- AI uses one OpenAI-compatible JSON-mode Chat Completions provider; support for `response_format` and `max_completion_tokens` is required. Structured validation does not guarantee educational correctness. Credentials are configured locally, but the requested Gemini model rejects generation with 404 NOT_FOUND; a successful live explanation remains unverified.
 - Git is initialized with a stable Day 1/2 baseline and a dedicated Day 3 feature branch. See daily logs for actual commits and remote/authentication status.
 
 Day 4 should add stronger authentication/rate limiting before any public deployment, provider-specific live quality checks, and expanded accessibility/browser coverage. Keep analytical physics authoritative. See `docs/roadmap.md`.
