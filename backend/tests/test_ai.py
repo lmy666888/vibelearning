@@ -164,7 +164,7 @@ def envelope(answer=ANSWER):
 
 @pytest.mark.parametrize("status,payload,code", [
     (200, envelope(), None), (401, {"error": SETTINGS.api_key}, "provider_error"),
-    (429, {}, "provider_error"), (200, {}, "invalid_provider_response"),
+    (429, {}, "provider_error"), (404, {}, "provider_model_unavailable"), (200, {}, "invalid_provider_response"),
     (200, envelope({"answer": "", "key_concepts": [], "related_equations": []}), "invalid_provider_response"),
     (200, envelope({**ANSWER, "answer": "x" * 8001}), "invalid_provider_response"),
     (200, envelope({**ANSWER, "answer": SETTINGS.api_key}), "invalid_provider_response"),

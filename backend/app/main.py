@@ -1,4 +1,6 @@
 import os
+from app.environment import load_backend_environment
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +8,8 @@ from fastapi.responses import JSONResponse
 from app.api.routes.health import router as health_router
 from app.api.routes.ai import router as ai_router
 from app.request_limits import TutorBodyLimit
+
+load_backend_environment()
 
 app = FastAPI(title="VibeLearning API", version="0.3.0")
 origins = [value.strip() for value in os.getenv("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if value.strip()]

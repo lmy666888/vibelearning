@@ -53,7 +53,7 @@ cd /Users/mingyi/Projects/vibelearning-ai/backend
 uv run --locked pytest
 ```
 
-Day 3 validation: **73 Vitest tests**, **63 Pytest tests**, and **18 Chromium E2E tests** passed. The original physics/store/backend tests remain unchanged and pass. The E2E assertion for the retired Coming Soon heading now checks the implemented AI Tutor panel; all other existing regression scenarios remain. Strict TypeScript checks include E2E and configuration files; production build passes.
+Day 3 validation: **74 Vitest tests**, **70 Pytest tests**, and **18 Chromium E2E tests** passed. The original physics/store/backend tests remain unchanged and pass. The E2E assertion for the retired Coming Soon heading now checks the implemented AI Tutor panel; all other existing regression scenarios remain. Strict TypeScript checks include E2E and configuration files; production build passes.
 
 Playwright always starts an isolated Vite server on **5174** and stops it afterward. Keep that port free; the regular app on 5173 is unaffected. Health responses are intercepted in E2E so the learning tests do not require a backend; a dedicated test aborts health requests to verify offline simulation. Actual backend behavior is tested by Pytest and a separate live HTTP/browser smoke check. Tests use accessible roles, labels and stable reading IDs, bounded polling, zero retries, and no arbitrary sleeps. Failure screenshots/traces go to ignored `frontend/test-results/`.
 
@@ -136,7 +136,7 @@ Day 4 should add stronger authentication/rate limiting before any public deploym
 
 ## Day 3 AI Tutor configuration
 
-Create `backend/.env` from the root `.env.example` and configure `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`, and `LLM_TIMEOUT_SECONDS`. Choose an existing provider/model that supports JSON-mode Chat Completions; no model is silently selected. Never put provider variables in `VITE_*` values or frontend code. `.env` and `.env.*` overrides are ignored, while `.env.example` and both dependency lockfiles are tracked.
+The application automatically loads the fixed `backend/.env` path at startup, independently of the working directory. Explicit process environment values take precedence; interpolation of other environment secrets is disabled. Create `backend/.env` from the root `.env.example` and configure `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`, and `LLM_TIMEOUT_SECONDS`. Choose an existing provider/model that supports JSON-mode Chat Completions; no model is silently selected. Never put provider variables in `VITE_*` values or frontend code. `.env` and `.env.*` overrides are ignored, while `.env.example` and both dependency lockfiles are tracked.
 
 ```sh
 cd /Users/mingyi/Projects/vibelearning-ai
@@ -165,10 +165,27 @@ Keep Uvicorn bound to loopback. AI requests additionally require a loopback clie
 
 ### Testing and live status
 
-Pytest exercises the real HTTP adapter through HTTPX MockTransport and the route through ASGITransport, including Chinese/English question preservation, analytical verification, concurrency, cancellation, malformed/oversized output and safe errors. Frontend form tests use jsdom; E2E intercepts `/api/ai/explain` and never makes paid calls. Mock responses are test fixtures, not a fake runtime tutor. No LLM credentials were available during implementation, so live provider language/answer quality and compatibility remain unverified.
+Pytest exercises the real HTTP adapter through HTTPX MockTransport and the route through ASGITransport, including Chinese/English question preservation, analytical verification, concurrency, cancellation, malformed/oversized output and safe errors. Frontend form tests use jsdom; E2E intercepts `/api/ai/explain` and never makes paid calls. Mock responses are test fixtures, not a fake runtime tutor. Initially no LLM credentials were available. The later Gemini configuration check reached the real model-list API successfully, but generation with the requested gemini-2.5-flash-lite returned 404 NOT_FOUND: Google reports this model is no longer available to new users. The requested model remains configured unless the user authorizes a change; live negative-charge answer quality is therefore unverified.
 
 Provider request format follows the [official Chat Completions reference](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create). JSON mode still requires application-level schema validation, which this adapter performs.
 
 ## GitHub daily workflow
 
 Repository: https://github.com/lmy666888/vibelearning . Stable branch: `main`; Day 3 branch: `feat/day3-ai-tutor`. See `docs/development/workflow.md` and daily logs under `docs/development/`. Never force push, automatically merge, delete remote branches, or commit secrets. Historical Day 1/2 logs were reconstructed from existing reports; no original historical commits are invented.
+
+## Google Gemini configuration and verified limitation
+
+For the requested Gemini setup, use these non-secret values in `backend/.env`:
+
+```dotenv
+LLM_API_KEY=
+LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
+LLM_MODEL=gemini-2.5-flash-lite
+LLM_TIMEOUT_SECONDS=30
+```
+
+Fill the key only in the ignored local file. The adapter normalizes the trailing slash and uses `/chat/completions`, bearer authentication, JSON-mode responses and the existing validated explanation schema. No native Google SDK or alternate physics contract is introduced. See [Google's compatibility documentation](https://ai.google.dev/gemini-api/docs/openai).
+
+Actual verification on 2026-10-14: models endpoint HTTP 200; the requested model appeared in the list. Generation returned HTTP 404 with Google's NOT_FOUND message that the model is no longer available to new users. Trying the alternate token-limit field did not change that result. This does not establish generation compatibility or successful physical explanation. Google suggested gemini-3.5-flash-lite; it was not substituted without user approval. The application maps upstream 404 to a safe model-unavailable error without echoing Google's raw response or credentials.
+
+Restart the backend after changing the local file. The existing `uv run --env-file .env ...` command remains supported; ordinary `uv run uvicorn app.main:app --host 127.0.0.1 --port 8000` now also loads the backend-local file automatically. Tests isolate credentials and use HTTP mocks; they never make paid calls.

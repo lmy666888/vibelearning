@@ -59,3 +59,7 @@ A separate real-backend Chromium smoke check on port 5173 verified API connected
 ## Day 3 — Context-Aware AI Tutor and Git initialization
 
 See `development/2026-10-14-day3.md` for the dated record and `development/workflow.md` for the daily GitHub procedure. Day 3 adds verified backend physics/context validation, an async configurable provider, safe local API and a snapshot-associated tutor UI. Automated tests use mocks; real provider verification remains pending without credentials. The stable Day 1/2 source is committed as `79cbb32`; development continues on `feat/day3-ai-tutor`. Remote authentication/push status is recorded separately and is never inferred from a local commit.
+
+## Gemini configuration follow-up
+
+Added backend-local .env loading, Gemini endpoint regression tests and safe model-unavailable errors. The real model-list endpoint returned 200, but the requested gemini-2.5-flash-lite generation returned 404: Google says it is unavailable to new users. No live explanation success is claimed; see the Day 3 daily log.

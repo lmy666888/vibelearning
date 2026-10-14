@@ -26,6 +26,8 @@ class OpenAICompatibleProvider:
                     headers={"Authorization": "Bearer " + settings.api_key},
                     json={"model": settings.model, "messages": messages,
                           "response_format": {"type": "json_object"}, "max_completion_tokens": 1500}) as response:
+                    if response.status_code == 404:
+                        raise ProviderError(502, "provider_model_unavailable", "The configured AI model or endpoint is unavailable. Check backend model access and configuration.")
                     if response.status_code < 200 or response.status_code >= 300:
                         raise ProviderError(502, "provider_error", "The AI provider could not complete the request. Try again later.")
                     body = bytearray()

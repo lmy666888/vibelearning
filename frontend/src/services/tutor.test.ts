@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { captureTutorRequest, isSnapshotCurrent } from './tutor';
+import { describe, expect, it, vi } from 'vitest';
+import { captureTutorRequest, isSnapshotCurrent, askTutor } from './tutor';
 import { defaults } from '../stores/simulationStore';
 const state = { parameters: defaults, time: 2, activePresetId: null, currentLessonStepId: 'observe-positive' as const };
 describe('immutable tutor request snapshots', () => {
@@ -22,4 +22,11 @@ describe('immutable tutor request snapshots', () => {
     expect(() => captureTutorRequest(' ', state)).toThrow();
     expect(() => captureTutorRequest('x'.repeat(2001), state)).toThrow();
   });
+});
+
+it('reports an unavailable model without displaying raw provider details', async () => {
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ detail: { code: 'provider_model_unavailable', message: 'private-provider-debug' } }), {status: 502})));
+  try {
+    await expect(askTutor(captureTutorRequest('Why?', state))).rejects.toThrow('The configured AI model is unavailable.');
+  } finally { vi.unstubAllGlobals(); }
 });

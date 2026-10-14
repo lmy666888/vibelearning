@@ -86,3 +86,7 @@ A store subscription compares time, physical parameters and educational IDs to t
 ## Day 3 tests
 
 Testing Library/jsdom tests the form, loading/result/error states, immutable snapshots, stale notices, request deduplication and cleanup. Existing Vitest physics and store tests remain intact. Four additional Chromium cases cover suggestion selection, success, failure/retry and concurrent simulation changes. The obsolete Coming Soon assertion was updated to the implemented panel. Backend tests use mocked HTTP and provider dependencies; no test spends provider credit.
+
+## Gemini environment follow-up
+
+`app/environment.py` loads a fixed absolute backend-local .env path before CORS settings and app construction. It uses python-dotenv without variable interpolation and without overriding explicit process environment. Configuration still flows through the existing four LLM environment variables and ProviderSettings validation. Missing .env remains safe. Gemini uses the existing HTTP adapter and API/physics contracts; upstream 404 has a distinct safe model-unavailable classification. Live model-list success does not imply permission to generate with every listed legacy model.
