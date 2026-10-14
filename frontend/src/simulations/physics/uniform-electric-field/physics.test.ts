@@ -1,0 +1,24 @@
+import {describe,it,expect} from 'vitest';
+import {calculateForce,calculateAcceleration,calculateParticleState,calculateTrajectory} from './physics';
+import {defaults} from '../../../stores/simulationStore';
+import {physicalToScreen} from '../../core/coordinates';
+describe('analytic electric field physics',()=>{
+ it('positive charge accelerates along the field',()=>expect(calculateParticleState(defaults,1).acceleration.y).toBeCloseTo(0.2));
+ it('negative charge reverses acceleration',()=>expect(calculateParticleState({...defaults,charge:-2e-9},1).acceleration.y).toBeCloseTo(-0.2));
+ it('zero charge has zero force',()=>expect(calculateForce(0,{x:5,y:100})).toEqual({x:0,y:0}));
+ it('zero field has zero force',()=>expect(calculateForce(2,{x:0,y:0})).toEqual({x:0,y:0}));
+ it('zero initial velocity accelerates from rest',()=>{const s=calculateParticleState({...defaults,initialVelocity:{x:0,y:0}},2);expect(s.position.x).toBe(0);expect(s.position.y).toBeCloseTo(0.4);});
+ it('computes analytic position',()=>{const s=calculateParticleState(defaults,3);expect(s.position.x).toBeCloseTo(15);expect(s.position.y).toBeCloseTo(0.9);});
+ it('computes velocity',()=>expect(calculateParticleState(defaults,3).velocity.y).toBeCloseTo(0.6));
+ it.each([0,-1,NaN,Infinity])('rejects invalid mass %s',mass=>expect(()=>calculateParticleState({...defaults,mass},0)).toThrow());
+ it.each([NaN,Infinity,-Infinity])('rejects invalid numbers %s',n=>{expect(()=>calculateParticleState({...defaults,charge:n},0)).toThrow();expect(()=>calculateParticleState({...defaults,field:{x:n,y:1}},0)).toThrow();expect(()=>calculateParticleState({...defaults,initialVelocity:{x:0,y:n}},0)).toThrow();expect(()=>calculateParticleState({...defaults,initialPosition:{x:n,y:0}},0)).toThrow();expect(()=>calculateParticleState(defaults,n)).toThrow();});
+ it('rejects negative time',()=>expect(()=>calculateParticleState(defaults,-1)).toThrow());
+ it('rejects invalid direct acceleration',()=>expect(()=>calculateAcceleration({x:1,y:0},0)).toThrow());
+ it('rejects overflow',()=>expect(()=>calculateForce(1e308,{x:1e308,y:0})).toThrow());
+ it('converts positive physical y upwards and x rightwards',()=>{const o=physicalToScreen({x:0,y:0},900,600),p=physicalToScreen({x:1,y:1},900,600);expect(p.x).toBeGreaterThan(o.x);expect(p.y).toBeLessThan(o.y);expect(p.x-o.x).toBeCloseTo(o.y-p.y);});
+ it('samples trajectory with correct endpoints',()=>{const t=calculateTrajectory(defaults,3,10);expect(t).toHaveLength(10);expect(t[0]).toEqual({x:0,y:0});expect(t[9].y).toBeCloseTo(0.9);});
+ it('clears trajectory at time zero',()=>expect(calculateTrajectory(defaults,0)).toEqual([]));
+ it.each([0,1,2.5,10001])('rejects sample count %s',n=>expect(()=>calculateTrajectory(defaults,1,n)).toThrow());
+ it('field and mass scale acceleration',()=>{expect(calculateParticleState({...defaults,mass:2e-6},1).acceleration.y).toBeCloseTo(0.1);expect(calculateParticleState({...defaults,field:{x:0,y:200}},1).acceleration.y).toBeCloseTo(0.4);});
+ it('supports nonzero origin and both force components',()=>{const s=calculateParticleState({...defaults,field:{x:50,y:100},initialPosition:{x:2,y:3}},2);expect(s.position.x).toBeCloseTo(12.2);expect(s.position.y).toBeCloseTo(3.4);});
+});

@@ -1,0 +1,4 @@
+import {useEffect,useState} from 'react';
+import {getHealth} from '../../services/api';
+export function Header(){const [status,setStatus]=useState<'checking'|'online'|'offline'>('checking');useEffect(()=>{const controller=new AbortController();let disposed=false;async function check(){try{await getHealth(AbortSignal.any([controller.signal,AbortSignal.timeout(4000)]));if(!disposed)setStatus('online');}catch{if(!disposed)setStatus('offline');}}void check();const timer=setInterval(()=>void check(),15000);return()=>{disposed=true;controller.abort();clearInterval(timer);};},[]);
+ return <header><a className="brand" href="/"> <span className="brand-icon">✦</span> VibeLearning <b>AI</b></a><nav>物理实验室 <span>/</span> 电场与运动</nav><span className={`connection ${status}`} role="status"><i/>{status==='online'?'API 已连接':status==='checking'?'检查 API…':'API 离线 · 模拟可用'}</span></header>;}
