@@ -14,12 +14,12 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('application loads with existing controls and an explicitly unavailable AI tutor', async ({ page }) => {
+test('application loads with existing controls and the context-aware AI tutor', async ({ page }) => {
   await expect(page.getByRole('heading', { name: '二维匀强电场' })).toBeVisible();
   for (const id of ['charge', 'mass', 'ex', 'ey', 'vx', 'vy']) await expect(page.locator(`#${id}`)).toBeVisible();
   await expect(page.getByRole('button', { name: '▶ 播放', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: '↺ 重置', exact: true })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'AI Tutor — Coming Soon' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'AI Tutor', exact: true })).toBeVisible();
 });
 
 for (const [name, charge, field, ay] of [

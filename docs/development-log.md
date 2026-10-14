@@ -55,3 +55,7 @@ Real multi-monitor moves and browser zoom controls, Safari/Firefox, mobile hardw
 ### Live browser smoke and visual review
 
 A separate real-backend Chromium smoke check on port 5173 verified API connected through the Vite proxy, applied Positive Charge, saved a baseline, applied Stronger Electric Field, played beyond 3 seconds, paused, and confirmed ay=0.4 m/s² and +100% comparison. Captured and visually reviewed full-page 1440px desktop and 1024px laptop screenshots. No browser console errors or uncaught page errors occurred. The long-running Day 1 Vite process initially served stale transformed modules; restarting that owned development server exposed the updated source and resolved the smoke check. The current server on 5173 serves Day 2.
+
+## Day 3 — Context-Aware AI Tutor and Git initialization
+
+See `development/2026-10-14-day3.md` for the dated record and `development/workflow.md` for the daily GitHub procedure. Day 3 adds verified backend physics/context validation, an async configurable provider, safe local API and a snapshot-associated tutor UI. Automated tests use mocks; real provider verification remains pending without credentials. The stable Day 1/2 source is committed as `79cbb32`; development continues on `feat/day3-ai-tutor`. Remote authentication/push status is recorded separately and is never inferred from a local commit.

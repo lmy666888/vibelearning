@@ -30,7 +30,7 @@ Each row includes ID, label, units, scalar/component/magnitude classification, b
 
 `learning/lessons/uniformElectricField.ts` contains `GuidedLesson` and `LessonStep` data with stable IDs, objectives, explanations, conceptual questions and suggested preset IDs. The pure navigation helper clamps at the first/last step. Store navigation changes only currentLessonStepId; applying a suggestion explicitly calls the shared preset action. The lesson component has no effect that overwrites parameters on navigation.
 
-The schema separates educational content from UI so future validated/generated content could use the same renderer. Day 2 content is authored, with no fake chat or provider integration.
+The schema separates educational content from UI so future validated/generated content could use the same renderer. Guided lesson content remains authored. Day 3 adds a separate provider-backed tutor without changing those lesson data or navigation semantics.
 
 ## Simulation Context v1
 
@@ -53,7 +53,7 @@ The schema separates educational content from UI so future validated/generated c
 
 The builder explicitly picks physical numeric fields and clones nested vectors, preventing accidental propagation of extra runtime properties. Derived values are calculated from one analytical state, validated for finiteness and detached from inputs. Optional IDs serialize as explicit null. Force/acceleration are repeated at top level as requested transport fields and agree with particleState when built; consumers should treat the transport snapshot as read-only.
 
-The object includes no controls, layout, baseline, secrets or personal details. Stable simulation/step IDs let a future tutor ground explanations in the same experiment. Version and SI markers allow the backend to reject incompatible contracts. Day 3 must introduce runtime server validation and a privacy-reviewed submission path; this builder alone neither makes network requests nor grants permission to send data.
+The object includes no controls, layout, baseline, secrets or personal details. Stable simulation/step IDs let a future tutor ground explanations in the same experiment. Version and SI markers allow the backend to reject incompatible contracts. Day 3 introduces matching strict server validation and an explicit submission path. The pure builder itself performs no I/O. Only the tutor submit action sends a detached snapshot.
 
 ## Canvas lifecycle and DPR
 
@@ -66,3 +66,23 @@ ResizeObserver and window resize synchronize CSS dimensions with DPR-scaled bitm
 FastAPI uses an organized API router, Pydantic health schema and local CORS. Its existing three tests use HTTPX ASGITransport. API health failure cannot block client-side simulations.
 
 Vitest includes only `src/**/*.test.ts`; Playwright uses `e2e/` to avoid cross-running test frameworks. Playwright starts its own Vite server on 5174 with no server reuse. Learning tests intercept health and separately cover failure. Tests use semantic roles and bounded assertions, no arbitrary sleeps, with zero retries. Retina/DPR emulation checks bitmap dimensions; real multi-monitor and browser zoom behavior still need hardware validation.
+
+## Day 3 backend boundaries
+
+`schemas/ai.py` defines frozen strict models matching Context v1, with forbidden extra fields and finite numeric constraints. `context_validator.py` independently calculates analytical state and verifies all frontend-derived components and duplicated force/acceleration fields. The prompt receives the canonical server result, never an unchecked client-derived value. Relative tolerance is 1e-8 with a 1e-15 absolute floor; values outside finite range are rejected.
+
+`config.py` reads backend-only environment values without exposing key representations. `TutorProvider` is an async protocol; `OpenAICompatibleProvider` is its single production adapter. HTTPX streams and bounds the upstream envelope, does not follow redirects or trust environment proxies, requests JSON output and bounded tokens, and validates the content into `Explanation`. Timeout, transport, upstream and malformed responses become safe domain errors. No raw provider exceptions reach the UI.
+
+`TutorService` owns per-process fail-fast concurrency (two slots) and total deadlines, verifies context before calling the provider, assembles messages through `prompt_builder.py`, and checks output before return. A system message defines physical direction, SI conventions, question-language matching and data/instruction boundaries. The student question and context are serialized as user-role JSON data. No tools or parameter-mutation actions are exposed. Prompt rules reduce injection risk but cannot guarantee language-model behavior; deterministic readings remain authoritative.
+
+`routes/ai.py` handles HTTP mapping and local/origin guards; `request_limits.py` bounds streamed request bytes before JSON parsing. The application sanitizes validation errors to locations/messages/types without echoing input values. Health routing remains independent of provider configuration. CORS permits POST only for configured origins. Uvicorn remains loopback-only; authenticated/budgeted access is required before any public proxy/deployment.
+
+## Day 3 frontend lifecycle
+
+`services/tutor.ts` captures and recursively freezes a context and question, validates structured responses, and maps known backend codes to safe messages. `AITutorPanel` associates every response with its exact request. The single in-flight controller prevents duplicate submissions and aborts on unmount; identity and abort checks prevent late state updates. Retry explicitly captures current state.
+
+A store subscription compares time, physical parameters and educational IDs to the submitted context. A ref records the last stale flag, so ordinary animation frames do not repeatedly set React state. No physics or Canvas execution waits for the network. The UI identifies earlier snapshots and shows submitted time, preset and SI parameters. It renders escaped plain text; no HTML injection or remote links are synthesized.
+
+## Day 3 tests
+
+Testing Library/jsdom tests the form, loading/result/error states, immutable snapshots, stale notices, request deduplication and cleanup. Existing Vitest physics and store tests remain intact. Four additional Chromium cases cover suggestion selection, success, failure/retry and concurrent simulation changes. The obsolete Coming Soon assertion was updated to the implemented panel. Backend tests use mocked HTTP and provider dependencies; no test spends provider credit.

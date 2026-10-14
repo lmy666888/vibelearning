@@ -1,8 +1,8 @@
 # VibeLearning AI
 
-An interactive STEM learning platform. Day 2 extends the working Day 1 uniform-electric-field simulator with controlled experiments, immutable baseline comparison, authored guided learning, and Chromium end-to-end tests.
+An interactive STEM learning platform with analytical electric-field simulation, controlled experiments, immutable baseline comparison, authored guided learning, and a context-aware AI Tutor. Day 3 preserves the Day 1/2 simulation and introduces a validated backend provider path.
 
-The simulator uses deterministic analytical equations. AI Tutor remains explicitly marked **Coming Soon**; no LLM provider, authentication, database, or Docker is included.
+The simulator uses deterministic analytical equations. AI explanations use a server-verified immutable simulation snapshot and require backend provider configuration. Without credentials, the API returns a clear configuration error and simulation remains available. No authentication, database or Docker is included.
 
 ## Requirements and stack
 
@@ -11,7 +11,7 @@ The simulator uses deterministic analytical equations. AI Tutor remains explicit
 - Playwright Test 1.64 with its bundled Chromium.
 - FastAPI, Uvicorn, Pydantic, Pytest, HTTPX.
 
-`frontend/package-lock.json` and `backend/uv.lock` are the version authorities. Existing runtime dependencies were retained; Day 2 adds only Playwright Test and its transitive dependencies.
+`frontend/package-lock.json` and `backend/uv.lock` are the version authorities. Existing runtime dependency versions were retained. HTTPX is now a backend runtime dependency; frontend component testing adds Testing Library and jsdom as development-only dependencies.
 
 ## Install and run
 
@@ -53,7 +53,7 @@ cd /Users/mingyi/Projects/vibelearning-ai/backend
 uv run --locked pytest
 ```
 
-Day 2 final validation: **64 Vitest tests**, **3 Pytest tests**, and **14 Chromium E2E tests** passed. All original 31 frontend tests and 3 backend tests remain unchanged and pass. Strict TypeScript checks include E2E and configuration files; production build passes.
+Day 3 validation: **73 Vitest tests**, **63 Pytest tests**, and **18 Chromium E2E tests** passed. The original physics/store/backend tests remain unchanged and pass. The E2E assertion for the retired Coming Soon heading now checks the implemented AI Tutor panel; all other existing regression scenarios remain. Strict TypeScript checks include E2E and configuration files; production build passes.
 
 Playwright always starts an isolated Vite server on **5174** and stops it afterward. Keep that port free; the regular app on 5173 is unaffected. Health responses are intercepted in E2E so the learning tests do not require a backend; a dedicated test aborts health requests to verify offline simulation. Actual backend behavior is tested by Pytest and a separate live HTTP/browser smoke check. Tests use accessible roles, labels and stable reading IDs, bounded polling, zero retries, and no arbitrary sleeps. Failure screenshots/traces go to ignored `frontend/test-results/`.
 
@@ -63,7 +63,7 @@ Playwright always starts an isolated Vite server on **5174** and stops it afterw
 2. Apply one of four presets: Positive Charge, Negative Charge, Stronger Electric Field, or No Electric Field. Selection validates parameters and atomically pauses and resets time. Manual edits clear preset identity.
 3. Save a baseline, then adjust controls or choose a preset. Comparison shows charge, mass, field, initial velocity, force, acceleration components, and acceleration magnitude. Replace/Clear baseline are explicit actions. The snapshot does not change during animation.
 4. Follow **Understanding Electric Force**. Previous/Next changes only the lesson step; **Apply suggested preset** explicitly changes the experiment. Explanations are authored lesson data, not generated AI text.
-5. The versioned, SI-only `buildSimulationContext()` contract is available for future integration but is not transmitted anywhere.
+5. Ask AI Tutor explicitly to submit a question and a frozen context snapshot to the backend and configured provider. Suggested questions only populate the form. Responses remain associated with the submitted snapshot; changes to parameters, time, preset or lesson trigger an earlier-state notice. Retry captures the current snapshot again.
 
 ### Comparison conventions
 
@@ -90,21 +90,26 @@ frontend/
         ExperimentPresets.tsx
         ExperimentComparison.tsx
       learning/GuidedLesson.tsx
+      ai/AITutorPanel.tsx
     learning/lessons/uniformElectricField.ts
     simulations/
       core/{types,coordinates,simulationContext}.ts
       physics/uniform-electric-field/{types,physics,presets,comparison}.ts
     stores/simulationStore.ts
-    services/api.ts
+    services/{api,tutor}.ts
     # Colocated *.test.ts files cover physics, store, lessons and contracts.
-  e2e/learning.spec.ts
+  e2e/{learning,tutor}.spec.ts
   playwright.config.ts
   vitest.config.ts
   vite.config.ts
 backend/
   app/main.py
-  app/api/routes/health.py
-  tests/test_health.py
+  app/api/routes/{health,ai}.py
+  app/schemas/ai.py
+  app/services/ai/{config,provider,prompt_builder,tutor_service}.py
+  app/services/physics/context_validator.py
+  app/request_limits.py
+  tests/{test_health,test_ai}.py
   pyproject.toml
   uv.lock
 docs/
@@ -124,7 +129,46 @@ Pure physics functions are independent of React and Canvas. Zustand is the sole 
 - Baseline and learning progress are in memory; reload clears them. Lessons have no answer grading or generated explanations.
 - UI retains Day 1 Chinese labels while new learning panels use English. A full localization pass is deferred.
 - Chromium automation covers 1280/1024/390 CSS-pixel widths, DPR 2, and dynamic DPR 2 → 1.5 → 1. Physical multi-monitor switching, real browser zoom UI, Safari/Firefox, mobile hardware and production deployment remain unverified.
-- Context is a typed frontend contract, not yet a server-validated request schema or an AI endpoint. No data is sent to a provider.
-- The supplied source directory has no Git repository. No commit was created.
+- AI uses one OpenAI-compatible JSON-mode Chat Completions provider; support for `response_format` and `max_completion_tokens` is required. Structured validation does not guarantee educational correctness. Real provider verification is pending because no credentials are configured.
+- Git is initialized with a stable Day 1/2 baseline and a dedicated Day 3 feature branch. See daily logs for actual commits and remote/authentication status.
 
-Day 3 can add a matching backend validation schema and an explicit, server-side tutor API after defining provider configuration, privacy, timeout, rate-limit and grounding behavior. Keep analytical physics authoritative. See `docs/roadmap.md`.
+Day 4 should add stronger authentication/rate limiting before any public deployment, provider-specific live quality checks, and expanded accessibility/browser coverage. Keep analytical physics authoritative. See `docs/roadmap.md`.
+
+## Day 3 AI Tutor configuration
+
+Create `backend/.env` from the root `.env.example` and configure `LLM_API_KEY`, `LLM_BASE_URL`, `LLM_MODEL`, and `LLM_TIMEOUT_SECONDS`. Choose an existing provider/model that supports JSON-mode Chat Completions; no model is silently selected. Never put provider variables in `VITE_*` values or frontend code. `.env` and `.env.*` overrides are ignored, while `.env.example` and both dependency lockfiles are tracked.
+
+```sh
+cd /Users/mingyi/Projects/vibelearning-ai
+cp .env.example backend/.env
+# Edit backend/.env locally; do not commit or paste credentials.
+cd backend
+uv sync --python 3.13 --locked
+uv run --env-file .env uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+`LLM_BASE_URL` defaults to `https://api.openai.com/v1`; key/model must be set. HTTPS is required except for loopback development providers. URL credentials, query strings and fragments are rejected. Timeout must be finite and between 1 and 120 seconds (default 20). `FRONTEND_ORIGINS` is a comma-separated explicit list, defaulting to localhost/127.0.0.1 port 5173. Wildcard CORS is rejected.
+
+### API contract
+
+`POST /api/ai/explain` receives `{question, simulation_context}`. The context uses the exact existing frontend v1 camelCase fields: schemaVersion, simulationId, unitSystem, parameters, time, particleState, force, acceleration, activePresetId and currentLessonStepId. The outer request uses `simulation_context`. Question length is 1–2000 characters after trimming; the raw request body is limited to 64 KiB. Extra fields, non-finite values, numeric strings, boolean physical values, non-positive mass, negative time, unsupported versions/IDs and invalid enum metadata are rejected.
+
+The server independently recomputes force, acceleration, position and velocity using analytical SI equations, compares every supplied derived component and state time (`rel_tol=1e-8`, `abs_tol=1e-15`), rejects mismatches, and sends recalculated values to the provider even when differences are within tolerance.
+
+Successful responses contain exactly `answer`, `key_concepts`, and `related_equations`. Answer length is at most 8000 characters; each list contains at most 8 strings of at most 160 characters. The provider envelope is limited to 32 KiB and 1500 completion tokens are requested. Responses with unsupported/truncated finish reasons, malformed JSON, invalid schema, credentials or a full internal-prompt echo are rejected. The UI renders escaped plain text, not provider HTML.
+
+Errors are safe and typed: 422 validation/physics mismatch, 413 oversized request, 403 non-local/disallowed origin, 429 concurrency full, 503 missing configuration/connection failure, 504 timeout, 502 provider/response failure, or a sanitized 500 fallback. No user questions, keys, raw provider bodies or internal prompts are logged or returned in errors. Two provider requests per process are admitted; excess calls fail immediately, with no automatic paid retries. Total service deadline and network timeout both apply. Client abort/unmount cancels the frontend request; provider work is bounded by the server deadline even if a disconnected client does not cancel server execution.
+
+### Local-only security boundary
+
+Keep Uvicorn bound to loopback. AI requests additionally require a loopback client and an allowed Origin when supplied. **CORS and loopback checks are not authentication. Do not expose this unauthenticated paid endpoint through a public reverse proxy, tunnel, or unrestricted network bind.** Before deployment, add authentication, per-user rate/budget limits, abuse controls, trusted-proxy configuration and process-wide/distributed limits. Only the question and required context are transmitted after explicit submission. Baselines, UI state and credentials are not included.
+
+### Testing and live status
+
+Pytest exercises the real HTTP adapter through HTTPX MockTransport and the route through ASGITransport, including Chinese/English question preservation, analytical verification, concurrency, cancellation, malformed/oversized output and safe errors. Frontend form tests use jsdom; E2E intercepts `/api/ai/explain` and never makes paid calls. Mock responses are test fixtures, not a fake runtime tutor. No LLM credentials were available during implementation, so live provider language/answer quality and compatibility remain unverified.
+
+Provider request format follows the [official Chat Completions reference](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create). JSON mode still requires application-level schema validation, which this adapter performs.
+
+## GitHub daily workflow
+
+Repository: https://github.com/lmy666888/vibelearning . Stable branch: `main`; Day 3 branch: `feat/day3-ai-tutor`. See `docs/development/workflow.md` and daily logs under `docs/development/`. Never force push, automatically merge, delete remote branches, or commit secrets. Historical Day 1/2 logs were reconstructed from existing reports; no original historical commits are invented.
