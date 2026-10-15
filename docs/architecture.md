@@ -96,3 +96,37 @@ Testing Library/jsdom tests the form, loading/result/error states, immutable sna
 The provider still implements the original TutorProvider protocol and returns the same strict Explanation object. An internal completion-token limit can be lowered for manual smoke checks (64–1500); normal tutor requests retain the 1500 default. ProviderError now records an optional upstream HTTP status for internal diagnostics, while API responses expose only safe messages/codes. Authentication/permission errors, model availability errors and provider rate/quota errors are distinct; no raw Google error bodies are returned.
 
 The local environment and placeholder-only example select gemini-3.5-flash-lite at Google's OpenAI-compatible endpoint. No native Google SDK, alternate context schema, billing integration or automatic model fallback was added. Real manual verification is recorded separately from mocked regression tests, and exact project quota is explicitly unverified where unavailable.
+
+## Day 4 action planning
+
+Flow: immutable frontend snapshot → `POST /api/ai/plan-action` → verify Context v1 against analytical physics → one bounded Gemini JSON completion → strict decision/action validation → temporary parameter copy → deterministic preview → frontend schema/physics revalidation → human confirmation → one Zustand update. There is no backend execution endpoint, persistent proposal state, arbitrary tool loop, code evaluator or generated URL navigation.
+
+The request adds metadata without modifying Context v1:
+
+```json
+{
+  "instruction": "Double the vertical electric field.",
+  "simulation_context": "<existing Context v1 object>",
+  "snapshot_id": "<opaque client-generated UUID>",
+  "parameter_revision": 4
+}
+```
+
+The context placeholder above is illustrative; the API requires the full existing object. The snapshot ID associates a response with its captured request; it is not a server signature or an authorization token. The monotonically increasing local revision detects edits, presets and resets, including edit-then-revert (ABA). Confirmation compares revision, exact captured parameter structure and preset identity inside the synchronous Zustand setter, then revalidates the action, before/after data and deterministic physics. Playback/time and lesson navigation alone do not invalidate parameter proposals: previews describe the new experiment at t=0 and confirmation always pauses/resets it. Day 3 explanations retain their stricter time/lesson staleness notice.
+
+Each action has integer `schema_version: 1` and a discriminator `action`:
+
+| Operation | Additional fields | Meaning |
+| --- | --- | --- |
+| `set_parameter` | `target`, finite SI `value` | Set one allowed parameter |
+| `scale_parameter` | `target`, finite `factor` in (0,10] | Multiply one parameter, then validate the resulting value |
+| `select_preset` | `preset_id` | Select one of the four existing experiments |
+| `reset_simulation` | none | Retain parameters and reset time/trajectory |
+
+Targets are existing property paths: `charge`, `mass`, `field.x`, `field.y`, `initialVelocity.x`, `initialVelocity.y`. No initial-position editing, arbitrary paths, extra fields, alternate schema versions, boolean/string numbers, NaN/Infinity, unsupported presets, confirmation overrides or silent clamping are accepted. Both runtimes read bounds/conversions from `shared/simulation-controls.json`: charge ±10 nC, mass 0.1–10 mg, field components ±500 N/C, velocity components ±10 m/s. UI step sizes guide controls, not numerical quantization of AI actions. Preset physics is checked by existing frontend engine tests and backend action tests.
+
+The model returns only `{status: "proposal", action, explanation}` or `{status: "clarification_needed", explanation}`. Proposal responses add `before`, `after`, `before_physics`, `after_physics`, `snapshot_id`, `parameter_revision`, and server-generated `requires_confirmation: true`. Physics previews contain force, acceleration and acceleration magnitude; they are recalculated via `canonical_state`, never parsed from narrative. The frontend independently uses `calculateParticleState`. Vector values, mass, charge, initial position and initial velocity are shown with units; no division by a zero baseline is needed.
+
+The planner prompt requires clarification for unspecified amounts, multiple changes, unsupported actions or ambiguous axes. An additional deterministic English/Chinese axis guard catches field instructions with no explicit component when both/neither component is nonzero (preset/experiment selections are excluded). Natural-language interpretation remains model-dependent; confirmation and hard bounds are mandatory even for plausible output. User/model text is rendered as text, never HTML or executable instructions. Generated language can occasionally differ from the input language.
+
+Both tutor routes share loopback/origin guards, the 64 KiB request limit, two per-process concurrent provider slots, configured deadline, 32 KiB upstream response limit, no redirects/retries, strict JSON schemas and safe error mapping. Keys remain server-only in ignored `backend/.env`. CI uses only mocked providers and requires no credentials. The local-only protection is not authentication for a public reverse proxy. Future public deployment needs authenticated users and deployment-wide quotas; future multi-action planning needs a separately designed transaction/confirmation contract.

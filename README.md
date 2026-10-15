@@ -197,3 +197,11 @@ Upstream errors are classified without returning raw diagnostics: 401/403 → sa
 ## Continuous integration
 
 `.github/workflows/ci.yml` runs on PRs targeting main and pushes to main. On Ubuntu 24.04 it uses Node.js 24, Python 3.13 and uv 0.12.7. Frontend checks install with npm ci, run Vitest, strict TypeScript and production build, install Chromium/system dependencies, and run mocked Playwright tests. The backend installs from uv.lock and runs mocked Pytest tests. No Gemini credentials are configured or required. Third-party setup actions are pinned to verified commit SHAs; the workflow has read-only contents permission. Actual CI outcomes are recorded in the dated development log.
+
+### Day 4: review and confirm experiment changes
+
+In **AI Tutor**, choose **Request an experiment change**, enter one change (for example, “Double the vertical electric field”), and select **Preview experiment change**. Review the signed SI before/after table, then explicitly confirm or cancel. Planning never changes the experiment. Confirmation pauses playback and resets time/trajectory to zero; normal playback can continue while a request is pending. Parameter edits, preset selections and resets invalidate old proposals, even after an edit is reverted. Regenerate stale proposals.
+
+`POST /api/ai/plan-action` reuses the configured Gemini OpenAI-compatible adapter. It accepts an instruction, Context v1, opaque snapshot ID and parameter revision; it returns either clarification or one strictly validated, confirmation-required proposal. Supported operations are `set_parameter`, `scale_parameter`, `select_preset`, and `reset_simulation`. Physics comes from deterministic equations on both sides. The original `/api/ai/explain` API is unchanged.
+
+The allowlisted targets use existing parameter paths: `charge`, `mass`, `field.x`, `field.y`, `initialVelocity.x`, `initialVelocity.y`. Ranges and display conversions are shared in `shared/simulation-controls.json`. Do not remove that directory when running the backend separately. See [the action contract and security boundaries](docs/architecture.md#day-4-action-planning) and [the actual Day 4 results](docs/development/2026-10-14-day4.md#authorized-day-4-implementation).

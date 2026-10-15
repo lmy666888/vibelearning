@@ -4,9 +4,13 @@ import { calculateParticleState, validateParameters } from '../simulations/physi
 import { getPreset, snapshotParameters, type PresetId } from '../simulations/physics/uniform-electric-field/presets';
 import { lessonStepIds, navigateLesson, type LessonStepId } from '../learning/lessons/uniformElectricField';
 
+import { planIsCurrent, validateProposal, type PlanRequest, type Proposal } from '../services/actions';
+
 export const defaults = snapshotParameters(getPreset('positive-charge').parameters);
 interface Store {
   parameters: SimulationParameters;
+  parameterRevision: number;
+  confirmProposal: (proposal: Proposal, request: PlanRequest) => void;
   status: 'paused' | 'running';
   time: number;
   error: string | null;
@@ -29,13 +33,20 @@ function checkedSnapshot(parameters: SimulationParameters) {
   return snapshotParameters(parameters);
 }
 export const useSimulationStore = create<Store>((set, get) => ({
-  parameters: defaults, status: 'paused', time: 0, error: null,
+  parameters: defaults, parameterRevision: 0, status: 'paused', time: 0, error: null,
   activePresetId: null, baseline: null, currentLessonStepId: lessonStepIds[0],
   play: () => set({ status: 'running', error: null }),
   pause: () => set({ status: 'paused' }),
-  reset: () => set({ status: 'paused', time: 0, error: null }),
-  updateParameters: parameters => set({ parameters: checkedSnapshot(parameters), time: 0, status: 'paused', error: null, activePresetId: null }),
-  applyPreset: id => set({ parameters: checkedSnapshot(getPreset(id).parameters), time: 0, status: 'paused', error: null, activePresetId: id }),
+  reset: () => set(state => ({ status: 'paused', time: 0, error: null, parameterRevision: state.parameterRevision + 1 })),
+  updateParameters: parameters => set(state => ({ parameterRevision: state.parameterRevision + 1, parameters: checkedSnapshot(parameters), time: 0, status: 'paused', error: null, activePresetId: null })),
+  applyPreset: id => set(state => ({ parameterRevision: state.parameterRevision + 1, parameters: checkedSnapshot(getPreset(id).parameters), time: 0, status: 'paused', error: null, activePresetId: id })),
+  confirmProposal: (proposal, request) => set(state => {
+    if (!planIsCurrent(request, state)) throw new Error('Stale proposal. Regenerate with the current experiment.');
+    const validated = validateProposal(proposal, request);
+    return { parameters: checkedSnapshot(validated.after), parameterRevision: state.parameterRevision + 1,
+      time: 0, status: 'paused', error: null,
+      activePresetId: validated.action.action === 'select_preset' ? validated.action.preset_id : validated.action.action === 'reset_simulation' ? state.activePresetId : null };
+  }),
   saveBaseline: () => set({ baseline: checkedSnapshot(get().parameters) }),
   clearBaseline: () => set({ baseline: null }),
   navigateLesson: direction => set({ currentLessonStepId: navigateLesson(get().currentLessonStepId, direction) }),

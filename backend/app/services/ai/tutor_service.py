@@ -26,3 +26,7 @@ class TutorService:
                 return validated
             except TimeoutError as exc:
                 raise ProviderError(504, "provider_timeout", "The AI provider timed out. Please retry.") from exc
+
+    async def plan_action(self, request, provider=None, settings=None):
+        from app.services.ai.action_planner import plan_action
+        return await plan_action(self, request, provider, settings)

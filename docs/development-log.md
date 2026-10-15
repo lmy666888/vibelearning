@@ -73,3 +73,9 @@ The user-authorized gemini-3.5-flash-lite now returned real HTTP 200 through the
 Inspected PR #1 and confirmed it is still open. Added a two-job GitHub Actions workflow on the Day 3 branch; local and remote validation outcomes are recorded in development/2026-10-14-day4.md. Day 4 application development waits for the explicit Day 3 merge gate.
 
 Phase 0 remote CI confirmed successful for commit 802ad52: https://github.com/lmy666888/vibelearning/actions/runs/38674626707 . Both Ubuntu jobs passed, including 76 Vitest, 79 Pytest and 19 Chromium E2E. Day 4 application work remains gated by explicit approval to merge PR #1.
+
+## 2026-10-14 — Day 4 AI-assisted simulation control
+
+After explicit user authorization, merged Day 3 PR #1 with normal merge commit `5af5490e718f299650ce14eb5e577751edce1dab`, retaining both parents and the remote Day 3 branch. Created `feat/day4-ai-simulation-control` from ff-only synchronized main. GitHub confirmed successful CI on both the final Day 3 head and main merge.
+
+Implemented four strictly allowlisted action variants, `/api/ai/plan-action`, one-call Gemini planning, deterministic previews, shared parameter constraints, explicit confirm/cancel, revision-based stale/ABA protection and atomic paused/reset Zustand updates in the existing tutor. Context v1 and the explanation API are preserved. Automated tests use mocks: 106 Vitest, 126 Pytest and 24 Chromium E2E pass, strict TypeScript and production build pass. Real Gemini returned four successful operation proposals and the original Chinese negative-charge explanation still passed; a real React proposal was explicitly confirmed. No credentials are included in code or tests. Full evidence, files, limitations and decisions are in [Day 4](development/2026-10-14-day4.md#authorized-day-4-implementation).
