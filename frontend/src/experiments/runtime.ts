@@ -7,10 +7,10 @@ import {makeContext} from './context';
 import {close,freeze} from './validation';
 import {spatialStep,spatialAdvance,spatialObservables,type SpatialParameters} from './spatial';
 import {boris,lorentzObservables,type LorentzParameters,type LorentzState} from './lorentz';
-export interface RuntimeState{error:string|null;parameters:Data;query:Data;revision:number;status:'paused'|'running';state:Data;observables:Data;trace:{x:number;y:number}[];speed:number}
+export interface RuntimeState{uiClock?:number;error:string|null;parameters:Data;query:Data;revision:number;status:'paused'|'running';state:Data;observables:Data;trace:{x:number;y:number}[];speed:number}
 let revisionSequence=0;
 const nextRevision=()=>++revisionSequence;
-export interface Runtime{active:boolean;engine:RegisteredEngine;store:StoreApi<RuntimeState>;context:()=>ContextV2;commit:(p:Data,c:ContextV2)=>void;play:()=>void;pause:()=>void;reset:()=>void;advance:(dt:number)=>void;clearTrajectory:()=>void;destroy:()=>void}
+export interface Runtime{seek?:(value:number)=>void;active:boolean;engine:RegisteredEngine;store:StoreApi<RuntimeState>;context:()=>ContextV2;commit:(p:Data,c:ContextV2)=>void;play:()=>void;pause:()=>void;reset:()=>void;advance:(dt:number)=>void;clearTrajectory:()=>void;destroy:()=>void}
 export function isCurrent(runtime:Runtime,c:ContextV2){const s=runtime.store.getState();return runtime.active&&runtime.engine.id===c.experiment_id&&runtime.engine.version===c.experiment_version&&s.revision===c.revision&&close(s.parameters,c.parameters);}
 function snapshot(engine:RegisteredEngine,p:Data,time:number,revision:number):RuntimeState{const result=engine.evaluate(p,{time});return {error:null,parameters:p,query:{time},revision,status:'paused',state:result.state,observables:result.observables,trace:[],speed:1};}
 function electricRuntime(engine:RegisteredEngine):Runtime{
@@ -44,7 +44,16 @@ function spatialRuntime(engine:RegisteredEngine):Runtime{
  while(accumulator+1e-12>=h&&state.time+h<=p.duration+1e-10&&count<1000){state=spatialAdvance(p,state,h);accumulator-=h;trace.push({...state.position});count++;}
  const exhausted=count===1000&&accumulator>=h;if(exhausted)accumulator=0;state.time=Math.min(state.time,p.duration);store.setState({state:state as unknown as Data,observables:spatialObservables(p,state),query:{time:state.time},trace:trace.slice(-2000),error:exhausted?'Frame integration budget exceeded. Reduce simulation speed.':null,status:exhausted||state.time+h>p.duration+1e-10?'paused':'running'});}};return runtime;
 }
-const factories:Record<string,(engine:RegisteredEngine)=>Runtime>={'uniform-electric-field':electricRuntime,'lorentz-force-2d':lorentzRuntime,'multi-zone-em':spatialRuntime};
+/** Generic bounded analytical/event-count runtime. Scientific models own query validation. */
+export function scientificRuntime(engine:RegisteredEngine,clock:{axis:string;rate:(p:Data)=>number;end:(p:Data)=>number;clearResets?:boolean}):Runtime{
+ const initial=engine.validateParameters(engine.manifest.presets[0].parameters);
+ const snapshot=(p:Data):RuntimeState=>{const result=engine.evaluate(p,engine.manifest.initial_query);return {uiClock:0,error:null,parameters:p,query:{...engine.manifest.initial_query},revision:nextRevision(),status:'paused',state:result.state,observables:result.observables,trace:[],speed:1};};
+ const store=createStore<RuntimeState>(()=>snapshot(initial));let fractional=0;
+ const runtime:Runtime={active:true,engine,store,context:()=>{const s=store.getState();return makeContext(engine.id,s.parameters,s.query,s.revision);},commit:(p,c)=>{if(!isCurrent(runtime,c))throw new Error('Stale or cross-experiment proposal.');const next=snapshot(engine.validateParameters(p));fractional=0;store.setState(next);},play:()=>store.setState({status:'running'}),pause:()=>store.setState({status:'paused'}),reset:()=>runtime.commit(store.getState().parameters,runtime.context()),clearTrajectory:()=>clock.clearResets?runtime.reset():store.setState({trace:[]}),destroy:()=>{runtime.active=false;store.setState({status:'paused'});},
+ seek:value=>{const s=store.getState(),query={[clock.axis]:value},r=engine.evaluate(s.parameters,query);fractional=0;store.setState({query,state:r.state,observables:r.observables,status:'paused'});},advance:dt=>{if(!Number.isFinite(dt)||dt<0)throw new Error('Invalid frame duration.');const s=store.getState();if(s.status!=='running')return;const wall=Math.min(.05,dt),rate=clock.rate(s.parameters);fractional+=wall*s.speed*rate;let delta=fractional;if(clock.axis==='events'){delta=Math.floor(delta);fractional-=delta;}else fractional=0;const value=Math.min(clock.end(s.parameters),Number(s.query[clock.axis])+delta),query={[clock.axis]:value},r=engine.evaluate(s.parameters,query),position=r.state.position as {x:number;y:number}|undefined;store.setState({uiClock:(s.uiClock??0)+wall,query,state:r.state,observables:r.observables,trace:position?[...s.trace,{...position}].slice(-2000):[],status:value>=clock.end(s.parameters)?'paused':'running'});}};return runtime;
+}
+export const runtimeClock=(s:RuntimeState)=>s.uiClock??Number(s.query.time??0);
+const factories:Record<string,(engine:RegisteredEngine)=>Runtime>={'uniform-electric-field':electricRuntime,'lorentz-force-2d':lorentzRuntime,'multi-zone-em':spatialRuntime,'double-slit-interference':e=>scientificRuntime(e,{axis:'events',rate:p=>Number(p.samplingRate),end:p=>Number(p.detectionEvents),clearResets:true})};
 export function createRuntime(id:string):Runtime{const engine=experiment(id);return factories[id](engine);}
 /** Switching discards parameter/animation state and invalidates every pending proposal/lesson. */
 export const platformStore=createStore<{runtime:Runtime;epoch:number;switchExperiment:(id:string)=>void}>((set,get)=>({runtime:createRuntime('uniform-electric-field'),epoch:0,switchExperiment:id=>{experiment(id);get().runtime.destroy();set({runtime:createRuntime(id),epoch:get().epoch+1});}}));

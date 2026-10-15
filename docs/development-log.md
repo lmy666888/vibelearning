@@ -101,3 +101,7 @@ Under explicit conditional authorization, normally merged PR #4 as `9360626634f0
 ## 2026-10-15 — Milestone 1: AI guardrails and usage governance
 
 Authorized normal merge PR #5 as ab696edf07bf5b9667252342610301623d4ce757; feature branch feat/ai-guardrails-usage-governance. All real provider entry points share signed session/scope/reservation/output governance. Local 179 Vitest, 286 Pytest + 3 local Redis skips, 36 Chromium, type/build pass. Real scope routing diagnostics and limitations are documented in [Milestone 1 log](development/2026-10-15-m1-governance.md); no downstream milestone begins before exact-head CI including Redis passes.
+
+## 2026-10-15 — Milestone 2: independent double-slit optics
+
+Stacked from verified Milestone1 head3e61e2b (PR#6, unmerged). Added independent scalar Fraunhofer optics, exact screen angles, finite-width envelope, seeded discrete detection statistics, specialized Canvas, six presets, bilingual content and generic event-count runtime; shared AI/usage policy unchanged. See [Milestone2 log](development/2026-10-15-m2-double-slit.md) and [scientific model](physics-double-slit.md). Exact tests/PR/CI are recorded after verification.

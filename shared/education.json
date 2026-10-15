@@ -76,5 +76,31 @@
       "misconceptions": "重叠时叠加场而非轨迹。理想边界不包含 Maxwell 求解或感生电场。",
       "ask": "为什么粒子进入磁场区域后轨迹弯曲？"
     }
+  },
+  "double-slit-interference": {
+    "en": {
+      "overview": "Double-slit interference",
+      "background": "Coherent waves interfere; finite slit width supplies a diffraction envelope.",
+      "objectives": "Relate wavelength, slit spacing and width to the profile and detection probability.",
+      "equations": "I ∝ cos²(πd sinθ/λ) sinc²(πa sinθ/λ)",
+      "setup": "Choose visible wavelength, separated finite slits and a far-field screen.",
+      "instructions": "Choose a preset, predict the spacing, play to accumulate detections, then compare parameters.",
+      "observations": "Does increasing separation narrow the fringes? What changes the envelope?",
+      "expected": "Individual seeded events approximate the normalized intensity over the selected screen window.",
+      "misconceptions": "A detection sample is prescribed probability, not a simulated quantum trajectory or measurement mechanism.",
+      "ask": "Why does decreasing slit separation widen the fringes?"
+    },
+    "zh-CN": {
+      "overview": "双缝干涉",
+      "background": "相干波产生干涉，有限缝宽带来衍射包络。",
+      "objectives": "联系波长、缝间距、缝宽与强度分布、探测概率。",
+      "equations": "I ∝ cos²(πd sinθ/λ) sinc²(πa sinθ/λ)",
+      "setup": "选择可见光波长、有限缝宽和满足远场条件的屏幕。",
+      "instructions": "选择预设，先预测条纹间距，再播放累积探测点并比较参数。",
+      "observations": "缝间距增大会使条纹变密吗？什么控制包络？",
+      "expected": "固定种子的探测点逐渐逼近所选屏幕窗口内归一化强度。",
+      "misconceptions": "这是给定概率分布的抽样，不是完整量子轨迹或测量过程模拟。",
+      "ask": "为什么缝间距减小时条纹变宽？"
+    }
   }
 }

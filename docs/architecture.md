@@ -191,3 +191,7 @@ Zustand owns validated physical parameters/revision and camera/visibility separa
 ## Governed provider boundary
 
 Every current real completion goes through OpenAICompatibleProvider._complete → governance.gateway → admitted _request. Request middleware supplies signed session/network identity in a ContextVar; scope/result validation and token/timeout bounds are centralized. Atomic Redis Lua reservations cover global multi-instance usage; lock-protected memory is development-only. All experiments inherit this without experiment-specific AI branching. Structured action/lesson science and human confirmation remain independent authorization boundaries. Scope policy appends the actual task's Pydantic JSON Schema to prevent a model from replacing required result fields with a generic prose object. See docs/ai/guardrails.md for all limits, safe errors, limitations and deployment configuration.
+
+## Independent analytical and event-count domains
+
+A generic `scientificRuntime` accepts explicit clock axis/rate/horizon callbacks; optics uses a bounded detection count, not a charged-particle time/state. ScientificCanvas is a shared DPR/camera/RAF surface with specialized draw/bounds bindings; optical geometry/profile rendering is separate from EM region editing. Compact query/state/observables still use Context v2 and the same governed AI workflow. Scientific outputs are not rounded; inclusive unit-limit comparisons tolerate only relative machine epsilon in SI conversion.

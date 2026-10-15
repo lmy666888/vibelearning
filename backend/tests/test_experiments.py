@@ -17,7 +17,7 @@ def exact_reference(p,t):
     return x+dx*t+(ux*s+uy*(1-c))/w,y+dy*t+(uy*s-ux*(1-c))/w,dx+ux*c+uy*s,dy+uy*c-ux*s
 
 def test_registry_manifest_is_canonical():
-    assert set(REGISTRY)=={'uniform-electric-field','lorentz-force-2d','multi-zone-em'}
+    assert set(REGISTRY)=={'uniform-electric-field','lorentz-force-2d','multi-zone-em','double-slit-interference'}
     assert [p.manifest for p in REGISTRY.values()]==MANIFESTS
     for e in REGISTRY.values():
         assert e.manifest['renderer'] and e.manifest['lesson_capabilities']
