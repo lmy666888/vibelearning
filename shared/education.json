@@ -128,5 +128,31 @@
       "misconceptions": "相对坐标中中心天体位于焦点，不在几何中心，也不代表它在所有惯性系中静止。",
       "ask": "为什么绕行天体在近点运动更快？"
     }
+  },
+  "momentum-collisions": {
+    "en": {
+      "overview": "Momentum and collision laboratory",
+      "background": "An isolated pair exchanges equal and opposite impulses at contact.",
+      "objectives": "Compare elastic, inelastic and center-of-mass descriptions.",
+      "equations": "P=Σmv; K=Σ½m|v|²; uₙ(after)=−e uₙ(before)",
+      "setup": "Select a preset, positive masses, nonoverlapping disks and initial velocities.",
+      "instructions": "Predict, play, seek the timeline or step forward; compare laboratory and center-of-mass charts.",
+      "observations": "Does momentum stay constant? Which relative velocity component changes?",
+      "expected": "Momentum is conserved; e=1 conserves kinetic energy, while e<1 dissipates normal relative kinetic energy.",
+      "misconceptions": "For 2D frictionless disks, e=0 does not remove tangential relative motion or permanently glue them together.",
+      "ask": "Why is momentum conserved while kinetic energy decreases?"
+    },
+    "zh-CN": {
+      "overview": "动量与碰撞实验室",
+      "background": "孤立的两个物体在接触时交换大小相等方向相反的冲量。",
+      "objectives": "比较弹性、非弹性碰撞及质心参考系。",
+      "equations": "P=Σmv；K=Σ½m|v|²；法向相对速度(后)=−e×法向相对速度(前)",
+      "setup": "选择预设，设置正质量、互不重叠的圆盘和初始速度。",
+      "instructions": "先预测，再播放、拖动时间轴或单步前进，比较实验室系与质心系图表。",
+      "observations": "总动量是否恒定？相对速度的哪个分量改变？",
+      "expected": "动量守恒；e=1时动能守恒，e<1损失法向相对运动动能。",
+      "misconceptions": "二维无摩擦圆盘e=0并不消除切向相对运动，也不代表永久粘连。",
+      "ask": "为什么动量守恒而动能会减少？"
+    }
   }
 }

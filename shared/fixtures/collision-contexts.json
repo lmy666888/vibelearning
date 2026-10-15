@@ -1,0 +1,2018 @@
+[
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 4.0,
+        "postA": {
+          "x": -2.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 4.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 4.0,
+      "initial_energy": 4.0,
+      "post_energy": 4.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 4.0,
+      "collision_time": 1.25,
+      "impulse": 4.0,
+      "normal_before": -4.0,
+      "normal_after": 4.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-14d4946c"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 3.0
+    },
+    "simulation_state": {
+      "time": 3.0,
+      "positionA": {
+        "x": -4.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -4.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 4.0,
+        "postA": {
+          "x": -2.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 4.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 4.0,
+      "initial_energy": 4.0,
+      "post_energy": 4.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 4.0,
+      "collision_time": 1.25,
+      "impulse": 4.0,
+      "normal_before": -4.0,
+      "normal_after": 4.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-74a1067e"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 3.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 6.0,
+        "postA": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 4.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 4.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 8.0,
+      "initial_energy": 8.0,
+      "post_energy": 8.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 8.0,
+      "collision_time": 1.25,
+      "impulse": 6.0,
+      "normal_before": -4.0,
+      "normal_after": 4.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 4.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-b348bc31"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 3.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 3.0
+    },
+    "simulation_state": {
+      "time": 3.0,
+      "positionA": {
+        "x": -0.5,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 7.5,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -0.5,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 7.5,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 6.0,
+        "postA": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 4.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 4.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 8.0,
+      "initial_energy": 8.0,
+      "post_energy": 8.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 4.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 8.0,
+      "collision_time": 1.25,
+      "impulse": 6.0,
+      "normal_before": -4.0,
+      "normal_after": 4.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 4.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-ee458969"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 2.0,
+        "postA": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 2.0,
+      "initial_energy": 2.0,
+      "post_energy": 2.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 2.0,
+      "collision_time": 2.5,
+      "impulse": 2.0,
+      "normal_before": -2.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-4efcab9d"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 3.75
+    },
+    "simulation_state": {
+      "time": 3.75,
+      "positionA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 5.5,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 5.5,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 2.0,
+        "postA": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 2.0,
+      "initial_energy": 2.0,
+      "post_energy": 2.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 2.0,
+      "collision_time": 2.5,
+      "impulse": 2.0,
+      "normal_before": -2.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 2.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-89232b3a"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 0.5,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 3.0,
+        "postA": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 4.0,
+      "initial_energy": 4.0,
+      "post_energy": 1.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 3.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 4.0,
+      "collision_time": 1.25,
+      "impulse": 3.0,
+      "normal_before": -4.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-f8ba7b81"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 0.5,
+      "frame": 0,
+      "duration": 4.0
+    },
+    "query": {
+      "time": 3.0
+    },
+    "simulation_state": {
+      "time": 3.0,
+      "positionA": {
+        "x": -2.25,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 2.25,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -2.25,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 2.25,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 1.25,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": -0.5,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 0.5,
+          "y": 0.0
+        },
+        "impulse": 3.0,
+        "postA": {
+          "x": -1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "normal_before": -4.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 1.0,
+      "initial_energy": 4.0,
+      "post_energy": 1.0,
+      "energy_loss": 3.0,
+      "predicted_energy_loss": 3.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 1.0,
+      "collision_time": 1.25,
+      "impulse": 3.0,
+      "normal_before": -4.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": -2.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": -1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-db3d87f9"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 0.0,
+      "frame": 0,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 1.0,
+        "postA": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 0.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 2.0,
+      "initial_energy": 2.0,
+      "post_energy": 1.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 1.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 2.0,
+      "collision_time": 2.5,
+      "impulse": 1.0,
+      "normal_before": -2.0,
+      "normal_after": 0.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-7eb81f30"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 0.0,
+      "frame": 0,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 3.75
+    },
+    "simulation_state": {
+      "time": 3.75,
+      "positionA": {
+        "x": 3.25,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 4.25,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": 3.25,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 4.25,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 1.0,
+        "postA": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 0.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 1.0,
+      "initial_energy": 2.0,
+      "post_energy": 1.0,
+      "energy_loss": 1.0,
+      "predicted_energy_loss": 1.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 1.0,
+      "collision_time": 2.5,
+      "impulse": 1.0,
+      "normal_before": -2.0,
+      "normal_after": 0.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 1.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-a08fa81d"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.3
+      },
+      "positionB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 2,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 3.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.3
+      },
+      "positionB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -3.0,
+        "y": 0.3
+      },
+      "displayB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 1.0230303992915273,
+        "normal": {
+          "x": 0.9539392014169457,
+          "y": -0.30000000000000004
+        },
+        "point": {
+          "x": -0.4769696007084726,
+          "y": 0.14999999999999997
+        },
+        "contactA": {
+          "x": -0.9539392014169454,
+          "y": 0.3
+        },
+        "contactB": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "impulse": 1.9078784028338913,
+        "postA": {
+          "x": 0.17999999999999994,
+          "y": 0.5723635208501675
+        },
+        "postB": {
+          "x": 1.82,
+          "y": -0.5723635208501675
+        },
+        "normal_before": -1.9078784028338913,
+        "normal_after": 1.9078784028338915
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 2.0,
+      "initial_energy": 2.0,
+      "post_energy": 2.0000000000000004,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": -4.440892098500626e-16,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 2.0,
+      "collision_time": 1.0230303992915273,
+      "impulse": 1.9078784028338913,
+      "normal_before": -1.9078784028338913,
+      "normal_after": 1.9078784028338915,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.17999999999999994,
+        "y": 0.5723635208501675
+      },
+      "post_velocityB": {
+        "x": 1.82,
+        "y": -0.5723635208501675
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-29f0bec5"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 1.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.3
+      },
+      "positionB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 2,
+      "restitution": 1.0,
+      "frame": 0,
+      "duration": 3.0
+    },
+    "query": {
+      "time": 2.25
+    },
+    "simulation_state": {
+      "time": 2.25,
+      "positionA": {
+        "x": -0.7330846732894204,
+        "y": 1.0022726406376257
+      },
+      "positionB": {
+        "x": 2.2330846732894205,
+        "y": -0.7022726406376256
+      },
+      "velocityA": {
+        "x": 0.17999999999999994,
+        "y": 0.5723635208501675
+      },
+      "velocityB": {
+        "x": 1.82,
+        "y": -0.5723635208501675
+      },
+      "displayA": {
+        "x": -0.7330846732894204,
+        "y": 1.0022726406376257
+      },
+      "displayB": {
+        "x": 2.2330846732894205,
+        "y": -0.7022726406376256
+      },
+      "displayVelocityA": {
+        "x": 0.17999999999999994,
+        "y": 0.5723635208501675
+      },
+      "displayVelocityB": {
+        "x": 1.82,
+        "y": -0.5723635208501675
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 1.0230303992915273,
+        "normal": {
+          "x": 0.9539392014169457,
+          "y": -0.30000000000000004
+        },
+        "point": {
+          "x": -0.4769696007084726,
+          "y": 0.14999999999999997
+        },
+        "contactA": {
+          "x": -0.9539392014169454,
+          "y": 0.3
+        },
+        "contactB": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "impulse": 1.9078784028338913,
+        "postA": {
+          "x": 0.17999999999999994,
+          "y": 0.5723635208501675
+        },
+        "postB": {
+          "x": 1.82,
+          "y": -0.5723635208501675
+        },
+        "normal_before": -1.9078784028338913,
+        "normal_after": 1.9078784028338915
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 2.0000000000000004,
+      "initial_energy": 2.0,
+      "post_energy": 2.0000000000000004,
+      "energy_loss": -4.440892098500626e-16,
+      "predicted_energy_loss": -4.440892098500626e-16,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 2.0000000000000004,
+      "collision_time": 1.0230303992915273,
+      "impulse": 1.9078784028338913,
+      "normal_before": -1.9078784028338913,
+      "normal_after": 1.9078784028338915,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 0.17999999999999994,
+        "y": 0.5723635208501675
+      },
+      "post_velocityB": {
+        "x": 1.82,
+        "y": -0.5723635208501675
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-76152407"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 3.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 1,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -1.5,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 4.5,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": 0.5,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": -1.5,
+        "y": 0.0
+      },
+      "collided": false,
+      "collision_count": 0,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 3.0,
+        "postA": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 6.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 6.0,
+      "initial_energy": 6.0,
+      "post_energy": 6.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.5,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 1.5,
+      "collision_time": 2.5,
+      "impulse": 3.0,
+      "normal_before": -2.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-27cbda4d"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "momentum-collisions",
+    "experiment_version": 1,
+    "parameters": {
+      "massA": 3.0,
+      "massB": 1.0,
+      "radiusA": 0.5,
+      "radiusB": 0.5,
+      "positionA": {
+        "x": -3.0,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "dimensions": 1,
+      "restitution": 1.0,
+      "frame": 1,
+      "duration": 5.0
+    },
+    "query": {
+      "time": 3.75
+    },
+    "simulation_state": {
+      "time": 3.75,
+      "positionA": {
+        "x": 3.25,
+        "y": 0.0
+      },
+      "positionB": {
+        "x": 6.75,
+        "y": 0.0
+      },
+      "velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "velocityB": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "displayA": {
+        "x": -0.875,
+        "y": 0.0
+      },
+      "displayB": {
+        "x": 2.625,
+        "y": 0.0
+      },
+      "displayVelocityA": {
+        "x": -0.5,
+        "y": 0.0
+      },
+      "displayVelocityB": {
+        "x": 1.5,
+        "y": 0.0
+      },
+      "collided": true,
+      "collision_count": 1,
+      "event": {
+        "time": 2.5,
+        "normal": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "point": {
+          "x": 2.5,
+          "y": 0.0
+        },
+        "contactA": {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "contactB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "impulse": 3.0,
+        "postA": {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "postB": {
+          "x": 3.0,
+          "y": 0.0
+        },
+        "normal_before": -2.0,
+        "normal_after": 2.0
+      }
+    },
+    "observables": {
+      "momentum": {
+        "x": 6.0,
+        "y": 0.0
+      },
+      "kinetic_energy": 6.0,
+      "initial_energy": 6.0,
+      "post_energy": 6.0,
+      "energy_loss": 0.0,
+      "predicted_energy_loss": 0.0,
+      "momentum_error": 0.0,
+      "center_of_mass_velocity": {
+        "x": 1.5,
+        "y": 0.0
+      },
+      "display_momentum": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "display_kinetic_energy": 1.5,
+      "collision_time": 2.5,
+      "impulse": 3.0,
+      "normal_before": -2.0,
+      "normal_after": 2.0,
+      "pre_velocityA": {
+        "x": 2.0,
+        "y": 0.0
+      },
+      "pre_velocityB": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "post_velocityA": {
+        "x": 1.0,
+        "y": 0.0
+      },
+      "post_velocityB": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "revision": 0,
+    "snapshot_id": "fnv1a-d5a0b9ca"
+  }
+]

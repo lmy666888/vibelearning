@@ -109,3 +109,7 @@ Stacked from verified Milestone1 head3e61e2b (PR#6, unmerged). Added independent
 ## 2026-10-15 — Milestone3: Keplerian two-body relative orbits
 
 Stacked from verified Milestone2 head09f7f44, no merges of new feature PRs. Independent safeguarded Kepler solution, three-law visuals, six presets, compact SI context and inherited governance. Full assumptions, units/bounds/root method/independent tests in [scientific contract](physics-kepler.md); actual milestone record in [dated log](development/2026-10-15-m3-kepler.md). Counts and exact-head CI confirmed in delivery report.
+
+## 2026-10-15 — Milestone4: Momentum & Collisions
+
+Sequential start after verified M3 head7663dc5 CI190/333/39. Independent1D/2D event model with analytical continuous impact, restitution/COM,7presets and charts, shared six-plugin workflows. See [daily details](development/2026-10-15-m4-collisions.md), [physics](physics-collisions.md). Earlier stacked PRs remain unmerged. Final actual tests and CI recorded after verification in the PR/acceptance report.

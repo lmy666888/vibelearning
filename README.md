@@ -241,3 +241,7 @@ The fourth registered experiment uses independent coherent scalar Fraunhofer opt
 ### Kepler's laws and orbital mechanics
 
 The fifth plugin solves bounded Newtonian elliptical two-body relative motion analytically via safeguarded Kepler root finding. Focus geometry, equal-time sectors, T²/a³ graph, astronomical units and six presets reuse shared governed AI/lessons/confirmation and paused recovery. [Scientific contract](docs/physics-kepler.md).
+
+### Momentum & Collisions
+
+Six experiments now share one workspace. `momentum-collisions` adds exact1D and continuous-time2D frictionless pair impacts, restitution, laboratory/COM frames,7presets and before/after momentum-energy charts. All use the same governed AI/confirmed actions/lessons and paused recovery. No general rigid-body or permanent2D sticking claim; see [collision physics](docs/physics-collisions.md) and [M4 log](docs/development/2026-10-15-m4-collisions.md). Stacked merge order: AI governance → double slit → Kepler → collisions; new PRs remain unmerged.
