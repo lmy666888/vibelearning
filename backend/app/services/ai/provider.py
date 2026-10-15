@@ -3,6 +3,7 @@ from typing import Protocol
 import httpx
 from pydantic import ValidationError
 from app.schemas.ai import Explanation
+from app.schemas.actions import Decision, decision_adapter
 from app.services.ai.config import ProviderSettings
 
 class ProviderError(Exception):
@@ -23,6 +24,18 @@ class OpenAICompatibleProvider:
         self.max_completion_tokens = max_completion_tokens
 
     async def explain(self, messages: list[dict[str, str]]) -> Explanation:
+        try:
+            return Explanation.model_validate_json(await self._complete(messages))
+        except ValidationError as exc:
+            raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid explanation. Please retry.") from exc
+
+    async def plan_action(self, messages: list[dict[str, str]]) -> Decision:
+        try:
+            return decision_adapter.validate_json(await self._complete(messages))
+        except ValidationError as exc:
+            raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid action. Please retry.") from exc
+
+    async def _complete(self, messages: list[dict[str, str]]) -> str:
         settings = self.settings
         try:
             async with httpx.AsyncClient(timeout=settings.timeout, transport=self.transport,
@@ -51,7 +64,7 @@ class OpenAICompatibleProvider:
             content = choice["message"]["content"]
             if not isinstance(content, str) or settings.api_key in content:
                 raise ValueError("Invalid completion content")
-            return Explanation.model_validate_json(content)
+            return content
         except httpx.TimeoutException as exc:
             raise ProviderError(504, "provider_timeout", "The AI provider timed out. Please retry.") from exc
         except httpx.RequestError as exc:

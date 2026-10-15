@@ -1,0 +1,62 @@
+[
+  {
+    "id": "charge",
+    "target": "charge",
+    "label": "电荷 q",
+    "unit": "nC",
+    "min": -10,
+    "max": 10,
+    "step": 0.1,
+    "scale": 1e-09
+  },
+  {
+    "id": "mass",
+    "target": "mass",
+    "label": "质量 m",
+    "unit": "mg",
+    "min": 0.1,
+    "max": 10,
+    "step": 0.1,
+    "scale": 1e-06
+  },
+  {
+    "id": "ex",
+    "target": "field.x",
+    "label": "电场 Ex",
+    "unit": "N/C",
+    "min": -500,
+    "max": 500,
+    "step": 10,
+    "scale": 1
+  },
+  {
+    "id": "ey",
+    "target": "field.y",
+    "label": "电场 Ey",
+    "unit": "N/C",
+    "min": -500,
+    "max": 500,
+    "step": 10,
+    "scale": 1
+  },
+  {
+    "id": "vx",
+    "target": "initialVelocity.x",
+    "label": "初速度 vx",
+    "unit": "m/s",
+    "min": -10,
+    "max": 10,
+    "step": 0.1,
+    "scale": 1
+  },
+  {
+    "id": "vy",
+    "target": "initialVelocity.y",
+    "label": "初速度 vy",
+    "unit": "m/s",
+    "min": -10,
+    "max": 10,
+    "step": 0.1,
+    "scale": 1
+  }
+]

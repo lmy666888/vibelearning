@@ -1,9 +1,8 @@
 import {useEffect,useState} from 'react';
 import {useSimulationStore} from '../../stores/simulationStore';
 import type {SimulationParameters} from '../../simulations/physics/uniform-electric-field/types';
-const controls=[{id:'charge',label:'电荷 q',unit:'nC',min:-10,max:10,step:0.1},{id:'mass',label:'质量 m',unit:'mg',min:0.1,max:10,step:0.1},{id:'ex',label:'电场 Ex',unit:'N/C',min:-500,max:500,step:10},{id:'ey',label:'电场 Ey',unit:'N/C',min:-500,max:500,step:10},{id:'vx',label:'初速度 vx',unit:'m/s',min:-10,max:10,step:0.1},{id:'vy',label:'初速度 vy',unit:'m/s',min:-10,max:10,step:0.1}] as const;
-type Id=typeof controls[number]['id'];
-function value(p:SimulationParameters,id:Id){return id==='charge'?p.charge/1e-9:id==='mass'?p.mass/1e-6:id==='ex'?p.field.x:id==='ey'?p.field.y:id==='vx'?p.initialVelocity.x:p.initialVelocity.y;}
+import { controls, parameterValue } from '../../simulations/physics/uniform-electric-field/controls';
+function value(p:SimulationParameters,id:string){const c=controls.find(c=>c.id===id)!;return parameterValue(p,c.target)/c.scale;}
 function Field({id,label,unit,min,max,step}:typeof controls[number]){
  const parameters=useSimulationStore(s=>s.parameters),update=useSimulationStore(s=>s.updateParameters);const [error,setError]=useState('');const current=value(parameters,id);
  const [draft,setDraft]=useState(String(Number(current.toFixed(5))));

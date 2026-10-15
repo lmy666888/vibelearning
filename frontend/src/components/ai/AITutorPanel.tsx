@@ -1,3 +1,4 @@
+import { ExperimentActionForm } from './ExperimentActionForm';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSimulationStore } from '../../stores/simulationStore';
 import { askTutor, captureTutorRequest, isSnapshotCurrent, TutorRequestError, type Explanation, type TutorRequest } from '../../services/tutor';
@@ -9,6 +10,7 @@ export const suggestedQuestions = [
 ];
 interface Result { request: TutorRequest; explanation: Explanation }
 export function AITutorPanel() {
+  const [mode, setMode] = useState<'explain' | 'plan'>('explain');
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,6 +58,11 @@ export function AITutorPanel() {
   return <section className="panel ai-tutor" aria-labelledby="ai-tutor-heading">
     <span className="eyebrow">CONTEXT-AWARE PHYSICS EXPLANATIONS</span>
     <h2 id="ai-tutor-heading">AI Tutor</h2>
+    <div className="buttons" aria-label="Tutor mode">
+      <button aria-pressed={mode === 'explain'} disabled={loading} onClick={() => setMode('explain')}>Ask a physics question</button>
+      <button aria-pressed={mode === 'plan'} disabled={loading} onClick={() => setMode('plan')}>Request an experiment change</button>
+    </div>
+    {mode === 'plan' ? <ExperimentActionForm /> : <>
     <p>Ask about the current simulation. Your question and an SI snapshot are sent to the configured provider through the backend. Generated explanations can be mistaken; the verified readings remain authoritative.</p>
     <div className="suggested-questions" aria-label="Suggested questions">
       {suggestedQuestions.map(text => <button key={text} disabled={loading} onClick={() => setQuestion(text)}>{text}</button>)}
@@ -76,5 +83,6 @@ export function AITutorPanel() {
       <h4>Key concepts</h4><ul>{result.explanation.key_concepts.map((concept, index) => <li key={index}>{concept}</li>)}</ul>
       <h4>Related equations</h4><ul>{result.explanation.related_equations.map((equation, index) => <li key={index}>{equation}</li>)}</ul>
     </article>}
+    </>}
   </section>;
 }
