@@ -130,3 +130,36 @@ The model returns only `{status: "proposal", action, explanation}` or `{status: 
 The planner prompt requires clarification for unspecified amounts, multiple changes, unsupported actions or ambiguous axes. An additional deterministic English/Chinese axis guard catches field instructions with no explicit component when both/neither component is nonzero (preset/experiment selections are excluded). Natural-language interpretation remains model-dependent; confirmation and hard bounds are mandatory even for plausible output. User/model text is rendered as text, never HTML or executable instructions. Generated language can occasionally differ from the input language.
 
 Both tutor routes share loopback/origin guards, the 64 KiB request limit, two per-process concurrent provider slots, configured deadline, 32 KiB upstream response limit, no redirects/retries, strict JSON schemas and safe error mapping. Keys remain server-only in ignored `backend/.env`. CI uses only mocked providers and requires no credentials. The local-only protection is not authentication for a public reverse proxy. Future public deployment needs authenticated users and deployment-wide quotas; future multi-action planning needs a separately designed transaction/confirmation contract.
+
+## Day 5 guided learning
+
+The existing provider adapter now supports bounded lesson generation and observation evaluation, sharing local/origin guards, 64 KiB body limit, timeout and the two-request admission gate with standalone tutoring. Lesson completions have a fixed 3500-token budget; other requests retain the 1500 default. Upstream bodies remain bounded to 32 KiB. No provider calls occur in CI, and no automatic retries or tool loops were added.
+
+`LessonDraft` is strictly versioned, with unique ordered step-1…step-5 identifiers, 1–5 steps (three by default), 1–3 Day 4 actions per step, objectives/questions/concepts/explanation and a fixed submit-observation completion criterion. Generation adds a server UUID, initial parameters, per-step before/after and authoritative predictions, required confirmation, provider model and UTC generation timestamp. Unsupported goals return a discriminated unsupported-capability response. The capability manifest restricts the existing simulation ID, operation names and parameter paths; no other experiment is invented.
+
+Sequential validation starts from the verified request parameters. Each action is applied to a temporary copy using Day 4 validation and shared bounds, then each step inherits the previous step's final state. Duplicate parameter writes, preset selection after other writes, reset mixed with other actions, invalid intermediate states and excessive limits are rejected. Predictions use the existing canonical physics, not narrative. The browser independently reconstructs and verifies the entire chain with its existing action and physics functions. Observation requests carry the plan, step ID, answer, preferred language and a current verified context; the backend reconstructs the chain and requires current parameters to match the selected step before evaluating.
+
+The discriminated learning state machine is:
+
+```mermaid
+stateDiagram-v2
+  idle --> generating: student goal
+  generating --> ready: validated plan
+  ready --> awaiting_confirmation: preview step
+  awaiting_confirmation --> ready: cancel
+  awaiting_confirmation --> experimenting: explicit atomic confirm
+  experimenting --> awaiting_observation: finish observing
+  awaiting_observation --> evaluating: submit answer
+  evaluating --> feedback: current snapshot and valid feedback
+  feedback --> awaiting_observation: retry
+  feedback --> ready: correct + continue / next step
+  feedback --> completed: correct + continue / final step
+```
+
+Failures enter error, from which explicit recovery returns to ready (requiring a new setup preview) or idle. Exit enters cancelled without changing simulation state. Earlier-step navigation/restart returns to ready and never silently restores parameters. Generation/evaluation tokens and AbortController cleanup reject late asynchronous work. Parameter revision checks reject stale/ABA previews and feedback; playback time alone does not invalidate a parameter-based setup. Returning to a previous step recomputes its target from the entire validated plan, displays actual-current versus target values and requires confirmation. Both Day 4 and Day 5 commit through the same atomic Zustand commit shape and share the same preview component; no new simulation engine/control channel exists. All step actions validate before a single parameter update.
+
+Feedback is structured as correct/partially_correct/incorrect/needs_clarification, supporting explanation, optional hint and retry/continue. Only correct + continue unlocks the next step. The verified physics remains separate from LLM narrative. Progress records completed observations, not inferred mastery.
+
+A session-scoped zh-CN/en preference is shared by tutoring, action planning and lesson generation. Optional preference fields preserve older tutor callers; new UI requests always supply one. Every natural-language lesson/feedback field is checked for Chinese script in zh-CN (and untranslated long English words are rejected, except existing parameter identifiers), or absence of Chinese script in en. Equations/SI symbols remain untouched. A mismatch returns safe 502 language_mismatch with a manual retry/change-language fallback; no hidden translation or repeated paid calls. This script check is deliberately conservative and is not proof of semantic correctness or perfect language identification. Existing lessons keep their generated language until the student exits and generates a replacement.
+
+Only one active lesson lives in the browser app's Zustand memory; mode navigation retains it. Cross-refresh persistence is deferred: restoring a serialized lesson, answers, simulation snapshot and in-flight status needs a separately versioned, independently revalidated restoration transaction. No credentials, prompts, provider bodies or answers are written to browser storage. Public deployment still needs authentication and global quota accounting. Future experiment support should register typed capability-specific action validators/physics and preserve this transaction/confirmation boundary.

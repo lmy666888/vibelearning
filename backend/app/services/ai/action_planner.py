@@ -1,6 +1,7 @@
 import asyncio
 import json
 import re
+from app.services.ai.language import language_rule, ensure_language
 from pydantic import ValidationError
 from app.schemas.actions import PlanRequest, PlanResult, Proposal, Clarification, decision_adapter
 from app.services.ai.config import ProviderSettings
@@ -35,11 +36,11 @@ async def plan_action(service, request: PlanRequest, provider=None, settings=Non
     field_instruction = re.search(r'\bfield\b|电场', instruction)
     explicit_axis = re.search(r'\b[exy]?[xy]\b|field\.[xy]|vertical|horizontal|[横纵竖垂]|[xy]分量|[xy]方向', instruction)
     if field_instruction and not explicit_axis and not re.search(r'preset|experiment|预设|实验', instruction) and (context.parameters.field.x != 0) == (context.parameters.field.y != 0):
-        return Clarification(status='clarification_needed', explanation='请指定电场的 X 或 Y 分量，以及目标数值或倍数。' if re.search(r'[\u4e00-\u9fff]', instruction) else 'Which field component (X or Y), and what value or factor?')
+        return Clarification(status='clarification_needed', explanation='请指定电场的 X 或 Y 分量，以及目标数值或倍数。' if request.preferred_language == 'zh-CN' or (request.preferred_language is None and re.search(r'[\u4e00-\u9fff]', instruction)) else 'Which field component (X or Y), and what value or factor?')
     settings = settings or ProviderSettings.from_environment()
     if service._slots.locked():
         raise ProviderError(429, 'tutor_busy', 'AI Tutor is busy. Retry in a moment.')
-    messages = [{'role': 'system', 'content': PLANNER_PROMPT}, {'role': 'user', 'content': json.dumps({
+    messages = [{'role': 'system', 'content': PLANNER_PROMPT + (language_rule(request.preferred_language) if request.preferred_language else '')}, {'role': 'user', 'content': json.dumps({
         'instruction': request.instruction, 'verified_simulation_context': context.model_dump(), 'SI_bounds': LIMITS}, ensure_ascii=False)}]
     async with service._slots:
         try:
@@ -48,6 +49,8 @@ async def plan_action(service, request: PlanRequest, provider=None, settings=Non
             decision = decision_adapter.validate_python(result)
             if settings.api_key in decision.model_dump_json() or PLANNER_PROMPT.strip() in decision.explanation:
                 raise ValueError('Unsafe content')
+            if request.preferred_language:
+                ensure_language([decision.explanation], request.preferred_language)
             if decision.status == 'clarification_needed':
                 return decision
             after = apply_action(context.parameters, decision.action)

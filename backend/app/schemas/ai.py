@@ -47,6 +47,7 @@ class SimulationContext(StrictModel):
         return value
 
 class ExplainRequest(StrictModel):
+    preferred_language: Literal["zh-CN", "en"] | None = None
     question: Question
     simulation_context: SimulationContext
 

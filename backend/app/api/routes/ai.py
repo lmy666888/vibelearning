@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from app.schemas.ai import ExplainRequest, Explanation
+from app.schemas.learning import GenerateLessonRequest, LessonResult, ObservationRequest, ObservationResult
 from app.schemas.actions import PlanRequest, PlanResult
 from app.services.physics.actions import InvalidAction
 from app.services.ai.config import ConfigurationError
@@ -45,3 +46,13 @@ async def explain(body: ExplainRequest, request: Request, tutor: TutorService = 
 async def plan_action(body: PlanRequest, request: Request, tutor: TutorService = Depends(get_tutor_service)) -> PlanResult:
     check_access(request)
     return await complete(tutor.plan_action(body))
+
+@router.post("/ai/generate-lesson", response_model=LessonResult)
+async def generate_lesson(body: GenerateLessonRequest, request: Request, tutor: TutorService = Depends(get_tutor_service)) -> LessonResult:
+    check_access(request)
+    return await complete(tutor.generate_lesson(body))
+
+@router.post("/ai/evaluate-observation", response_model=ObservationResult)
+async def evaluate_observation(body: ObservationRequest, request: Request, tutor: TutorService = Depends(get_tutor_service)) -> ObservationResult:
+    check_access(request)
+    return await complete(tutor.evaluate_observation(body))

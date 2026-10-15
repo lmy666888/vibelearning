@@ -71,7 +71,7 @@ export function AITutorPanel() {
       <label htmlFor="tutor-question">Your physics question</label>
       <textarea id="tutor-question" value={question} maxLength={2000} rows={3} disabled={loading}
         onChange={event => setQuestion(event.target.value)} placeholder="Why is my particle accelerating downward?" />
-      <div className="tutor-actions"><small>{question.length}/2000 · Replies follow your question's language.</small>
+      <div className="tutor-actions"><small>{question.length}/2000 · Replies use the shared AI language preference.</small>
         <button type="submit" className="primary" disabled={loading || !question.trim()}>{loading ? 'Asking…' : 'Ask AI Tutor'}</button></div>
     </form>
     {loading && <p role="status">Generating an explanation from the submitted snapshot… Simulation playback remains available.</p>}
