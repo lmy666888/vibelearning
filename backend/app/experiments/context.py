@@ -1,6 +1,6 @@
 import json,math,struct
 from typing import Literal, Annotated
-from pydantic import Field, JsonValue, field_validator
+from pydantic import Field, JsonValue, field_validator, model_validator
 from app.schemas.ai import StrictModel
 from app.experiments.registry import experiment
 
@@ -17,6 +17,21 @@ def fingerprint(value):
     for b in data:h=((h^b)*16777619)&0xffffffff
     return f'fnv1a-{h:08x}'
 
+class FrozenDict(dict):
+    def _immutable(self,*args,**kwargs):raise TypeError('Experiment snapshots are immutable')
+    __setitem__=__delitem__=clear=pop=popitem=setdefault=update=__ior__=_immutable
+    def __deepcopy__(self,memo):return self
+
+class FrozenList(list):
+    def _immutable(self,*args,**kwargs):raise TypeError('Experiment snapshots are immutable')
+    __setitem__=__delitem__=append=extend=insert=pop=remove=clear=sort=reverse=__iadd__=__imul__=_immutable
+    def __deepcopy__(self,memo):return self
+
+def immutable(value):
+    if isinstance(value,dict):return FrozenDict({k:immutable(v) for k,v in value.items()})
+    if isinstance(value,list):return FrozenList(immutable(v) for v in value)
+    return value
+
 class ExperimentContext(StrictModel):
     schema_version: Literal[2]
     experiment_id: Annotated[str,Field(min_length=1,max_length=80)]
@@ -27,6 +42,11 @@ class ExperimentContext(StrictModel):
     observables: dict[str,JsonValue]
     revision: Annotated[int,Field(ge=0,le=9007199254740991)]
     snapshot_id: str
+    @model_validator(mode='after')
+    def frozen_snapshot(self):
+        for name in ['parameters','query','simulation_state','observables']:
+            object.__setattr__(self,name,immutable(getattr(self,name)))
+        return self
     @field_validator('schema_version',mode='before')
     @classmethod
     def version(cls,v):

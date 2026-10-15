@@ -166,3 +166,12 @@ def test_v2_equations_are_registered_science_not_model_generated_math():
     app.dependency_overrides[get_provider]=lambda:provider(dict(answer='The magnetic force is perpendicular to velocity.',key_concepts=['Magnetic force'],related_equations=['incorrect equation']))
     r=post('explain',request());assert r.status_code==200
     assert r.json()['related_equations']==experiment('lorentz-force-2d').manifest['equations']
+
+def test_context_is_deeply_immutable_but_serializes_as_normal_json():
+    c=context('lorentz-force-2d',params(),{'time':0},3)
+    with pytest.raises(TypeError):c.parameters['mass']=0
+    with pytest.raises(TypeError):c.parameters['field']['x']=99
+    with pytest.raises(TypeError):c.observables.update(speed=999)
+    data=c.model_dump();data['parameters']['mass']=2e-7
+    assert c.parameters['mass']==1e-7
+    assert ExperimentContext.model_validate_json(c.model_dump_json())==c
