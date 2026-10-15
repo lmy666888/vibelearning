@@ -39,3 +39,7 @@ Production registration should add strict exact-field/range validation, units an
 ## Recovery and deployment boundary
 
 No session persistence is enabled in this milestone. A future recovery feature must version the experiment/lesson/session, independently revalidate all stored data, normalize pending/running status to paused and require confirmation before restoring current state. Never store keys or prompts. FNV snapshot IDs are deterministic correlation identifiers, not signatures. Public deployment needs authentication, server-owned session identities and global quota controls.
+
+## Shared workspace presentation extension
+
+The uniform electric and Lorentz plugins use the same camera-aware particle presentation. The third `multi-zone-em` v1 plugin adds a rectangular-region Inspector through `workspace/presentations.tsx`. This is an explicit presentation binding, separate from scientific registry/lifecycle/AI. Future non-electromagnetic models should bind their own renderer/editor rather than introduce regions into the generic contract. Camera controls and storage must be validated for that domain; do not assume every future query has time or particle coordinates. Follow [How to Build a Spatially Varying Field Experiment](spatial-field-experiment-guide.md) for the implemented spatial case and bounded numerical strategy.

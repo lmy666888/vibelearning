@@ -1,0 +1,80 @@
+{
+  "uniform-electric-field": {
+    "en": {
+      "overview": "Uniform Electric Field",
+      "background": "A prescribed uniform electric field exerts F=qE. Positive mass gives a=F/m.",
+      "objectives": "Compare charge signs, field direction and acceleration.",
+      "equations": "F = qE; a = qE/m; r = r₀ + v₀t + ½at²",
+      "setup": "Choose a charge, mass, electric field and initial velocity.",
+      "instructions": "Select a preset. Predict the force. Play, pause and save a baseline. Reverse charge and compare.",
+      "observations": "Does acceleration change when speed changes? What reverses with negative charge?",
+      "expected": "Constant vector acceleration; straight or parabolic trajectories.",
+      "misconceptions": "Negative charge accelerates opposite E. Force does not point along velocity in general. Uniform prescribed fields ignore source geometry.",
+      "ask": "Why does negative charge accelerate against the field?"
+    },
+    "zh-CN": {
+      "overview": "匀强电场",
+      "background": "预设匀强电场产生电场力 F=qE，正质量粒子的加速度为 F/m。",
+      "objectives": "比较电荷正负、场方向与加速度。",
+      "equations": "F = qE；a = qE/m；r = r₀ + v₀t + ½at²",
+      "setup": "设置电荷、质量、电场和初速度。",
+      "instructions": "选择预设，先预测受力，再播放、暂停和保存对照；改变电荷符号并比较。",
+      "observations": "速度增大时加速度会改变吗？负电荷会使什么反向？",
+      "expected": "加速度矢量恒定，轨迹可以是直线或抛物线。",
+      "misconceptions": "负电荷沿电场反向加速；受力方向不一定沿速度。均匀预设场忽略场源几何。",
+      "ask": "为什么负电荷沿电场反向加速？"
+    }
+  },
+  "lorentz-force-2d": {
+    "en": {
+      "overview": "Lorentz Force",
+      "background": "Electric force is qE; magnetic force is q(v×B). Use the right-hand rule for positive q, reverse for negative q.",
+      "objectives": "Relate sign, field and curvature; distinguish force from work.",
+      "equations": "F = q(E + v × B); F_B · v = 0; r = mv/|qB| (E=0)",
+      "setup": "Select Positive Magnetic and start with nonzero velocity.",
+      "instructions": "Play and observe a circle. Reverse charge. Double B and compare radius. Then use crossed fields.",
+      "observations": "Does magnetic-only speed change? Which way is the instantaneous acceleration?",
+      "expected": "Magnetic-only motion conserves kinetic energy; electric fields can do work.",
+      "misconceptions": "Magnetic force depends on velocity and is perpendicular to it. Right-hand direction applies to positive q. Lab-speed radius formula requires E=0.",
+      "ask": "Why does magnetic force bend motion without changing speed?"
+    },
+    "zh-CN": {
+      "overview": "洛伦兹力",
+      "background": "电场力为 qE，磁场力为 q(v×B)。正电荷用右手定则，负电荷反向。",
+      "objectives": "联系电荷、磁场和曲率，区分受力与做功。",
+      "equations": "F = q(E + v × B)；F_B · v = 0；r = mv/|qB|（E=0）",
+      "setup": "选择正电荷磁场预设，使用非零初速度。",
+      "instructions": "播放观察圆轨迹，反转电荷，再把磁场加倍比较半径，最后观察交叉场。",
+      "observations": "纯磁场中速率改变吗？瞬时加速度指向哪里？",
+      "expected": "纯磁场保持动能；电场可以做功。",
+      "misconceptions": "磁场力依赖速度且垂直速度；右手定则方向适用于正电荷。使用实验室速率计算半径需 E=0。",
+      "ask": "为什么磁场使轨迹弯曲却不改变速率？"
+    }
+  },
+  "multi-zone-em": {
+    "en": {
+      "overview": "Multi-Zone Electromagnetic Lab",
+      "background": "Prescribed piecewise-uniform fields superpose in overlaps. Local fields determine instantaneous Lorentz force.",
+      "objectives": "Predict boundary transitions, overlap forces and continuity of position/velocity.",
+      "equations": "E = Σ Eᵢ; B = Σ Bᵢ; F = q(E + v × B)",
+      "setup": "Choose Electric then magnetic, or add rectangular regions. Initial position and velocity use SI units.",
+      "instructions": "Edit exact dimensions or drag regions/handles. Apply changes. Fit all, play and inspect local fields. Ask AI for a reviewed edit.",
+      "observations": "Which region IDs are active? Does acceleration change at an edge? Is speed constant in a magnetic-only zone?",
+      "expected": "Position and velocity stay continuous; acceleration may jump at ideal boundaries. Zero field outside all enabled zones.",
+      "misconceptions": "Overlaps add fields, not trajectories. Boundary discontinuities are idealized; no Maxwell solver or induced electric fields.",
+      "ask": "Why does the particle curve after entering the magnetic region?"
+    },
+    "zh-CN": {
+      "overview": "多区域电磁场实验室",
+      "background": "预设分段均匀场在重叠区叠加，当前位置的局部场决定洛伦兹力。",
+      "objectives": "预测边界变化、叠加力以及位置和速度的连续性。",
+      "equations": "E = Σ Eᵢ；B = Σ Bᵢ；F = q(E + v × B)",
+      "setup": "选择先电后磁预设，或添加矩形区域；初位置与初速度使用 SI 单位。",
+      "instructions": "输入精确尺寸或拖动区域和手柄，应用修改后适配视野、播放并检查局部场；AI 修改必须确认。",
+      "observations": "当前哪些区域生效？边缘处加速度改变吗？纯磁场区域速率恒定吗？",
+      "expected": "位置和速度连续，理想边界处加速度可跳变；所有区域外为零场。",
+      "misconceptions": "重叠时叠加场而非轨迹。理想边界不包含 Maxwell 求解或感生电场。",
+      "ask": "为什么粒子进入磁场区域后轨迹弯曲？"
+    }
+  }
+}

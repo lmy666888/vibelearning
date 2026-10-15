@@ -223,3 +223,9 @@ Switching pauses/discards the previous experiment, its baseline, proposals and a
 The existing Day 1–5 UI/API remain available at `/?context=v1` and `/api/ai/...`. The default UI uses `/api/v2/ai/...` and an explicitly versioned experiment envelope; no Lorentz payload is interpreted as an electric context. Legacy E2E journeys now use the explicit v1 URL; new E2E journeys test both experiments in the default workbench.
 
 See [plugin guide](docs/experiment-plugin-guide.md), [numerical physics and tolerances](docs/physics-verification.md), [v2 API](docs/api.md#experiment-context-v2), and [actual-date Day 6–7 log](docs/development/2026-10-15-day6-day7.md). Session recovery remains deferred; all running states are memory-only and reset on refresh. No database or new dependency is required.
+
+### Unified workspace and multi-zone fields
+
+Default workbench now shares playback, camera/Canvas, resizable side panels, focus/mobile tabs, metrics, bilingual learning material and reviewed AI workflows across Uniform Electric Field, Lorentz Force and the new **Multi-Zone Electromagnetic Lab**. Build, drag, resize, align and edit up to 12 SI rectangular field regions. Enabled overlaps superpose, outside fields are zero, and actual deterministic dynamics use bounded boundary-aware integration. Region changes pause/reset; AI edits require confirmation and stale proposals fail. Browser-local schema-v1 recovery restores validated setup/lesson progress paused, without trajectory or credentials. The classic electric-field page remains available at `/?context=v1`.
+
+See [spatial experiment guide](docs/spatial-field-experiment-guide.md), [scientific verification](docs/physics-verification.md) and [actual-date workspace report](docs/development/2026-10-15-unified-workspace.md). This is a prescribed-field educational model, not a Maxwell solver.
