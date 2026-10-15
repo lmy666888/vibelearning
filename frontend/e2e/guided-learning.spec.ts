@@ -4,7 +4,7 @@ test.beforeEach(async({page})=>{
  await page.route('**/api/health',r=>r.fulfill({json:{status:'ok',service:'vibelearning-api'}}));
  await page.route('**/api/ai/generate-lesson',r=>r.fulfill({json:lessonFixture(r.request().postDataJSON().simulation_context.parameters)}));
  await page.route('**/api/ai/evaluate-observation',r=>{const body=r.request().postDataJSON();return r.fulfill({json:feedbackFixture(body.lesson,Number(body.step_id.split('-')[1])-1)});});
- await page.goto('/');await page.getByRole('button',{name:'Guided Learning',exact:true}).click();
+ await page.goto('/?context=v1');await page.getByRole('button',{name:'Guided Learning',exact:true}).click();
  await page.getByLabel('Learning goal',{exact:true}).fill('Teach me why positive and negative charges accelerate in opposite directions.');
  await page.getByRole('button',{name:'Generate lesson',exact:true}).click();await expect(page.getByRole('heading',{name:'Explore electric force',exact:true})).toBeVisible();
 });

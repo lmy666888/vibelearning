@@ -1,0 +1,1116 @@
+[
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.20000000000000004
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.20000000000000004
+      },
+      "acceleration_magnitude": 0.20000000000000004,
+      "speed": 5.0
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-33e697b4"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 6.25,
+        "y": 0.15625000000000003
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.25000000000000006
+      },
+      "force": {
+        "x": 0.0,
+        "y": 2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.20000000000000004
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.20000000000000004
+      },
+      "acceleration_magnitude": 0.20000000000000004,
+      "speed": 5.006246098625197
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-7cca3c5f"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": -2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.0
+      },
+      "force": {
+        "x": -0.0,
+        "y": -2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": -0.0,
+        "y": -0.20000000000000004
+      }
+    },
+    "observables": {
+      "force": {
+        "x": -0.0,
+        "y": -2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": -0.0,
+        "y": -0.20000000000000004
+      },
+      "acceleration_magnitude": 0.20000000000000004,
+      "speed": 5.0
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-f72bdef1"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": -2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 6.25,
+        "y": -0.15625000000000003
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": -0.25000000000000006
+      },
+      "force": {
+        "x": -0.0,
+        "y": -2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": -0.0,
+        "y": -0.20000000000000004
+      }
+    },
+    "observables": {
+      "force": {
+        "x": -0.0,
+        "y": -2.0000000000000002e-07
+      },
+      "acceleration": {
+        "x": -0.0,
+        "y": -0.20000000000000004
+      },
+      "acceleration_magnitude": 0.20000000000000004,
+      "speed": 5.006246098625197
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-b137729c"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 200.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 4.0000000000000003e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.4000000000000001
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 4.0000000000000003e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.4000000000000001
+      },
+      "acceleration_magnitude": 0.4000000000000001,
+      "speed": 5.0
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-42b5ed3b"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 200.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 6.25,
+        "y": 0.31250000000000006
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.5000000000000001
+      },
+      "force": {
+        "x": 0.0,
+        "y": 4.0000000000000003e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.4000000000000001
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 4.0000000000000003e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.4000000000000001
+      },
+      "acceleration_magnitude": 0.4000000000000001,
+      "speed": 5.024937810560445
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-e308f646"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 5.0
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-8704ea68"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "uniform-electric-field",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 2e-09,
+      "mass": 1e-06,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 5.0,
+        "y": 0.0
+      }
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 6.25,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 5.0,
+        "y": 0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 5.0
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-eba050f3"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 0.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": null,
+      "cyclotron_frequency": 0.0,
+      "drift_velocity": null
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-b4d94ec9"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 0.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 3.7499999999999902,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": null,
+      "cyclotron_frequency": 0.0,
+      "drift_velocity": null
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-63086a84"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 0.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-08
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-08
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.1
+      },
+      "acceleration_magnitude": 0.1,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": null,
+      "cyclotron_frequency": 0.0,
+      "drift_velocity": null
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-e8314608"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 0.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 3.7499999999999902,
+        "y": 0.07812500000000007
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.12500000000000008
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-08
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-08
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.1
+      },
+      "acceleration_magnitude": 0.1,
+      "speed": 3.0026030373660784,
+      "kinetic_energy": 4.5078124999999995e-07,
+      "theoretical_radius": null,
+      "cyclotron_frequency": 0.0,
+      "drift_velocity": null
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-93622693"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -3.0000000000000004e-07
+      },
+      "force": {
+        "x": 0.0,
+        "y": -3.0000000000000004e-07
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": -3.0000000000000004
+      },
+      "acceleration_magnitude": 3.0000000000000004,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": 3.0,
+      "cyclotron_frequency": 1.0,
+      "drift_velocity": {
+        "x": 0.0,
+        "y": -0.0
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-c5c812a1"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 2.8469440042362852,
+        "y": -2.054003257540988
+      },
+      "velocity": {
+        "x": 0.9459967424590101,
+        "y": -2.8469440042362852
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": -2.846944004236285e-07,
+        "y": -9.4599674245901e-08
+      },
+      "force": {
+        "x": -2.846944004236285e-07,
+        "y": -9.4599674245901e-08
+      },
+      "acceleration": {
+        "x": -2.8469440042362852,
+        "y": -0.9459967424590101
+      },
+      "acceleration_magnitude": 2.9999999999999987,
+      "speed": 2.9999999999999987,
+      "kinetic_energy": 4.4999999999999956e-07,
+      "theoretical_radius": 2.9999999999999987,
+      "cyclotron_frequency": 1.0,
+      "drift_velocity": {
+        "x": 0.0,
+        "y": -0.0
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-3b79c6cc"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": -1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": -0.0,
+        "y": -0.0
+      },
+      "magnetic_force": {
+        "x": -0.0,
+        "y": 3.0000000000000004e-07
+      },
+      "force": {
+        "x": -0.0,
+        "y": 3.0000000000000004e-07
+      },
+      "acceleration": {
+        "x": -0.0,
+        "y": 3.0000000000000004
+      },
+      "acceleration_magnitude": 3.0000000000000004,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": 3.0,
+      "cyclotron_frequency": -1.0,
+      "drift_velocity": {
+        "x": 0.0,
+        "y": -0.0
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-c635829e"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": -1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 2.8469440042362852,
+        "y": 2.054003257540988
+      },
+      "velocity": {
+        "x": 0.9459967424590101,
+        "y": 2.8469440042362852
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": -0.0,
+        "y": -0.0
+      },
+      "magnetic_force": {
+        "x": -2.846944004236285e-07,
+        "y": 9.4599674245901e-08
+      },
+      "force": {
+        "x": -2.846944004236285e-07,
+        "y": 9.4599674245901e-08
+      },
+      "acceleration": {
+        "x": -2.8469440042362852,
+        "y": 0.9459967424590101
+      },
+      "acceleration_magnitude": 2.9999999999999987,
+      "speed": 2.9999999999999987,
+      "kinetic_energy": 4.4999999999999956e-07,
+      "theoretical_radius": 2.9999999999999987,
+      "cyclotron_frequency": -1.0,
+      "drift_velocity": {
+        "x": 0.0,
+        "y": -0.0
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-bb3f6c91"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 1e-08,
+        "y": 1e-08
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -3.0000000000000004e-07
+      },
+      "force": {
+        "x": 1e-08,
+        "y": -2.9000000000000003e-07
+      },
+      "acceleration": {
+        "x": 0.1,
+        "y": -2.9000000000000004
+      },
+      "acceleration_magnitude": 2.901723625709382,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-07,
+      "theoretical_radius": 2.9017236257093817,
+      "cyclotron_frequency": 1.0,
+      "drift_velocity": {
+        "x": 0.1,
+        "y": -0.1
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-14eb6dc9"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "lorentz-force-2d",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-07,
+      "field": {
+        "x": 1.0,
+        "y": 1.0
+      },
+      "initialPosition": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "magneticFieldZ": 10.0,
+      "timeStep": 0.01,
+      "duration": 20.0
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": 2.9455126460131282,
+        "y": -2.0156383488150893
+      },
+      "velocity": {
+        "x": 1.1093616511849371,
+        "y": -2.8205126460131185
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 1e-08,
+        "y": 1e-08
+      },
+      "magnetic_force": {
+        "x": -2.8205126460131186e-07,
+        "y": -1.1093616511849371e-07
+      },
+      "force": {
+        "x": -2.7205126460131185e-07,
+        "y": -1.0093616511849372e-07
+      },
+      "acceleration": {
+        "x": -2.720512646013119,
+        "y": -1.0093616511849373
+      },
+      "acceleration_magnitude": 2.9017236257093963,
+      "speed": 3.0308373198572856,
+      "kinetic_energy": 4.5929874297198463e-07,
+      "theoretical_radius": 2.901723625709396,
+      "cyclotron_frequency": 1.0,
+      "drift_velocity": {
+        "x": 0.1,
+        "y": -0.1
+      }
+    },
+    "revision": 7,
+    "snapshot_id": "fnv1a-e2786f84"
+  }
+]

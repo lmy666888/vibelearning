@@ -6,7 +6,7 @@ class TutorBodyLimit:
         self.app, self.limit = app, limit
 
     async def __call__(self, scope, receive, send):
-        if scope["type"] != "http" or scope["path"] not in {"/api/ai/explain", "/api/ai/plan-action", "/api/ai/generate-lesson", "/api/ai/evaluate-observation"}:
+        if scope["type"] != "http" or (not scope["path"].startswith("/api/v2/ai/") and scope["path"] not in {"/api/ai/explain", "/api/ai/plan-action", "/api/ai/generate-lesson", "/api/ai/evaluate-observation"}):
             return await self.app(scope, receive, send)
         data = bytearray()
         while True:

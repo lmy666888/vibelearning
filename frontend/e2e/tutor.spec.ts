@@ -3,7 +3,7 @@ import type { TutorRequest } from '../src/services/tutor';
 const result = { answer: 'A negative charge experiences force opposite to the field. Fy = -4e-7 N, ay = -0.4 m/s².', key_concepts: ['Electric Force', 'Acceleration'], related_equations: ['F = qE', 'a = F/m'] };
 test.beforeEach(async ({ page }) => {
   await page.route('**/api/health', route => route.fulfill({ json: { status: 'ok', service: 'vibelearning-api' } }));
-  await page.goto('/');
+  await page.goto('/?context=v1');
 });
 test('tutor is visible and suggested question selection does not submit', async ({ page }) => {
   const panel = page.getByRole('region', { name: 'AI Tutor', exact: true });

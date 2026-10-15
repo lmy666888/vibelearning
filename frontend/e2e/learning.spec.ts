@@ -11,7 +11,7 @@ const selectPreset = async (page: Page, name: string) => {
 test.beforeEach(async ({ page }) => {
   // Isolate pedagogy and physics tests from local backend availability.
   await page.route('**/api/health', route => route.fulfill({ json: { status: 'ok', service: 'vibelearning-api' } }));
-  await page.goto('/');
+  await page.goto('/?context=v1');
 });
 
 test('application loads with existing controls and the context-aware AI tutor', async ({ page }) => {
