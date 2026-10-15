@@ -1,6 +1,30 @@
-from fastapi import FastAPI
+import os
+from app.environment import load_backend_environment
+
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes.health import router
-app = FastAPI(title="VibeLearning API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET"], allow_headers=["*"])
-app.include_router(router, prefix="/api")
+from fastapi.responses import JSONResponse
+from app.api.routes.health import router as health_router
+from app.api.routes.ai import router as ai_router
+from app.request_limits import TutorBodyLimit
+
+load_backend_environment()
+
+app = FastAPI(title="VibeLearning API", version="0.3.0")
+origins = [value.strip() for value in os.getenv("FRONTEND_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173").split(",") if value.strip()]
+if "*" in origins:
+    raise RuntimeError("Configure explicit frontend origins; wildcard CORS is not permitted")
+app.state.frontend_origins = origins
+app.add_middleware(TutorBodyLimit)
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
+app.include_router(health_router, prefix="/api")
+app.include_router(ai_router, prefix="/api")
+
+@app.exception_handler(RequestValidationError)
+async def validation_error(request: Request, exc: RequestValidationError):
+    # Do not echo request bodies or Pydantic input/context objects.
+    return JSONResponse(status_code=422, content={"detail": [
+        {"loc": list(error["loc"]), "msg": error["msg"], "type": error["type"]}
+        for error in exc.errors()
+    ]})

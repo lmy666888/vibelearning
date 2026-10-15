@@ -55,3 +55,21 @@ Real multi-monitor moves and browser zoom controls, Safari/Firefox, mobile hardw
 ### Live browser smoke and visual review
 
 A separate real-backend Chromium smoke check on port 5173 verified API connected through the Vite proxy, applied Positive Charge, saved a baseline, applied Stronger Electric Field, played beyond 3 seconds, paused, and confirmed ay=0.4 m/s² and +100% comparison. Captured and visually reviewed full-page 1440px desktop and 1024px laptop screenshots. No browser console errors or uncaught page errors occurred. The long-running Day 1 Vite process initially served stale transformed modules; restarting that owned development server exposed the updated source and resolved the smoke check. The current server on 5173 serves Day 2.
+
+## Day 3 — Context-Aware AI Tutor and Git initialization
+
+See `development/2026-10-14-day3.md` for the dated record and `development/workflow.md` for the daily GitHub procedure. Day 3 adds verified backend physics/context validation, an async configurable provider, safe local API and a snapshot-associated tutor UI. Automated tests use mocks; real provider verification remains pending without credentials. The stable Day 1/2 source is committed as `79cbb32`; development continues on `feat/day3-ai-tutor`. Remote authentication/push status is recorded separately and is never inferred from a local commit.
+
+## Gemini configuration follow-up
+
+Added backend-local .env loading, Gemini endpoint regression tests and safe model-unavailable errors. The real model-list endpoint returned 200, but the requested gemini-2.5-flash-lite generation returned 404: Google says it is unavailable to new users. No live explanation success is claimed; see the Day 3 daily log.
+
+## Gemini integration completed with real generation
+
+The user-authorized gemini-3.5-flash-lite now returned real HTTP 200 through the production adapter, all three requested physics scenarios and the React interface. Correct force/acceleration directions and SI values were manually reviewed, including Chinese output and doubled-field behavior. Regression suites passed (76 Vitest, 79 Pytest, 19 Chromium; strict/build). Exact remaining project quota is not available; no billing configuration was changed. See development/gemini-live-validation-2026-10-14.md and the Day 3 daily log.
+
+## Day 4 Phase 0 — CI and merge gate
+
+Inspected PR #1 and confirmed it is still open. Added a two-job GitHub Actions workflow on the Day 3 branch; local and remote validation outcomes are recorded in development/2026-10-14-day4.md. Day 4 application development waits for the explicit Day 3 merge gate.
+
+Phase 0 remote CI confirmed successful for commit 802ad52: https://github.com/lmy666888/vibelearning/actions/runs/38674626707 . Both Ubuntu jobs passed, including 76 Vitest, 79 Pytest and 19 Chromium E2E. Day 4 application work remains gated by explicit approval to merge PR #1.
