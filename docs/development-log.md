@@ -71,3 +71,5 @@ The user-authorized gemini-3.5-flash-lite now returned real HTTP 200 through the
 ## Day 4 Phase 0 — CI and merge gate
 
 Inspected PR #1 and confirmed it is still open. Added a two-job GitHub Actions workflow on the Day 3 branch; local and remote validation outcomes are recorded in development/2026-10-14-day4.md. Day 4 application development waits for the explicit Day 3 merge gate.
+
+Phase 0 remote CI confirmed successful for commit 802ad52: https://github.com/lmy666888/vibelearning/actions/runs/38674626707 . Both Ubuntu jobs passed, including 76 Vitest, 79 Pytest and 19 Chromium E2E. Day 4 application work remains gated by explicit approval to merge PR #1.
