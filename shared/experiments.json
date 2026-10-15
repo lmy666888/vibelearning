@@ -577,5 +577,532 @@
       "Cayley",
       "Lorentz"
     ]
+  },
+  {
+    "id": "multi-zone-em",
+    "version": 1,
+    "title": "Multi-Zone Electromagnetic Lab",
+    "subject": "Physics",
+    "description": "Construct prescribed rectangular fields; local fields superpose and boundaries change acceleration continuously in position and velocity.",
+    "parameters": [
+      {
+        "id": "charge",
+        "target": "charge",
+        "label": "电荷 q",
+        "unit": "nC",
+        "min": -10,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1e-09
+      },
+      {
+        "id": "mass",
+        "target": "mass",
+        "label": "质量 m",
+        "unit": "mg",
+        "min": 0.1,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1e-06
+      },
+      {
+        "id": "vx",
+        "target": "initialVelocity.x",
+        "label": "初速度 vx",
+        "unit": "m/s",
+        "min": -10,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "vy",
+        "target": "initialVelocity.y",
+        "label": "初速度 vy",
+        "unit": "m/s",
+        "min": -10,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "positionx",
+        "target": "initialPosition.x",
+        "label": "Initial position x",
+        "unit": "m",
+        "min": -100,
+        "max": 100,
+        "step": 1,
+        "scale": 1,
+        "readonly": false
+      },
+      {
+        "id": "positiony",
+        "target": "initialPosition.y",
+        "label": "Initial position y",
+        "unit": "m",
+        "min": -100,
+        "max": 100,
+        "step": 1,
+        "scale": 1,
+        "readonly": false
+      },
+      {
+        "id": "dt",
+        "target": "timeStep",
+        "label": "Fixed timestep",
+        "unit": "s",
+        "min": 0.001,
+        "max": 0.02,
+        "step": 0.0002,
+        "scale": 1
+      },
+      {
+        "id": "duration",
+        "target": "duration",
+        "label": "Maximum duration",
+        "unit": "s",
+        "min": 0.1,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      }
+    ],
+    "operations": [
+      "set_parameter",
+      "scale_parameter",
+      "select_preset",
+      "reset_simulation",
+      "add_field_region",
+      "update_field_region",
+      "move_field_region",
+      "resize_field_region",
+      "remove_field_region",
+      "toggle_field_region"
+    ],
+    "observables": [
+      {
+        "id": "force",
+        "label": "Total Lorentz force",
+        "unit": "N"
+      },
+      {
+        "id": "acceleration",
+        "label": "Acceleration",
+        "unit": "m/s²"
+      },
+      {
+        "id": "acceleration_magnitude",
+        "label": "Acceleration magnitude",
+        "unit": "m/s²"
+      },
+      {
+        "id": "speed",
+        "label": "Speed",
+        "unit": "m/s"
+      },
+      {
+        "id": "electric_force",
+        "label": "Electric force",
+        "unit": "N"
+      },
+      {
+        "id": "magnetic_force",
+        "label": "Magnetic force",
+        "unit": "N"
+      },
+      {
+        "id": "kinetic_energy",
+        "label": "Kinetic energy",
+        "unit": "J"
+      },
+      {
+        "id": "local_electric_field",
+        "label": "Local electric field",
+        "unit": "N/C"
+      },
+      {
+        "id": "local_magnetic_field",
+        "label": "Local magnetic field",
+        "unit": "T"
+      },
+      {
+        "id": "active_regions",
+        "label": "Active region IDs",
+        "unit": ""
+      },
+      {
+        "id": "boundary_step",
+        "label": "Boundary-aware step",
+        "unit": "s"
+      },
+      {
+        "id": "displacement",
+        "label": "Displacement since start",
+        "unit": "m"
+      },
+      {
+        "id": "velocity_change",
+        "label": "Velocity change since start",
+        "unit": "m/s"
+      },
+      {
+        "id": "energy_change",
+        "label": "Kinetic energy change",
+        "unit": "J"
+      }
+    ],
+    "presets": [
+      {
+        "id": "single-electric",
+        "title": "Single electric region",
+        "description": "Acceleration only while inside the electric region.",
+        "expected": "Acceleration only while inside the electric region.",
+        "objective": "Predict local force, then observe boundary transitions and compare fields.",
+        "parameters": {
+          "charge": 1e-08,
+          "mass": 1e-06,
+          "initialPosition": {
+            "x": -6,
+            "y": 0
+          },
+          "initialVelocity": {
+            "x": 3,
+            "y": 0
+          },
+          "timeStep": 0.01,
+          "duration": 6,
+          "regions": [
+            {
+              "schema_version": 1,
+              "id": "zone-a",
+              "name": "zone-a",
+              "geometry": {
+                "type": "rectangle",
+                "x": -5,
+                "y": -5,
+                "width": 10,
+                "height": 10
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 100
+              },
+              "magnetic_field": {
+                "z": 0
+              },
+              "enabled": true,
+              "color": "cyan"
+            }
+          ]
+        }
+      },
+      {
+        "id": "opposite-electric",
+        "title": "Adjacent opposite electric fields",
+        "description": "Vertical acceleration changes sign at the shared edge.",
+        "expected": "Vertical acceleration changes sign at the shared edge.",
+        "objective": "Predict local force, then observe boundary transitions and compare fields.",
+        "parameters": {
+          "charge": 1e-08,
+          "mass": 1e-06,
+          "initialPosition": {
+            "x": -6,
+            "y": 0
+          },
+          "initialVelocity": {
+            "x": 3,
+            "y": 0
+          },
+          "timeStep": 0.01,
+          "duration": 6,
+          "regions": [
+            {
+              "schema_version": 1,
+              "id": "zone-a",
+              "name": "zone-a",
+              "geometry": {
+                "type": "rectangle",
+                "x": -5,
+                "y": -5,
+                "width": 5,
+                "height": 10
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 100
+              },
+              "magnetic_field": {
+                "z": 0
+              },
+              "enabled": true,
+              "color": "cyan"
+            },
+            {
+              "schema_version": 1,
+              "id": "zone-b",
+              "name": "zone-b",
+              "geometry": {
+                "type": "rectangle",
+                "x": 0,
+                "y": -5,
+                "width": 5,
+                "height": 10
+              },
+              "electric_field": {
+                "x": 0,
+                "y": -100
+              },
+              "magnetic_field": {
+                "z": 0
+              },
+              "enabled": true,
+              "color": "cyan"
+            }
+          ]
+        }
+      },
+      {
+        "id": "electric-magnetic",
+        "title": "Electric then magnetic",
+        "description": "Electric acceleration is followed by magnetic curvature without magnetic work.",
+        "expected": "Electric acceleration is followed by magnetic curvature without magnetic work.",
+        "objective": "Predict local force, then observe boundary transitions and compare fields.",
+        "parameters": {
+          "charge": 1e-08,
+          "mass": 1e-06,
+          "initialPosition": {
+            "x": -6,
+            "y": 0
+          },
+          "initialVelocity": {
+            "x": 3,
+            "y": 0
+          },
+          "timeStep": 0.01,
+          "duration": 6,
+          "regions": [
+            {
+              "schema_version": 1,
+              "id": "zone-a",
+              "name": "zone-a",
+              "geometry": {
+                "type": "rectangle",
+                "x": -5,
+                "y": -5,
+                "width": 5,
+                "height": 10
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 100
+              },
+              "magnetic_field": {
+                "z": 0
+              },
+              "enabled": true,
+              "color": "cyan"
+            },
+            {
+              "schema_version": 1,
+              "id": "zone-b",
+              "name": "zone-b",
+              "geometry": {
+                "type": "rectangle",
+                "x": 0,
+                "y": -5,
+                "width": 8,
+                "height": 10
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 0
+              },
+              "magnetic_field": {
+                "z": 20
+              },
+              "enabled": true,
+              "color": "violet"
+            }
+          ]
+        }
+      },
+      {
+        "id": "opposite-magnetic",
+        "title": "Adjacent opposite magnetic fields",
+        "description": "Curvature reverses between magnetic regions.",
+        "expected": "Curvature reverses between magnetic regions.",
+        "objective": "Predict local force, then observe boundary transitions and compare fields.",
+        "parameters": {
+          "charge": 1e-08,
+          "mass": 1e-06,
+          "initialPosition": {
+            "x": -6,
+            "y": 0
+          },
+          "initialVelocity": {
+            "x": 3,
+            "y": 0
+          },
+          "timeStep": 0.01,
+          "duration": 6,
+          "regions": [
+            {
+              "schema_version": 1,
+              "id": "zone-a",
+              "name": "zone-a",
+              "geometry": {
+                "type": "rectangle",
+                "x": -5,
+                "y": -8,
+                "width": 5,
+                "height": 16
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 0
+              },
+              "magnetic_field": {
+                "z": 20
+              },
+              "enabled": true,
+              "color": "violet"
+            },
+            {
+              "schema_version": 1,
+              "id": "zone-b",
+              "name": "zone-b",
+              "geometry": {
+                "type": "rectangle",
+                "x": 0,
+                "y": -8,
+                "width": 8,
+                "height": 16
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 0
+              },
+              "magnetic_field": {
+                "z": -20
+              },
+              "enabled": true,
+              "color": "violet"
+            }
+          ]
+        }
+      },
+      {
+        "id": "overlap",
+        "title": "Overlapping electric and magnetic fields",
+        "description": "Electric and magnetic forces act together in the overlap.",
+        "expected": "Electric and magnetic forces act together in the overlap.",
+        "objective": "Predict local force, then observe boundary transitions and compare fields.",
+        "parameters": {
+          "charge": 1e-08,
+          "mass": 1e-06,
+          "initialPosition": {
+            "x": -6,
+            "y": 0
+          },
+          "initialVelocity": {
+            "x": 3,
+            "y": 0
+          },
+          "timeStep": 0.01,
+          "duration": 6,
+          "regions": [
+            {
+              "schema_version": 1,
+              "id": "zone-a",
+              "name": "zone-a",
+              "geometry": {
+                "type": "rectangle",
+                "x": -5,
+                "y": -6,
+                "width": 10,
+                "height": 12
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 100
+              },
+              "magnetic_field": {
+                "z": 0
+              },
+              "enabled": true,
+              "color": "cyan"
+            },
+            {
+              "schema_version": 1,
+              "id": "zone-b",
+              "name": "zone-b",
+              "geometry": {
+                "type": "rectangle",
+                "x": -2,
+                "y": -6,
+                "width": 10,
+                "height": 12
+              },
+              "electric_field": {
+                "x": 0,
+                "y": 0
+              },
+              "magnetic_field": {
+                "z": 20
+              },
+              "enabled": true,
+              "color": "violet"
+            }
+          ]
+        }
+      }
+    ],
+    "renderer": "spatial-canvas",
+    "evolution": {
+      "kind": "fixed-step",
+      "max_duration": 10,
+      "dt": 0.01
+    },
+    "lesson_capabilities": [
+      "Create and edit registered rectangular regions",
+      "Observe electric-to-magnetic transition",
+      "Reverse regional magnetic polarity",
+      "Compare overlapping field superposition"
+    ],
+    "limitations": [
+      "Prescribed piecewise-uniform fields; no Maxwell solver, collisions or relativity.",
+      "Lower-inclusive/upper-exclusive rectangular edges. Zero field outside. Enabled overlaps sum.",
+      "Bounded conservative geometry-aware midpoint substeps; finite first-order boundary timing error and corner grazing limitations."
+    ],
+    "initial_query": {
+      "time": 0
+    },
+    "equations": [
+      "E(x,y) = Σ Eᵢ(x,y)",
+      "Bz(x,y) = Σ Bzᵢ(x,y)",
+      "F = q(E + v × B)",
+      "ax = (q/m)(Ex + vyBz)",
+      "ay = (q/m)(Ey − vxBz)",
+      "P_B = F_B · v = 0"
+    ],
+    "terminology": [
+      "Boris",
+      "Cayley",
+      "Lorentz",
+      "Ex",
+      "Ey",
+      "Bz",
+      "Zone",
+      "zone",
+      "regions",
+      "geometry",
+      "width",
+      "height",
+      "electric_field",
+      "magnetic_field",
+      "enabled",
+      "schema_version"
+    ]
   }
 ]

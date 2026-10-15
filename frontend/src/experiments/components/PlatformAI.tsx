@@ -8,12 +8,15 @@ import {validateLesson,type Lesson} from '../learning';
 import {record,exact,close} from '../validation';
 import type {Data} from '../contract';
 import type {ContextV2} from '../context';
+import {readSaved,STORAGE_KEY} from '../../workspace/persistence';
 import {useLanguageStore} from '../../stores/languageStore';
 import {ObservableTable,ParameterTable} from './Observables';
 type Stage='idle'|'loading'|'ready'|'preview'|'experimenting'|'answer'|'evaluating'|'feedback'|'completed';
 export function PlatformAI({runtime}:{runtime:Runtime}){
- const query=useStore(runtime.store,s=>s.query);const revision=useStore(runtime.store,s=>s.revision),language=useLanguageStore(s=>s.language);const [mode,setMode]=useState<'explain'|'plan-action'|'generate-lesson'>('explain'),[prompt,setPrompt]=useState(''),[stage,setStage]=useState<Stage>('idle'),[error,setError]=useState(''),[answer,setAnswer]=useState(''),[explanation,setExplanation]=useState<Data|null>(null),[proposal,setProposal]=useState<Proposal|null>(null),[lesson,setLesson]=useState<Lesson|null>(null),[index,setIndex]=useState(0),[feedback,setFeedback]=useState<Data|null>(null),[progress,setProgress]=useState<number[]>([]),[notice,setNotice]=useState('');
+ useStore(runtime.store,s=>Math.floor(Number(s.query.time)*2));const query=runtime.store.getState().query;const revision=useStore(runtime.store,s=>s.revision),language=useLanguageStore(s=>s.language);const [mode,setMode]=useState<'explain'|'plan-action'|'generate-lesson'>('explain'),[prompt,setPrompt]=useState(''),[stage,setStage]=useState<Stage>('idle'),[error,setError]=useState(''),[answer,setAnswer]=useState(''),[explanation,setExplanation]=useState<Data|null>(null),[proposal,setProposal]=useState<Proposal|null>(null),[lesson,setLesson]=useState<Lesson|null>(null),[index,setIndex]=useState(0),[feedback,setFeedback]=useState<Data|null>(null),[progress,setProgress]=useState<number[]>([]),[notice,setNotice]=useState('');
  const pending=useRef<AbortController|null>(null),captured=useRef<ContextV2|null>(null),applied=useRef<number|null>(null);const step=lesson?.steps[index],busy=stage==='loading'||stage==='evaluating';
+ useEffect(()=>{const saved=readSaved().value?.lesson;if(saved&&saved.plan.experiment_id===runtime.engine.id){try{const p=validateLesson(saved.plan,runtime.engine);setLesson(p);setIndex(saved.index);setProgress(saved.progress);setAnswer(saved.answer);setMode('generate-lesson');setStage('ready');setNotice('Restored lesson paused. Preview and confirm setup before continuing.');}catch{}}},[runtime]);
+ useEffect(()=>{try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return;const saved=JSON.parse(raw);if(saved.experiment_id!==runtime.engine.id)return;if(lesson)saved.lesson={plan:lesson,index,progress,answer};else delete saved.lesson;const value=JSON.stringify(saved);if(value.length<=100000)localStorage.setItem(STORAGE_KEY,value);}catch{}},[lesson,index,progress,answer,runtime]);
  useEffect(()=>()=>{pending.current?.abort();pending.current=null;},[]);
  const stale=!!captured.current&&!isCurrent(runtime,captured.current),observationStale=applied.current!==null&&revision!==applied.current;
  function clear(){setProposal(null);setLesson(null);setFeedback(null);setExplanation(null);setIndex(0);setProgress([]);captured.current=null;applied.current=null;setStage('idle');setError('');setNotice('');}

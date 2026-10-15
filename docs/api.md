@@ -59,3 +59,19 @@ Explain returns the original answer/key_concepts/related_equations shape; equati
 Generate-lesson returns unsupported_capability or schema_version=2 lesson with experiment ID/version, server lesson_id, language/title/objectives, initial_parameters and up to five sequential steps (1–3 actions each). Steps add before/after, predicted_observables and mandatory confirmation. Evaluate-observation additionally requires `lesson` and `step_id`; `prompt` is the student's answer. It returns structured assessment/feedback/explanation/hint/next_action, lesson/step IDs and authoritative_observables for the validated current query. Plans from another experiment/version or a mismatched active setup reject. Only correct + continue unlocks progression; feedback never mutates the experiment.
 
 Safe error classifications and 64 KiB body/32 KiB provider response limits apply to v1 and v2. Context/science/lesson identity failures return 422 invalid_experiment_context, invalid provider output/action or language returns safe 502, quota 429, timeout 504, unavailable configuration 503. All routes share the provider adapter and two-slot per-process gate; CI has no credentials and makes no external calls. Context IDs are not authentication tokens; a public deployment still needs authenticated, server-owned session/authorization design.
+
+## Multi-zone context and regional actions (2026-10-15)
+
+`multi-zone-em`, experiment_version 1, uses the existing Context v2 envelope and four `/api/v2/ai/{operation}` routes. Parameters contain charge/mass, initialPosition/initialVelocity, timeStep/duration, and ≤12 versioned regions. Backend independently recomputes local fields, active IDs, force/acceleration, displacement, velocity/energy changes and state. No client trajectory arrays are accepted or sent to Gemini; summaries are derived from initial/current state, not claims about every previously visited region.
+
+Additional schema_version:1 action variants, only advertised for this plugin:
+- `add_field_region`: full `region` (schema in spatial guide).
+- `update_field_region`: `region_id`, nonempty `changes` containing name, full electric_field {x,y}, magnetic_field {z}, or color.
+- `move_field_region`: region_id,x,y in m.
+- `resize_field_region`: region_id,width,height in m.
+- `remove_field_region`: region_id.
+- `toggle_field_region`: region_id,enabled boolean.
+
+Strict discriminators/keys/types, ID uniqueness/existence, geometry/component/world limits and integration budgets are validated after each sequential operation. Patch nulls are rejected and omitted fields stay omitted in response serialization. Unknown/cross-plugin operations fail. Ambiguous requests should return clarification_needed; the model never mutates frontend state. Existing proposal identity/confirmation fields and bounded three-action/five-step lesson contracts remain unchanged. Preview before readings use the captured query; after readings use t=0 because confirmation resets motion. A particle initially outside all zones therefore has zero reset force even if later motion differs; the region before/after table exposes the exact changed geometry/fields.
+
+Model errors retain existing safe HTTP mapping; invalid context 422, provider invalid action/structure/language 502, quota/busy 429, timeout 504. Request body remains bounded to 64 KiB, including large lessons. Endpoint mocks run in CI; real requests are manual limited verification only.

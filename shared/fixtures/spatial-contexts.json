@@ -1,0 +1,1130 @@
+[
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 10.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        }
+      ]
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-06,
+      "displacement": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "energy_change": 0.0,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-c9790111"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 10.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        }
+      ]
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": -2.249999999999995,
+        "y": 0.42013888888889167
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.9166666666666701
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "acceleration_magnitude": 1.0,
+      "speed": 3.136921704119786,
+      "kinetic_energy": 4.920138888888892e-06,
+      "displacement": {
+        "x": 3.750000000000005,
+        "y": 0.42013888888889167
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.9166666666666701
+      },
+      "energy_change": 4.2013888888889167e-07,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [
+        "zone-a"
+      ],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-07c647f6"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": -100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        }
+      ]
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-06,
+      "displacement": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "energy_change": 0.0,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-be22861b"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": -100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        }
+      ]
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": -2.249999999999995,
+        "y": 0.42013888888889167
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.9166666666666701
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "acceleration_magnitude": 1.0,
+      "speed": 3.136921704119786,
+      "kinetic_energy": 4.920138888888892e-06,
+      "displacement": {
+        "x": 3.750000000000005,
+        "y": 0.42013888888889167
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.9166666666666701
+      },
+      "energy_change": 4.2013888888889167e-07,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [
+        "zone-a"
+      ],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-bf7b3528"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -5.0,
+            "width": 8.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-06,
+      "displacement": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "energy_change": 0.0,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-7b3bafde"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -5.0,
+            "width": 5.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -5.0,
+            "width": 8.0,
+            "height": 10.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": -2.249999999999995,
+        "y": 0.42013888888889167
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.9166666666666701
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "acceleration_magnitude": 1.0,
+      "speed": 3.136921704119786,
+      "kinetic_energy": 4.920138888888892e-06,
+      "displacement": {
+        "x": 3.750000000000005,
+        "y": 0.42013888888889167
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.9166666666666701
+      },
+      "energy_change": 4.2013888888889167e-07,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [
+        "zone-a"
+      ],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-6d6f68c3"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -8.0,
+            "width": 5.0,
+            "height": 16.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -8.0,
+            "width": 8.0,
+            "height": 16.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": -20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-06,
+      "displacement": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "energy_change": 0.0,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-3fc7ff0e"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -8.0,
+            "width": 5.0,
+            "height": 16.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": 0.0,
+            "y": -8.0,
+            "width": 8.0,
+            "height": 16.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": -20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": -2.2653801218496232,
+        "y": -0.25137789073078165
+      },
+      "velocity": {
+        "x": 2.949724421853845,
+        "y": -0.5469239756300758
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": -1.0938479512601515e-07,
+        "y": -5.89944884370769e-07
+      },
+      "force": {
+        "x": -1.0938479512601515e-07,
+        "y": -5.89944884370769e-07
+      },
+      "acceleration": {
+        "x": -0.10938479512601515,
+        "y": -0.5899448843707691
+      },
+      "acceleration_magnitude": 0.6000000000000003,
+      "speed": 3.0000000000000013,
+      "kinetic_energy": 4.500000000000004e-06,
+      "displacement": {
+        "x": 3.7346198781503768,
+        "y": -0.25137789073078165
+      },
+      "velocity_change": {
+        "x": -0.05027557814615502,
+        "y": -0.5469239756300758
+      },
+      "energy_change": 4.235164736271502e-21,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 20.0,
+      "active_regions": [
+        "zone-a"
+      ],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-36675fb3"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -6.0,
+            "width": 10.0,
+            "height": 12.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": -2.0,
+            "y": -6.0,
+            "width": 10.0,
+            "height": 12.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 0
+    },
+    "simulation_state": {
+      "time": 0,
+      "position": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.0
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "acceleration_magnitude": 0.0,
+      "speed": 3.0,
+      "kinetic_energy": 4.5e-06,
+      "displacement": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "energy_change": 0.0,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 0.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-c180ed64"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "multi-zone-em",
+    "experiment_version": 1,
+    "parameters": {
+      "charge": 1e-08,
+      "mass": 1e-06,
+      "initialPosition": {
+        "x": -6.0,
+        "y": 0.0
+      },
+      "initialVelocity": {
+        "x": 3.0,
+        "y": 0.0
+      },
+      "timeStep": 0.01,
+      "duration": 6.0,
+      "regions": [
+        {
+          "schema_version": 1,
+          "id": "zone-a",
+          "name": "zone-a",
+          "geometry": {
+            "type": "rectangle",
+            "x": -5.0,
+            "y": -6.0,
+            "width": 10.0,
+            "height": 12.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 100.0
+          },
+          "magnetic_field": {
+            "z": 0.0
+          },
+          "enabled": true,
+          "color": "cyan"
+        },
+        {
+          "schema_version": 1,
+          "id": "zone-b",
+          "name": "zone-b",
+          "geometry": {
+            "type": "rectangle",
+            "x": -2.0,
+            "y": -6.0,
+            "width": 10.0,
+            "height": 12.0
+          },
+          "electric_field": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "magnetic_field": {
+            "z": 20.0
+          },
+          "enabled": true,
+          "color": "violet"
+        }
+      ]
+    },
+    "query": {
+      "time": 1.25
+    },
+    "simulation_state": {
+      "time": 1.25,
+      "position": {
+        "x": -2.249999999999995,
+        "y": 0.42013888888889167
+      },
+      "velocity": {
+        "x": 3.0,
+        "y": 0.9166666666666701
+      }
+    },
+    "observables": {
+      "electric_force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "magnetic_force": {
+        "x": 0.0,
+        "y": -0.0
+      },
+      "force": {
+        "x": 0.0,
+        "y": 1e-06
+      },
+      "acceleration": {
+        "x": 0.0,
+        "y": 1.0
+      },
+      "acceleration_magnitude": 1.0,
+      "speed": 3.136921704119786,
+      "kinetic_energy": 4.920138888888892e-06,
+      "displacement": {
+        "x": 3.750000000000005,
+        "y": 0.42013888888889167
+      },
+      "velocity_change": {
+        "x": 0.0,
+        "y": 0.9166666666666701
+      },
+      "energy_change": 4.2013888888889167e-07,
+      "local_electric_field": {
+        "x": 0.0,
+        "y": 100.0
+      },
+      "local_magnetic_field": 0.0,
+      "active_regions": [
+        "zone-a"
+      ],
+      "boundary_step": 0.01
+    },
+    "revision": 5,
+    "snapshot_id": "fnv1a-c0a513a9"
+  }
+]

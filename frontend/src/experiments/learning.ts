@@ -7,7 +7,7 @@ function text(v:unknown):asserts v is string{if(typeof v!=='string'||!v.trim()||
 function texts(v:unknown){if(!Array.isArray(v)||v.length<1||v.length>5)throw new Error('Invalid concept list.');v.forEach(text);}
 export function validateLesson(value:unknown,e:RegisteredEngine):Lesson{
  const v=record(value);exact(v,['status','schema_version','experiment_id','experiment_version','lesson_id','title','language','learning_objectives','initial_parameters','steps']);
- if(v.status!=='lesson'||v.schema_version!==2||v.experiment_id!==e.id||v.experiment_version!==e.version||!['zh-CN','en'].includes(String(v.language))||typeof v.lesson_id!=='string'||! /^[a-f0-9-]{36}$/.test(v.lesson_id)||!Array.isArray(v.steps)||v.steps.length<1||v.steps.length>5)throw new Error('Incompatible lesson identity/schema.');text(v.title);texts(v.learning_objectives);
+ if(v.status!=='lesson'||v.schema_version!==2||v.experiment_id!==e.id||v.experiment_version!==e.version||!['zh-CN','en'].includes(String(v.language))||typeof v.lesson_id!=='string'||! /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(v.lesson_id)||!Array.isArray(v.steps)||v.steps.length<1||v.steps.length>5)throw new Error('Incompatible lesson identity/schema.');text(v.title);texts(v.learning_objectives);
  let p=e.validateParameters(v.initial_parameters);
  v.steps.forEach((raw,i)=>{const s=record(raw);exact(s,['step_id','title','objective','experiment_actions','expected_behavior','observation_question','expected_concepts','explanation','completion_criteria','before','after','predicted_observables','requires_confirmation']);
  if(s.step_id!==`step-${i+1}`||s.requires_confirmation!==true||s.completion_criteria!=='submit_observation')throw new Error('Invalid step/confirmation.');

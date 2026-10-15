@@ -54,4 +54,6 @@ def experiment(experiment_id,version=None):
 # Explicit registration only; user data never controls imports.
 from app.experiments.lorentz import LorentzPlugin
 REGISTRY['lorentz-force-2d']=LorentzPlugin(manifest('lorentz-force-2d'))
+from app.experiments.spatial import SpatialPlugin
+REGISTRY['multi-zone-em']=SpatialPlugin(manifest('multi-zone-em'))
 if len(REGISTRY)!=len(MANIFESTS):raise ValueError('Manifest has no registered engine')

@@ -9,7 +9,7 @@ import {validateLesson} from './learning';
 import {getPreset} from '../simulations/physics/uniform-electric-field/presets';
 const magnetic=()=>structuredClone(experiment('lorentz-force-2d').manifest.presets[2].parameters);
 beforeEach(()=>platformStore.getState().switchExperiment('uniform-electric-field'));
-it('registers explicit versions and rejects unknown IDs',()=>{expect(experiments.map(p=>p.id)).toEqual(['uniform-electric-field','lorentz-force-2d']);expect(()=>experiment('../evil')).toThrow();expect(()=>experiment('lorentz-force-2d',2)).toThrow();});
+it('registers explicit versions and rejects unknown IDs',()=>{expect(experiments.map(p=>p.id)).toEqual(['uniform-electric-field','lorentz-force-2d','multi-zone-em']);expect(()=>experiment('../evil')).toThrow();expect(()=>experiment('lorentz-force-2d',2)).toThrow();});
 it('shared electric presets match legacy schemas exactly',()=>{for(const p of experiment('uniform-electric-field').manifest.presets)expect(p.parameters).toEqual(getPreset(p.id as Parameters<typeof getPreset>[0]).parameters);expect(experiment('uniform-electric-field').manifest.parameters.slice(0,legacyControls.length)).toEqual(legacyControls);});
 it('verifies every Python-generated context, including deterministic identity',()=>{for(const c of fixtures){expect(validateContext(c).snapshot_id).toBe(c.snapshot_id);}});
 it('rejects tampered derived observables and unknown context versions',()=>{const c=makeContext('lorentz-force-2d',magnetic(),{time:1},3);expect(()=>validateContext({...c,snapshot_id:'wrong'})).toThrow();expect(()=>validateContext({...c,schema_version:1})).toThrow();expect(()=>validateContext({...c,observables:{...c.observables,speed:999}})).toThrow();});

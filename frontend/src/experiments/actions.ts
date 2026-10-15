@@ -2,9 +2,11 @@ import type {Data,RegisteredEngine} from './contract';
 import {exact,record,put,get,freeze,close} from './validation';
 import {experiment} from './registry';
 import type {ContextV2} from './context';
-export type Action={schema_version:1}&({action:'set_parameter';target:string;value:number}|{action:'scale_parameter';target:string;factor:number}|{action:'select_preset';preset_id:string}|{action:'reset_simulation'});
+import {validateRegionAction,applyRegion,type RegionAction} from './regionActions';
+export type Action=RegionAction|({schema_version:1}&({action:'set_parameter';target:string;value:number}|{action:'scale_parameter';target:string;factor:number}|{action:'select_preset';preset_id:string}|{action:'reset_simulation'}));
 export function validateAction(value:unknown,engine:RegisteredEngine):Action{
  const a=record(value);if(a.schema_version!==1||!engine.manifest.operations.includes(String(a.action)))throw new Error('Unsupported action/version.');
+ if(String(a.action).endsWith('_field_region'))return freeze(validateRegionAction(a));
  if(a.action==='set_parameter'||a.action==='scale_parameter'){
   const k=a.action==='set_parameter'?'value':'factor';exact(a,['schema_version','action','target',k]);
   if(!engine.manifest.parameters.some(c=>!c.readonly&&c.target===a.target)||typeof a[k]!=='number'||!Number.isFinite(a[k])||(k==='factor'&&(Number(a[k])<=0||Number(a[k])>10)))throw new Error('Unsupported parameter or value.');
@@ -16,6 +18,7 @@ export function applyActions(engine:RegisteredEngine,before:Data,raw:unknown[]):
  raw.forEach((v,i)=>{const a=validateAction(v,engine);
   if(a.action==='set_parameter'||a.action==='scale_parameter'){if(seen.has(a.target))throw new Error('Duplicate parameter change.');seen.add(a.target);put(p,a.target,a.action==='set_parameter'?a.value:Number(get(p,a.target))*a.factor);}
   else if(a.action==='select_preset'){if(i!==0)throw new Error('Preset must precede changes.');p=structuredClone(engine.manifest.presets.find(v=>v.id===a.preset_id)!.parameters);}
+  else if(a.action.endsWith('_field_region'))p=structuredClone(applyRegion(engine,p,a as RegionAction));
   else if(raw.length!==1)throw new Error('Reset must be the sole action.');p=structuredClone(engine.validateParameters(p));
  });return freeze(p);
 }
