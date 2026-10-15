@@ -56,3 +56,14 @@ test('simulation remains responsive and earlier request is clearly marked', asyn
   await expect(page.locator('#charge')).toHaveValue('-2');
   await expect(page.getByText(/Earlier simulation snapshot:/)).toBeVisible();
 });
+
+
+test('provider quota failure is clear and leaves simulation usable',async({page})=>{
+  await page.route('**/api/ai/explain',route=>route.fulfill({status:429,json:{detail:{code:'provider_rate_limited',message:'private-provider-debug'}}}));
+  await page.getByLabel('Your physics question').fill('Why does charge change the force?');
+  await page.getByRole('button',{name:'Ask AI Tutor',exact:true}).click();
+  await expect(page.getByRole('alert')).toContainText('quota or rate limit');
+  await expect(page.getByRole('alert')).not.toContainText('private-provider-debug');
+  await page.getByRole('button',{name:'▶ 播放',exact:true}).click();
+  await expect(page.getByTestId('simulation-time').locator('strong')).not.toHaveText('0.000 s');
+});

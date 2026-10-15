@@ -63,3 +63,7 @@ See `development/2026-10-14-day3.md` for the dated record and `development/workf
 ## Gemini configuration follow-up
 
 Added backend-local .env loading, Gemini endpoint regression tests and safe model-unavailable errors. The real model-list endpoint returned 200, but the requested gemini-2.5-flash-lite generation returned 404: Google says it is unavailable to new users. No live explanation success is claimed; see the Day 3 daily log.
+
+## Gemini integration completed with real generation
+
+The user-authorized gemini-3.5-flash-lite now returned real HTTP 200 through the production adapter, all three requested physics scenarios and the React interface. Correct force/acceleration directions and SI values were manually reviewed, including Chinese output and doubled-field behavior. Regression suites passed (76 Vitest, 79 Pytest, 19 Chromium; strict/build). Exact remaining project quota is not available; no billing configuration was changed. See development/gemini-live-validation-2026-10-14.md and the Day 3 daily log.

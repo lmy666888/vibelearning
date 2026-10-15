@@ -25,6 +25,8 @@ const messages: Record<string, string> = {
   provider_timeout: 'The AI provider timed out. Please retry.',
   provider_unavailable: 'The AI provider is temporarily unavailable. Please retry.',
   provider_error: 'The AI provider could not complete the request. Please retry later.',
+  provider_authentication_error: 'The AI provider rejected backend credentials or permissions. Check the backend configuration.',
+  provider_rate_limited: 'The AI provider quota or rate limit was reached. Check project quota and retry later.',
   provider_model_unavailable: 'The configured AI model is unavailable. Check model access and configuration on the backend.',
   invalid_provider_response: 'The AI provider returned an invalid explanation. Please retry.',
   tutor_busy: 'AI Tutor is busy. Please retry in a moment.',

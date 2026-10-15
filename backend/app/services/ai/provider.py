@@ -6,16 +6,21 @@ from app.schemas.ai import Explanation
 from app.services.ai.config import ProviderSettings
 
 class ProviderError(Exception):
-    def __init__(self, status: int, code: str, message: str):
+    def __init__(self, status: int, code: str, message: str, upstream_status: int | None = None):
         super().__init__(message)
         self.status, self.code, self.message = status, code, message
+        self.upstream_status = upstream_status
 
 class TutorProvider(Protocol):
     async def explain(self, messages: list[dict[str, str]]) -> Explanation: ...
 
 class OpenAICompatibleProvider:
-    def __init__(self, settings: ProviderSettings, transport: httpx.AsyncBaseTransport | None = None):
+    def __init__(self, settings: ProviderSettings, transport: httpx.AsyncBaseTransport | None = None,
+                 max_completion_tokens: int = 1500):
+        if type(max_completion_tokens) is not int or not 64 <= max_completion_tokens <= 1500:
+            raise ValueError("Completion token limit must be an integer between 64 and 1500")
         self.settings, self.transport = settings, transport
+        self.max_completion_tokens = max_completion_tokens
 
     async def explain(self, messages: list[dict[str, str]]) -> Explanation:
         settings = self.settings
@@ -25,11 +30,15 @@ class OpenAICompatibleProvider:
                 async with client.stream("POST", settings.base_url + "/chat/completions",
                     headers={"Authorization": "Bearer " + settings.api_key},
                     json={"model": settings.model, "messages": messages,
-                          "response_format": {"type": "json_object"}, "max_completion_tokens": 1500}) as response:
+                          "response_format": {"type": "json_object"}, "max_completion_tokens": self.max_completion_tokens}) as response:
+                    if response.status_code in {401, 403}:
+                        raise ProviderError(502, "provider_authentication_error", "The AI provider rejected the backend credentials or permissions.", response.status_code)
+                    if response.status_code == 429:
+                        raise ProviderError(429, "provider_rate_limited", "The AI provider rate limit or quota was reached. Check project quota and retry later.", 429)
                     if response.status_code == 404:
-                        raise ProviderError(502, "provider_model_unavailable", "The configured AI model or endpoint is unavailable. Check backend model access and configuration.")
+                        raise ProviderError(502, "provider_model_unavailable", "The configured AI model or endpoint is unavailable. Check backend model access and configuration.", 404)
                     if response.status_code < 200 or response.status_code >= 300:
-                        raise ProviderError(502, "provider_error", "The AI provider could not complete the request. Try again later.")
+                        raise ProviderError(502, "provider_error", "The AI provider could not complete the request. Try again later.", response.status_code)
                     body = bytearray()
                     async for chunk in response.aiter_bytes():
                         body.extend(chunk)

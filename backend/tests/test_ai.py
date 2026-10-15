@@ -163,8 +163,8 @@ def envelope(answer=ANSWER):
     return {"choices": [{"finish_reason": "stop", "message": {"content": json.dumps(answer)}}]}
 
 @pytest.mark.parametrize("status,payload,code", [
-    (200, envelope(), None), (401, {"error": SETTINGS.api_key}, "provider_error"),
-    (429, {}, "provider_error"), (404, {}, "provider_model_unavailable"), (200, {}, "invalid_provider_response"),
+    (200, envelope(), None), (401, {"error": SETTINGS.api_key}, "provider_authentication_error"),
+    (429, {}, "provider_rate_limited"), (404, {}, "provider_model_unavailable"), (200, {}, "invalid_provider_response"),
     (200, envelope({"answer": "", "key_concepts": [], "related_equations": []}), "invalid_provider_response"),
     (200, envelope({**ANSWER, "answer": "x" * 8001}), "invalid_provider_response"),
     (200, envelope({**ANSWER, "answer": SETTINGS.api_key}), "invalid_provider_response"),
@@ -255,3 +255,23 @@ def test_server_physics_polarity_field_and_mass(charge,field,mass,expected):
     assert state.acceleration.y == pytest.approx(expected)
     assert state.position.y == pytest.approx(0.5*expected*4)
     assert state.velocity.y == pytest.approx(expected*2)
+
+
+@pytest.mark.parametrize("status,code", [(403,"provider_authentication_error"),(500,"provider_error"),(503,"provider_error")])
+def test_upstream_status_classification(status,code):
+    adapter=OpenAICompatibleProvider(SETTINGS,httpx.MockTransport(lambda request:httpx.Response(status,json={"error":"sensitive-upstream-debug"})))
+    with pytest.raises(ProviderError) as exc:run(adapter.explain([]))
+    assert exc.value.code==code
+    assert exc.value.upstream_status==status
+    assert "sensitive-upstream-debug" not in str(exc.value)
+
+@pytest.mark.parametrize("limit",[0,63,1501,True,512.5])
+def test_completion_limit_validation(limit):
+    with pytest.raises(ValueError):OpenAICompatibleProvider(SETTINGS,max_completion_tokens=limit)
+
+def test_small_completion_limit_uses_existing_adapter():
+    def handler(request):
+        assert json.loads(request.content)["max_completion_tokens"]==512
+        return httpx.Response(200,json=envelope())
+    result=run(OpenAICompatibleProvider(SETTINGS,httpx.MockTransport(handler),max_completion_tokens=512).explain([]))
+    assert result.model_dump()==ANSWER

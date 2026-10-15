@@ -30,3 +30,13 @@ it('reports an unavailable model without displaying raw provider details', async
     await expect(askTutor(captureTutorRequest('Why?', state))).rejects.toThrow('The configured AI model is unavailable.');
   } finally { vi.unstubAllGlobals(); }
 });
+
+it.each([
+  ['provider_authentication_error','credentials or permissions'],
+  ['provider_rate_limited','quota or rate limit'],
+])('safely explains %s without exposing provider diagnostics', async (code,expected) => {
+  vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({detail:{code,message:'private-provider-debug'}}),{status:code==='provider_rate_limited'?429:502})));
+  try {
+    await expect(askTutor(captureTutorRequest('Why?',state))).rejects.toThrow(expected);
+  } finally {vi.unstubAllGlobals();}
+});

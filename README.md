@@ -53,7 +53,7 @@ cd /Users/mingyi/Projects/vibelearning-ai/backend
 uv run --locked pytest
 ```
 
-Day 3 validation: **74 Vitest tests**, **70 Pytest tests**, and **18 Chromium E2E tests** passed. The original physics/store/backend tests remain unchanged and pass. The E2E assertion for the retired Coming Soon heading now checks the implemented AI Tutor panel; all other existing regression scenarios remain. Strict TypeScript checks include E2E and configuration files; production build passes.
+Day 3 validation: **76 Vitest tests**, **79 Pytest tests**, and **19 Chromium E2E tests** passed. The original physics/store/backend tests remain unchanged and pass. The E2E assertion for the retired Coming Soon heading now checks the implemented AI Tutor panel; all other existing regression scenarios remain. Strict TypeScript checks include E2E and configuration files; production build passes.
 
 Playwright always starts an isolated Vite server on **5174** and stops it afterward. Keep that port free; the regular app on 5173 is unaffected. Health responses are intercepted in E2E so the learning tests do not require a backend; a dedicated test aborts health requests to verify offline simulation. Actual backend behavior is tested by Pytest and a separate live HTTP/browser smoke check. Tests use accessible roles, labels and stable reading IDs, bounded polling, zero retries, and no arbitrary sleeps. Failure screenshots/traces go to ignored `frontend/test-results/`.
 
@@ -129,7 +129,7 @@ Pure physics functions are independent of React and Canvas. Zustand is the sole 
 - Baseline and learning progress are in memory; reload clears them. Lessons have no answer grading or generated explanations.
 - UI retains Day 1 Chinese labels while new learning panels use English. A full localization pass is deferred.
 - Chromium automation covers 1280/1024/390 CSS-pixel widths, DPR 2, and dynamic DPR 2 → 1.5 → 1. Physical multi-monitor switching, real browser zoom UI, Safari/Firefox, mobile hardware and production deployment remain unverified.
-- AI uses one OpenAI-compatible JSON-mode Chat Completions provider; support for `response_format` and `max_completion_tokens` is required. Structured validation does not guarantee educational correctness. Credentials are configured locally, but the requested Gemini model rejects generation with 404 NOT_FOUND; a successful live explanation remains unverified.
+- AI uses one OpenAI-compatible JSON-mode Chat Completions provider; support for `response_format` and `max_completion_tokens` is required. Structured validation does not guarantee educational correctness. Gemini 3.5 Flash-Lite real generation and three physics scenarios passed; this small sample does not guarantee all generated explanations are correct. Exact remaining project quota was not accessible.
 - Git is initialized with a stable Day 1/2 baseline and a dedicated Day 3 feature branch. See daily logs for actual commits and remote/authentication status.
 
 Day 4 should add stronger authentication/rate limiting before any public deployment, provider-specific live quality checks, and expanded accessibility/browser coverage. Keep analytical physics authoritative. See `docs/roadmap.md`.
@@ -165,7 +165,7 @@ Keep Uvicorn bound to loopback. AI requests additionally require a loopback clie
 
 ### Testing and live status
 
-Pytest exercises the real HTTP adapter through HTTPX MockTransport and the route through ASGITransport, including Chinese/English question preservation, analytical verification, concurrency, cancellation, malformed/oversized output and safe errors. Frontend form tests use jsdom; E2E intercepts `/api/ai/explain` and never makes paid calls. Mock responses are test fixtures, not a fake runtime tutor. Initially no LLM credentials were available. The later Gemini configuration check reached the real model-list API successfully, but generation with the requested gemini-2.5-flash-lite returned 404 NOT_FOUND: Google reports this model is no longer available to new users. The requested model remains configured unless the user authorizes a change; live negative-charge answer quality is therefore unverified.
+Pytest exercises the real HTTP adapter through HTTPX MockTransport and the route through ASGITransport, including Chinese/English question preservation, analytical verification, concurrency, cancellation, malformed/oversized output and safe errors. Frontend form tests use jsdom; E2E intercepts `/api/ai/explain` and never makes paid calls. Mock responses are test fixtures, not a fake runtime tutor. Initial setup had no credentials; the legacy gemini-2.5-flash-lite later returned 404 for new-user access. The user subsequently authorized gemini-3.5-flash-lite. A real bounded adapter request, three real physics scenarios through FastAPI, and a real Chinese React submission now pass. See the dated live-validation report for the scope and quota limitations.
 
 Provider request format follows the [official Chat Completions reference](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create). JSON mode still requires application-level schema validation, which this adapter performs.
 
@@ -173,19 +173,23 @@ Provider request format follows the [official Chat Completions reference](https:
 
 Repository: https://github.com/lmy666888/vibelearning . Stable branch: `main`; Day 3 branch: `feat/day3-ai-tutor`. See `docs/development/workflow.md` and daily logs under `docs/development/`. Never force push, automatically merge, delete remote branches, or commit secrets. Historical Day 1/2 logs were reconstructed from existing reports; no original historical commits are invented.
 
-## Google Gemini configuration and verified limitation
+## Google Gemini configuration and live verification
 
-For the requested Gemini setup, use these non-secret values in `backend/.env`:
+The selected model is `gemini-3.5-flash-lite`, using the existing OpenAI-compatible HTTP adapter. Use the following non-secret configuration; fill the key only in ignored `backend/.env`:
 
 ```dotenv
 LLM_API_KEY=
 LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
-LLM_MODEL=gemini-2.5-flash-lite
+LLM_MODEL=gemini-3.5-flash-lite
 LLM_TIMEOUT_SECONDS=30
 ```
 
-Fill the key only in the ignored local file. The adapter normalizes the trailing slash and uses `/chat/completions`, bearer authentication, JSON-mode responses and the existing validated explanation schema. No native Google SDK or alternate physics contract is introduced. See [Google's compatibility documentation](https://ai.google.dev/gemini-api/docs/openai).
+The existing key is never overwritten automatically or sent to the frontend. The API and SI physics contracts are unchanged. Trailing slashes are normalized. Ordinary Uvicorn startup loads the local backend file; restart after editing it. Explicit process variables still take precedence.
 
-Actual verification on 2026-10-14: models endpoint HTTP 200; the requested model appeared in the list. Generation returned HTTP 404 with Google's NOT_FOUND message that the model is no longer available to new users. Trying the alternate token-limit field did not change that result. This does not establish generation compatibility or successful physical explanation. Google suggested gemini-3.5-flash-lite; it was not substituted without user approval. The application maps upstream 404 to a safe model-unavailable error without echoing Google's raw response or credentials.
+On 2026-10-14 the real models endpoint returned 200 and listed the selected model. A minimal 512-token-limit request through the production adapter returned 200, the exact requested model identifier and a valid structured explanation. The default application output limit remains 1500 tokens; the adapter accepts a smaller internal limit in [64,1500] for bounded manual checks.
 
-Restart the backend after changing the local file. The existing `uv run --env-file .env ...` command remains supported; ordinary `uv run uvicorn app.main:app --host 127.0.0.1 --port 8000` now also loads the backend-local file automatically. Tests isolate credentials and use HTTP mocks; they never make paid calls.
+Three actual `/api/ai/explain` requests returned 200: positive charge with Ey=200 N/C produced +0.4 m/s², negative charge produced −0.4 m/s² with a Chinese explanation, and doubling Ey from 100 to 200 N/C correctly doubled acceleration magnitude from 0.2 to 0.4 m/s². Real React submission rendered an explanation, concepts and equations while animation continued, and displayed the earlier-snapshot notice. See `docs/development/gemini-live-validation-2026-10-14.md`.
+
+[Google's pricing page](https://ai.google.dev/gemini-api/docs/pricing#gemini-3.5-flash-lite) lists free standard input/output for this model. The user identified the existing project as Free tier. No billing, project or account configuration was changed. The account-specific AI Studio quota dashboard required an unavailable authenticated session, so exact RPM/TPM/RPD values, remaining quota and billing status were not independently inspected. Successful generation proves current generation access, not unlimited free usage. No alternative or paid model was called.
+
+Upstream errors are classified without returning raw diagnostics: 401/403 → safe credential/permission error (local 502), 404 → model/endpoint unavailable (local 502), 429 → provider rate/quota error (local 429), and other upstream failures → safe provider error (local 502). Existing timeout/transport handling remains. Automated tests and CI only use mocks; live manual checks are separate and do not run automatically.

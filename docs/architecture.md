@@ -90,3 +90,9 @@ Testing Library/jsdom tests the form, loading/result/error states, immutable sna
 ## Gemini environment follow-up
 
 `app/environment.py` loads a fixed absolute backend-local .env path before CORS settings and app construction. It uses python-dotenv without variable interpolation and without overriding explicit process environment. Configuration still flows through the existing four LLM environment variables and ProviderSettings validation. Missing .env remains safe. Gemini uses the existing HTTP adapter and API/physics contracts; upstream 404 has a distinct safe model-unavailable classification. Live model-list success does not imply permission to generate with every listed legacy model.
+
+## Completed Gemini 3.5 Flash-Lite integration
+
+The provider still implements the original TutorProvider protocol and returns the same strict Explanation object. An internal completion-token limit can be lowered for manual smoke checks (64–1500); normal tutor requests retain the 1500 default. ProviderError now records an optional upstream HTTP status for internal diagnostics, while API responses expose only safe messages/codes. Authentication/permission errors, model availability errors and provider rate/quota errors are distinct; no raw Google error bodies are returned.
+
+The local environment and placeholder-only example select gemini-3.5-flash-lite at Google's OpenAI-compatible endpoint. No native Google SDK, alternate context schema, billing integration or automatic model fallback was added. Real manual verification is recorded separately from mocked regression tests, and exact project quota is explicitly unverified where unavailable.
