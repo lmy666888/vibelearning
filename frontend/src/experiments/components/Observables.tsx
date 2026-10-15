@@ -1,0 +1,9 @@
+import {useStore} from 'zustand';
+import type {Runtime} from '../runtime';
+import {get} from '../validation';
+import type {Data} from '../contract';
+export function quantity(v:unknown):string{if(v===null)return 'not defined';if(typeof v==='number')return v===0?'0':`${v>0?'+':'−'}${Math.abs(v).toPrecision(5)}`;if(v&&typeof v==='object')return '('+Object.values(v).map(quantity).join(', ')+')';return String(v);}
+export function ObservableTable({runtime,before,after}:{runtime:Runtime;before:Data;after:Data}){return <div className="proposal-table" tabIndex={0}><table><thead><tr><th>Observable (SI)</th><th>Before</th><th>After</th></tr></thead><tbody>{runtime.engine.manifest.observables.map(o=><tr key={o.id}><th>{o.label} ({o.unit})</th><td>{quantity(before[o.id])}</td><td>{quantity(after[o.id])}</td></tr>)}</tbody></table></div>;}
+export function Observables({runtime}:{runtime:Runtime}){const s=useStore(runtime.store);return <section className="info-grid" aria-label="Verified observables"><div className="metric" data-testid="plugin-time"><span>Time (s)</span><strong>{Number(s.query.time).toFixed(3)}</strong></div>{runtime.engine.manifest.observables.map(o=><div className="metric" key={o.id} data-testid={`observable-${o.id}`}><span>{o.label} ({o.unit})</span><strong>{quantity(s.observables[o.id])}</strong></div>)}</section>;}
+
+export function ParameterTable({runtime,before,after}:{runtime:Runtime;before:Data;after:Data}){return <div className="proposal-table" tabIndex={0}><table><thead><tr><th>Parameter</th><th>Before</th><th>After confirmation</th></tr></thead><tbody>{runtime.engine.manifest.parameters.map(c=><tr key={c.target}><th>{c.label} ({c.unit})</th><td>{quantity(Number(get(before,c.target))/c.scale)}</td><td>{quantity(Number(get(after,c.target))/c.scale)}</td></tr>)}</tbody></table></div>;}

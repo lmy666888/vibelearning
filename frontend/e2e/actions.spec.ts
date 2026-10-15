@@ -3,7 +3,7 @@ import { proposalFor } from '../src/test/actionFixture';
 import type { PlanRequest } from '../src/services/actions';
 test.beforeEach(async ({page}) => {
   await page.route('**/api/health',route=>route.fulfill({json:{status:'ok',service:'vibelearning-api'}}));
-  await page.goto('/');
+  await page.goto('/?context=v1');
 });
 async function submit(page: import('@playwright/test').Page) {
   await page.getByRole('button',{name:'Request an experiment change',exact:true}).click();

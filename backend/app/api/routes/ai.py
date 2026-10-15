@@ -24,6 +24,8 @@ def check_access(request: Request):
 async def complete(call):
     try:
         return await call
+    except HTTPException:
+        raise
     except InvalidPhysicsContext as exc:
         raise HTTPException(422, detail={"code": "inconsistent_physics", "message": str(exc)}) from None
     except InvalidAction as exc:

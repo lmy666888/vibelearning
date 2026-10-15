@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.api.routes.health import router as health_router
 from app.api.routes.ai import router as ai_router
+from app.experiments.ai import router as experiment_ai_router
 from app.request_limits import TutorBodyLimit
 
 load_backend_environment()
@@ -20,6 +21,7 @@ app.add_middleware(TutorBodyLimit)
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 app.include_router(health_router, prefix="/api")
 app.include_router(ai_router, prefix="/api")
+app.include_router(experiment_ai_router,prefix="/api")
 
 @app.exception_handler(RequestValidationError)
 async def validation_error(request: Request, exc: RequestValidationError):
