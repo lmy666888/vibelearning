@@ -8,6 +8,7 @@ dependencies = [
     "pydantic",
     "httpx",
     "python-dotenv>=1.2.4",
+    "redis>=6,<9",
 ]
 [dependency-groups]
 dev = ["pytest", "httpx"]

@@ -103,7 +103,7 @@ def test_planner_http_errors(status,code):
     with pytest.raises(ProviderError) as error:run(adapter.plan_action([]))
     assert error.value.code==code and 'private-debug' not in str(error.value)
 def test_adapter_valid_planning_and_invalid_raw_json():
-    for content, valid in [(json.dumps(decision().model_dump()),True),('{bad',False)]:
+    for content, valid in [(json.dumps({"scope":"in_scope","result":decision().model_dump()}),True),('{bad',False)]:
         payload={'choices':[{'finish_reason':'stop','message':{'content':content}}]}
         adapter=OpenAICompatibleProvider(SETTINGS,httpx.MockTransport(lambda _:httpx.Response(200,json=payload)))
         if valid: assert run(adapter.plan_action([]))==decision()

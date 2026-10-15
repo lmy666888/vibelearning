@@ -52,8 +52,8 @@ def test_gemini_compatible_endpoint_payload_with_mock_transport():
         assert str(request.url) == "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
         assert payload["model"] == "gemini-3.5-flash-lite"
         assert payload["response_format"] == {"type": "json_object"}
-        assert payload["max_completion_tokens"] == 1500
-        return httpx.Response(200, json={"choices": [{"finish_reason": "stop", "message": {"content": json.dumps({"answer":"Negative charge reverses force.", "key_concepts":["Electric force"], "related_equations":["F=qE"]})}}]})
+        assert payload["max_completion_tokens"] == 1200
+        return httpx.Response(200, json={"choices": [{"finish_reason": "stop", "message": {"content": json.dumps({"scope":"in_scope","result":{"answer":"Negative charge reverses force.", "key_concepts":["Electric force"], "related_equations":["F=qE"]}})}}]})
     result = asyncio.run(OpenAICompatibleProvider(settings, httpx.MockTransport(handler)).explain([]))
     assert result.answer == "Negative charge reverses force."
 

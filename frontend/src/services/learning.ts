@@ -1,3 +1,4 @@
+import {aiFetch} from './aiGovernance';
 import { applyAction, keys, object, same, physicsPreview, validateAction, type Action, type PhysicsPreview, type PlanRequest } from './actions';
 import { checkControlBounds } from '../simulations/physics/uniform-electric-field/controls';
 import type { SimulationParameters } from '../simulations/physics/uniform-electric-field/types';
@@ -61,7 +62,7 @@ export function validateLesson(value: unknown, initial?: SimulationParameters): 
 }
 function deepFreeze<T>(v:T):T {if(v&&typeof v==='object'){Object.values(v).forEach(deepFreeze);Object.freeze(v);}return v;}
 async function post(path:string,data:unknown,signal?:AbortSignal):Promise<unknown>{
-  const response=await fetch(`${import.meta.env.VITE_API_BASE_URL??''}/api/ai/${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.any([...(signal?[signal]:[]),AbortSignal.timeout(130000)])});
+  const response=await aiFetch(`${import.meta.env.VITE_API_BASE_URL??''}/api/ai/${path}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.any([...(signal?[signal]:[]),AbortSignal.timeout(130000)])});
   if(!response.ok){const body=await response.json().catch(()=>null);const code=body?.detail?.code;
     const messages:Record<string,string>={language_mismatch:'The AI response did not match your language preference. Retry without changing the experiment.',provider_rate_limited:'Provider quota or rate limit reached. Retry later.',provider_timeout:'The AI provider timed out. Please retry.',invalid_action:'The lesson or experiment transition is invalid. Preview the step again.',inconsistent_physics:'The experiment snapshot failed physics verification. Reset and retry.'};
     throw new Error(messages[code]??'Learning service unavailable or response invalid. Check the backend and retry.');

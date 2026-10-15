@@ -1,3 +1,4 @@
+import {aiFetch} from './aiGovernance';
 import { useLanguageStore, type Language } from '../stores/languageStore';
 import { buildSimulationContext, type SimulationContextInput, type SimulationContext } from '../simulations/core/simulationContext';
 
@@ -43,7 +44,7 @@ function validExplanation(value: unknown): value is Explanation {
   return Object.keys(data).length === 3 && typeof data.answer === 'string' && data.answer.trim().length > 0 && data.answer.length <= 8000 && list(data.key_concepts) && list(data.related_equations);
 }
 export async function askTutor(request: TutorRequest, signal?: AbortSignal): Promise<Explanation> {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL ?? ''}/api/ai/explain`, {
+  const response = await aiFetch(`${import.meta.env.VITE_API_BASE_URL ?? ''}/api/ai/explain`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request),
     signal: AbortSignal.any([...(signal ? [signal] : []), AbortSignal.timeout(130000)]),
   });
