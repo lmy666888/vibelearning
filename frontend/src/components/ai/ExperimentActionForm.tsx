@@ -1,13 +1,8 @@
+import { PhysicsPreviewTable } from './PhysicsPreviewTable';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSimulationStore } from '../../stores/simulationStore';
-import { capturePlanRequest, planAction, planIsCurrent, type PlanRequest, type PlanResult, type PhysicsPreview } from '../../services/actions';
+import { capturePlanRequest, planAction, planIsCurrent, type PlanRequest, type PlanResult } from '../../services/actions';
 import { TutorRequestError } from '../../services/tutor';
-import type { SimulationParameters } from '../../simulations/physics/uniform-electric-field/types';
-const number = (n: number) => n === 0 ? '0' : `${n > 0 ? '+' : '−'}${Math.abs(n).toPrecision(4)}`;
-const vector = (v: { x: number; y: number }) => `(${number(v.x)}, ${number(v.y)})`;
-function values(p: SimulationParameters, physics: PhysicsPreview) {
-  return [number(p.charge), number(p.mass), vector(p.field), vector(physics.force), vector(physics.acceleration), number(physics.acceleration_magnitude), vector(p.initialVelocity), vector(p.initialPosition)];
-}
 export function ExperimentActionForm() {
   const [instruction, setInstruction] = useState('');
   const [loading, setLoading] = useState(false);
@@ -66,10 +61,7 @@ export function ExperimentActionForm() {
     {result?.status === 'proposal' && <article className="tutor-result" aria-label="AI action proposal">
       <h3>Proposed experiment change</h3><p>{result.explanation}</p>
       <p><strong>Confirmation required.</strong> Preview calculated with F = qE and a = F/m. Confirmation pauses playback and resets time and trajectory to t = 0.</p>
-      <div className="proposal-table"><table><thead><tr><th>Quantity (SI)</th><th>Before</th><th>After confirmation</th></tr></thead><tbody>
-        {['Charge q (C)', 'Mass m (kg)', 'Electric field E (N/C)', 'Electric force F (N)', 'Acceleration a (m/s²)', 'Acceleration magnitude |a| (m/s²)', 'Initial velocity v₀ (m/s)', 'Initial position r₀ (m)'].map((label, i) =>
-          <tr key={label}><th scope="row">{label}</th><td>{values(result.before, result.before_physics)[i]}</td><td>{values(result.after, result.after_physics)[i]}</td></tr>)}
-      </tbody></table></div>
+      <PhysicsPreviewTable before={result.before} after={result.after} />
       {stale && <p role="status" className="stale-notice">Stale proposal: experiment parameters or reset state changed. Regenerate the proposal.</p>}
       <div className="buttons"><button className="primary" disabled={stale} onClick={confirm}>Confirm experiment change</button><button onClick={cancel}>Cancel proposal</button></div>
     </article>}

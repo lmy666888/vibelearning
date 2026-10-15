@@ -48,6 +48,7 @@ Decision = Annotated[ModelProposal | Clarification, Field(discriminator='status'
 decision_adapter = TypeAdapter(Decision)
 
 class PlanRequest(StrictModel):
+    preferred_language: Literal["zh-CN", "en"] | None = None
     instruction: Question
     simulation_context: SimulationContext
     snapshot_id: Annotated[str, StringConstraints(pattern=r'^[a-zA-Z0-9-]{1,80}$')]

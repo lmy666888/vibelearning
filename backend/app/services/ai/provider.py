@@ -3,6 +3,7 @@ from typing import Protocol
 import httpx
 from pydantic import ValidationError
 from app.schemas.ai import Explanation
+from app.schemas.learning import lesson_decision_adapter, ObservationFeedback
 from app.schemas.actions import Decision, decision_adapter
 from app.services.ai.config import ProviderSettings
 
@@ -35,7 +36,19 @@ class OpenAICompatibleProvider:
         except ValidationError as exc:
             raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid action. Please retry.") from exc
 
-    async def _complete(self, messages: list[dict[str, str]]) -> str:
+    async def generate_lesson(self, messages):
+        try:
+            return lesson_decision_adapter.validate_json(await self._complete(messages, completion_limit=3500))
+        except ValidationError as exc:
+            raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid lesson. Please retry.") from exc
+
+    async def evaluate_observation(self, messages):
+        try:
+            return ObservationFeedback.model_validate_json(await self._complete(messages))
+        except ValidationError as exc:
+            raise ProviderError(502, "invalid_provider_response", "The AI provider returned invalid feedback. Please retry.") from exc
+
+    async def _complete(self, messages: list[dict[str, str]], completion_limit: int | None = None) -> str:
         settings = self.settings
         try:
             async with httpx.AsyncClient(timeout=settings.timeout, transport=self.transport,
@@ -43,7 +56,7 @@ class OpenAICompatibleProvider:
                 async with client.stream("POST", settings.base_url + "/chat/completions",
                     headers={"Authorization": "Bearer " + settings.api_key},
                     json={"model": settings.model, "messages": messages,
-                          "response_format": {"type": "json_object"}, "max_completion_tokens": self.max_completion_tokens}) as response:
+                          "response_format": {"type": "json_object"}, "max_completion_tokens": completion_limit or self.max_completion_tokens}) as response:
                     if response.status_code in {401, 403}:
                         raise ProviderError(502, "provider_authentication_error", "The AI provider rejected the backend credentials or permissions.", response.status_code)
                     if response.status_code == 429:

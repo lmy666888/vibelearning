@@ -11,7 +11,7 @@ export type Action = { schema_version: 1 } & (
   { action: 'select_preset'; preset_id: PresetId } |
   { action: 'reset_simulation' }
 );
-export interface PlanRequest { instruction: string; simulation_context: SimulationContext; snapshot_id: string; parameter_revision: number }
+export interface PlanRequest { preferred_language?: import('../stores/languageStore').Language; instruction: string; simulation_context: SimulationContext; snapshot_id: string; parameter_revision: number }
 export interface PhysicsPreview { force: { x: number; y: number }; acceleration: { x: number; y: number }; acceleration_magnitude: number }
 export interface Proposal {
   status: 'proposal'; action: Action; explanation: string; before: SimulationParameters; after: SimulationParameters;
@@ -23,14 +23,14 @@ export type PlanResult = Proposal | Clarification;
 type CaptureState = Parameters<typeof captureTutorRequest>[1] & { parameterRevision: number };
 export function capturePlanRequest(instruction: string, state: CaptureState): PlanRequest {
   const captured = captureTutorRequest(instruction, state);
-  return Object.freeze({ instruction: captured.question, simulation_context: captured.simulation_context,
+  return Object.freeze({ preferred_language: captured.preferred_language, instruction: captured.question, simulation_context: captured.simulation_context,
     snapshot_id: crypto.randomUUID(), parameter_revision: state.parameterRevision });
 }
-function object(value: unknown): Record<string, unknown> {
+export function object(value: unknown): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Invalid action response.');
   return value as Record<string, unknown>;
 }
-function keys(data: Record<string, unknown>, allowed: string[]) {
+export function keys(data: Record<string, unknown>, allowed: string[]) {
   if (Object.keys(data).length !== allowed.length || allowed.some(k => !Object.hasOwn(data, k))) throw new Error('Unexpected action fields.');
 }
 function text(value: unknown): asserts value is string {
@@ -66,7 +66,7 @@ export function applyAction(before: SimulationParameters, untrusted: unknown): S
   calculateParticleState(p, 0);
   return snapshotParameters(p);
 }
-function same(a: unknown, b: unknown): boolean {
+export function same(a: unknown, b: unknown): boolean {
   if (typeof a === 'number' && typeof b === 'number') return Number.isFinite(a) && Number.isFinite(b) && Math.abs(a-b) <= Math.max(1e-20, Math.abs(b)*1e-10);
   if (a && b && typeof a === 'object' && typeof b === 'object') {
     const x = a as Record<string, unknown>, y = b as Record<string, unknown>;
@@ -101,7 +101,7 @@ export async function planAction(request: PlanRequest, signal?: AbortSignal): Pr
   if (!response.ok) {
     const data = await response.json().catch(() => null);
     const code = data?.detail?.code;
-    const errors: Record<string, string> = { provider_timeout: 'The AI provider timed out. Please retry.', provider_rate_limited: 'The AI provider quota or rate limit was reached. Retry later.', invalid_action: 'The proposed action was invalid or outside experiment limits. Please clarify.', tutor_busy: 'AI Tutor is busy. Retry shortly.', tutor_not_configured: 'AI Tutor is not configured on the backend.' };
+    const errors: Record<string, string> = { language_mismatch: 'The response language did not match your preference. Please retry.', provider_timeout: 'The AI provider timed out. Please retry.', provider_rate_limited: 'The AI provider quota or rate limit was reached. Retry later.', invalid_action: 'The proposed action was invalid or outside experiment limits. Please clarify.', tutor_busy: 'AI Tutor is busy. Retry shortly.', tutor_not_configured: 'AI Tutor is not configured on the backend.' };
     throw new TutorRequestError(errors[code] ?? 'Action planning is unavailable. Check the backend and retry.');
   }
   try {

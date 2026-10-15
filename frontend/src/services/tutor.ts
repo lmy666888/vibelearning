@@ -1,8 +1,9 @@
+import { useLanguageStore, type Language } from '../stores/languageStore';
 import { buildSimulationContext, type SimulationContextInput, type SimulationContext } from '../simulations/core/simulationContext';
 
 export interface Explanation { answer: string; key_concepts: string[]; related_equations: string[] }
 export class TutorRequestError extends Error {}
-export interface TutorRequest { question: string; simulation_context: SimulationContext }
+export interface TutorRequest { preferred_language?: Language; question: string; simulation_context: SimulationContext }
 function freezeDeep<T>(value: T): T {
   if (typeof value === 'object' && value !== null) {
     Object.values(value).forEach(freezeDeep);
@@ -13,7 +14,7 @@ function freezeDeep<T>(value: T): T {
 export function captureTutorRequest(question: string, state: SimulationContextInput): TutorRequest {
   const cleaned = question.trim();
   if (!cleaned || cleaned.length > 2000) throw new Error('Enter a question between 1 and 2000 characters.');
-  return freezeDeep({ question: cleaned, simulation_context: buildSimulationContext(state) });
+  return freezeDeep({ preferred_language: useLanguageStore.getState().language, question: cleaned, simulation_context: buildSimulationContext(state) });
 }
 export function isSnapshotCurrent(context: SimulationContext, state: SimulationContextInput): boolean {
   return context.time === state.time && context.activePresetId === (state.activePresetId ?? null) &&
@@ -21,6 +22,7 @@ export function isSnapshotCurrent(context: SimulationContext, state: SimulationC
     JSON.stringify(context.parameters) === JSON.stringify(state.parameters);
 }
 const messages: Record<string, string> = {
+  language_mismatch: 'The AI response did not match the selected language. Please retry or change the language preference.',
   tutor_not_configured: 'AI Tutor is not configured. Configure the provider on the backend; the simulation still works.',
   provider_timeout: 'The AI provider timed out. Please retry.',
   provider_unavailable: 'The AI provider is temporarily unavailable. Please retry.',
