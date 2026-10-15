@@ -83,3 +83,5 @@ GET /api/ai/session issues/validates an HttpOnly signed anonymous cookie; AI POS
 ## Double-slit context
 
 Experiment double-slit-interference/version1 uses Context v2 with query `{events: integer}`. Parameters/limits are in the canonical manifest. State contains count/mean/51 histogram bins; observables include normalized intensity, paraxial fringe estimate, exact envelope zero, probability normalization, sample statistics and far-field warning. Full profiles/detection arrays stay out of AI requests. Existing generic parameter/preset/reset actions, lesson sequencing and all governance limits apply unchanged.
+
+Kepler-orbital-mechanics/version1 uses Context v2 `{time: seconds}`, validated bound orbital elements and two masses. State/observables include relative position/velocity, gravity, period, area, energy/h invariants and root residual. Query duration is ≤period×durationPeriods. Generic set/scale/preset/reset actions include eccentricity, semimajorAxis and binary showAreas; all are validated and confirmed under existing governance. No large orbit path is sent to the provider.

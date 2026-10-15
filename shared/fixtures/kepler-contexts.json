@@ -1,0 +1,662 @@
+[
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.0,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 149597870700.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 29785.186897754145
+      },
+      "relative_acceleration": {
+        "x": -0.005930280654283037,
+        "y": -0.0
+      },
+      "force": {
+        "x": -3.5416715752424948e+22,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 149597870700.0,
+      "speed": 29785.186897754145,
+      "periapsis": 149597870700.0,
+      "apoapsis": 149597870700.0,
+      "specific_angular_momentum": 4455800538305559.0,
+      "specific_energy": -443578679.2670726,
+      "orbital_energy": -2.64913263187496e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 5.858945399162605e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 0.0,
+      "angular_momentum_relative_error": 1.1221328147469969e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-3838c935"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.0,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 3881593.592361552
+    },
+    "simulation_state": {
+      "time": 3881593.592361552,
+      "position": {
+        "x": 107102573416.51265,
+        "y": 104444060077.79684
+      },
+      "velocity": {
+        "x": -20794.987490269414,
+        "y": 21324.30195372603
+      },
+      "relative_acceleration": {
+        "x": -0.004245704274959802,
+        "y": -0.004140316877746401
+      },
+      "force": {
+        "x": -2.5356118915975005e+22,
+        "y": -2.4726726192664486e+22
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 0.7728317927830891
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 149597870700.0,
+      "speed": 29785.186897754145,
+      "periapsis": 149597870700.0,
+      "apoapsis": 149597870700.0,
+      "specific_angular_momentum": 4455800538305558.5,
+      "specific_energy": -443578679.2670727,
+      "orbital_energy": -2.6491326318749606e+33,
+      "swept_area": 8.647803409164005e+21,
+      "equal_time_area": 5.858945399162605e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-e18a4482"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.2,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 119678296560.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 36479.254896464336
+      },
+      "relative_acceleration": {
+        "x": -0.009266063522317245,
+        "y": -0.0
+      },
+      "force": {
+        "x": -5.533861836316397e+22,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 119678296560.0,
+      "speed": 36479.254896464336,
+      "periapsis": 119678296560.0,
+      "apoapsis": 179517444840.0,
+      "specific_angular_momentum": 4365775085786891.0,
+      "specific_energy": -443578679.2670728,
+      "orbital_energy": -2.6491326318749606e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 5.740570663510198e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 4.0311661196527093e-16,
+      "angular_momentum_relative_error": 1.1452720082346603e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-09d1e116"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.2,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 3881593.592361552
+    },
+    "simulation_state": {
+      "time": 3881593.592361552,
+      "position": {
+        "x": 59084846177.85623,
+        "y": 117810978429.7798
+      },
+      "velocity": {
+        "x": -27173.463403967326,
+        "y": 19707.976751509163
+      },
+      "relative_acceleration": {
+        "x": -0.0034251984436376643,
+        "y": -0.006829601937972809
+      },
+      "force": {
+        "x": -2.045590870751624e+22,
+        "y": -4.078762619180571e+22
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 0.9335831802085436
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 131796986636.42876,
+      "speed": 33567.863515642115,
+      "periapsis": 119678296560.0,
+      "apoapsis": 179517444840.0,
+      "specific_angular_momentum": 4365775085786891.0,
+      "specific_energy": -443578679.26707256,
+      "orbital_energy": -2.64913263187496e+33,
+      "swept_area": 8.473082299341052e+21,
+      "equal_time_area": 5.740570663510198e+21,
+      "kepler_residual": 1.609823385706477e-14,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 1.1452720082346603e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-e734c517"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.85,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 22439680605.000004,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 104602.13870624789
+      },
+      "relative_acceleration": {
+        "x": -0.263568029079246,
+        "y": -0.0
+      },
+      "force": {
+        "x": -1.5740762556633303e+24,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 22439680605.000004,
+      "speed": 104602.13870624789,
+      "periapsis": 22439680605.000004,
+      "apoapsis": 276756060795.0,
+      "specific_angular_momentum": 2347238583168111.0,
+      "specific_energy": -443578679.2670717,
+      "orbital_energy": -2.649132631874955e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 3.0863910041223404e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 2.0155830598263545e-15,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-f8d569c3"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.85,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 3881593.592361552
+    },
+    "simulation_state": {
+      "time": 3881593.592361552,
+      "position": {
+        "x": -134774390546.7015,
+        "y": 78703372249.23291
+      },
+      "velocity": {
+        "x": -28512.689198672735,
+        "y": -765.6780410558033
+      },
+      "relative_acceleration": {
+        "x": 0.004705019816080682,
+        "y": -0.002747561495347293
+      },
+      "force": {
+        "x": 2.8099234951942136e+22,
+        "y": -1.64089374796693e+22
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 1.6217295011057256
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 156071641083.9463,
+      "speed": 28522.96808192766,
+      "periapsis": 22439680605.000004,
+      "apoapsis": 276756060795.0,
+      "specific_angular_momentum": 2347238583168111.0,
+      "specific_energy": -443578679.26707256,
+      "orbital_energy": -2.64913263187496e+33,
+      "swept_area": 4.555513122084574e+21,
+      "equal_time_area": 3.0863910041223404e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-9a5dbf0c"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.6,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 59839148280.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 59570.37379550829
+      },
+      "relative_acceleration": {
+        "x": -0.03706425408926898,
+        "y": -0.0
+      },
+      "force": {
+        "x": -2.2135447345265588e+23,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 59839148280.0,
+      "speed": 59570.37379550829,
+      "periapsis": 59839148280.0,
+      "apoapsis": 239356593120.0,
+      "specific_angular_momentum": 3564640430644447.0,
+      "specific_energy": -443578679.26707244,
+      "orbital_energy": -2.649132631874959e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 4.687156319330085e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 4.0311661196527093e-16,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-87205206"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.6,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 3881593.592361552
+    },
+    "simulation_state": {
+      "time": 3881593.592361552,
+      "position": {
+        "x": -58381867652.76779,
+        "y": 117016281678.44661
+      },
+      "velocity": {
+        "x": -33315.21917892019,
+        "y": 5717.231297917218
+      },
+      "relative_acceleration": {
+        "x": 0.0034646723529290317,
+        "y": -0.0069443320721626406
+      },
+      "force": {
+        "x": 2.0691654080545027e+22,
+        "y": -4.147281544130677e+22
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 1.3594859399857
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 130771757839.66068,
+      "speed": 33802.22718480804,
+      "periapsis": 59839148280.0,
+      "apoapsis": 239356593120.0,
+      "specific_angular_momentum": 3564640430644446.5,
+      "specific_energy": -443578679.2670727,
+      "orbital_energy": -2.6491326318749606e+33,
+      "swept_area": 6.918242727331204e+21,
+      "equal_time_area": 4.687156319330085e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 1.402666018433746e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-74af6587"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 299195741400.0,
+      "eccentricity": 0.1,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 269276167260.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 23284.151672418724
+      },
+      "relative_acceleration": {
+        "x": -0.0018303335352725422,
+        "y": -0.0
+      },
+      "force": {
+        "x": -1.0931085108773132e+22,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 89258574.01525545,
+      "radius": 269276167260.0,
+      "speed": 23284.151672418724,
+      "periapsis": 269276167260.0,
+      "apoapsis": 329115315540.0,
+      "specific_angular_momentum": 6269867120249433.0,
+      "specific_energy": -221789339.6335364,
+      "orbital_energy": -1.3245663159374803e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 2.3318308267441693e+22,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 4.0311661196527093e-16,
+      "angular_momentum_relative_error": 1.5949301330013146e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-c314ea0e"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 299195741400.0,
+      "eccentricity": 0.1,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 10978804.603876421
+    },
+    "simulation_state": {
+      "time": 10978804.603876421,
+      "position": {
+        "x": 168035137251.4295,
+        "y": 223223438891.9166
+      },
+      "velocity": {
+        "x": -16911.444590507643,
+        "y": 14847.110806314375
+      },
+      "relative_acceleration": {
+        "x": -0.0010224585493352498,
+        "y": -0.0013582677839905962
+      },
+      "force": {
+        "x": -6.106308608563029e+21,
+        "y": -8.111822496381826e+21
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 0.8478154794788986
+    },
+    "observables": {
+      "period": 89258574.01525545,
+      "radius": 279400270260.85706,
+      "speed": 22504.08090619982,
+      "periapsis": 269276167260.0,
+      "apoapsis": 329115315540.0,
+      "specific_angular_momentum": 6269867120249434.0,
+      "specific_energy": -221789339.63353628,
+      "orbital_energy": -1.32456631593748e+33,
+      "swept_area": 3.4417823002743942e+22,
+      "equal_time_area": 2.3318308267441693e+22,
+      "kepler_residual": 1.1102230246251565e-16,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-18f8460f"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.75,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 0.0
+    },
+    "simulation_state": {
+      "time": 0.0,
+      "position": {
+        "x": 37399467675.0,
+        "y": 0.0
+      },
+      "velocity": {
+        "x": -0.0,
+        "y": 78804.19728503689
+      },
+      "relative_acceleration": {
+        "x": -0.09488449046852859,
+        "y": -0.0
+      },
+      "force": {
+        "x": -5.6666745203879916e+23,
+        "y": -0.0
+      },
+      "mean_anomaly": 0.0,
+      "eccentric_anomaly": 0.0
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 37399467675.0,
+      "speed": 78804.19728503689,
+      "periapsis": 37399467675.0,
+      "apoapsis": 261796273725.0,
+      "specific_angular_momentum": 2947235029016060.0,
+      "specific_energy": -443578679.26707315,
+      "orbital_energy": -2.6491326318749635e+33,
+      "swept_area": 0.0,
+      "equal_time_area": 3.875328117822579e+21,
+      "kepler_residual": 0.0,
+      "energy_relative_error": 1.2093498358958127e-15,
+      "angular_momentum_relative_error": 0.0
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-77182055"
+  },
+  {
+    "schema_version": 2,
+    "experiment_id": "kepler-orbital-mechanics",
+    "experiment_version": 1,
+    "parameters": {
+      "centralMass": 1.98847e+30,
+      "orbitingMass": 5.9722e+24,
+      "semimajorAxis": 149597870700.0,
+      "eccentricity": 0.75,
+      "initialMeanAnomaly": 0.0,
+      "durationPeriods": 2,
+      "showAreas": 1
+    },
+    "query": {
+      "time": 3881593.592361552
+    },
+    "simulation_state": {
+      "time": 3881593.592361552,
+      "position": {
+        "x": -104892022067.4959,
+        "y": 98831604891.52248
+      },
+      "velocity": {
+        "x": -30880.80877109717,
+        "y": 998.7877067739536
+      },
+      "relative_acceleration": {
+        "x": 0.004650643836369956,
+        "y": -0.004381940447592352
+      },
+      "force": {
+        "x": 2.7774491701252394e+22,
+        "y": -2.616974614251116e+22
+      },
+      "mean_anomaly": 0.7728317927830891,
+      "eccentric_anomaly": 1.5219367489838012
+    },
+    "observables": {
+      "period": 31557671.482614245,
+      "radius": 144118084981.87192,
+      "speed": 30896.956601585774,
+      "periapsis": 37399467675.0,
+      "apoapsis": 261796273725.0,
+      "specific_angular_momentum": 2947235029016060.5,
+      "specific_energy": -443578679.26707256,
+      "orbital_energy": -2.64913263187496e+33,
+      "swept_area": 5.719984301906126e+21,
+      "equal_time_area": 3.875328117822579e+21,
+      "kepler_residual": 1.27675647831893e-14,
+      "energy_relative_error": 1.3437220398842364e-16,
+      "angular_momentum_relative_error": 1.6965053518888378e-16
+    },
+    "revision": 3,
+    "snapshot_id": "fnv1a-63c18222"
+  }
+]

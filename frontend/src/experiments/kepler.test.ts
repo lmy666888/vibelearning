@@ -1,0 +1,14 @@
+import {it,expect} from 'vitest';
+import {experiment} from './registry';
+import {eccentricAnomaly,G,orbitalPeriod,type OrbitalParameters} from './kepler';
+import {createRuntime} from './runtime';
+import {validateContext} from './context';
+import {validateSaved} from '../workspace/persistence';
+import {defaultCamera} from '../workspace/camera';
+import fixtures from '../../../shared/fixtures/kepler-contexts.json' with {type:'json'};
+const e=experiment('kepler-orbital-mechanics'),p=()=>structuredClone(e.manifest.presets[0].parameters),typed=()=>p() as unknown as OrbitalParameters;
+it('bounded high-e and near-circular root residuals obey Kepler equation',()=>{for(const ecc of [0,1e-12,.9])for(const M of [0,.00001,.8,Math.PI,6]){const E=eccentricAnomaly(M,ecc);expect(Math.abs(E-ecc*Math.sin(E)-M)).toBeLessThan(1e-12);}});
+it('independent period law, apsides, energy and angular momentum hold',()=>{const q={...typed(),eccentricity:.6},T=orbitalPeriod(q),mu=G*(q.centralMass+q.orbitingMass),start=e.evaluate(q as unknown as Record<string,unknown>,{time:0}),apo=e.evaluate(q as unknown as Record<string,unknown>,{time:T/2});expect(Number(start.observables.radius)).toBeCloseTo(q.semimajorAxis*.4,-1);expect(Number(apo.observables.radius)).toBeCloseTo(q.semimajorAxis*1.6,-1);expect(Number(start.observables.specific_energy)/(-mu/(2*q.semimajorAxis))).toBeCloseTo(1,11);expect(Number(start.observables.specific_angular_momentum)/Math.sqrt(mu*q.semimajorAxis*(1-.36))).toBeCloseTo(1,11);expect(orbitalPeriod({...q,semimajorAxis:q.semimajorAxis*2})/T).toBeCloseTo(Math.sqrt(8),12);});
+it('all Python orbital contexts independently verify with finite SI quantities',()=>{for(const c of fixtures)expect(validateContext(c).snapshot_id).toBe(c.snapshot_id);});
+it('period-based playback, seek and restoration remain deterministic and paused',()=>{const r=createRuntime(e.id),T=orbitalPeriod(typed());r.play();r.advance(.05);expect(Number(r.store.getState().query.time)/T).toBeCloseTo(.05/12,12);r.seek?.(T/2);expect(r.store.getState().status).toBe('paused');expect(Number(r.store.getState().observables.radius)/Number(p().semimajorAxis)).toBeCloseTo(1,12);const saved=validateSaved({schema_version:1,experiment_id:e.id,experiment_version:1,parameters:p(),camera:defaultCamera,visible:{fields:true,vectors:true,trail:true},language:'en'});expect(saved.parameters).toEqual(p());r.destroy();});
+it('invalid eccentricity, noninteger sectors and unsupported queries reject before state changes',()=>{expect(()=>e.validateParameters({...p(),eccentricity:1})).toThrow();expect(()=>e.validateParameters({...p(),showAreas:.5})).toThrow();expect(()=>e.evaluate(p(),{events:2})).toThrow();});

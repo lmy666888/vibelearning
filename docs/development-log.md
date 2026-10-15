@@ -105,3 +105,7 @@ Authorized normal merge PR #5 as ab696edf07bf5b9667252342610301623d4ce757; featu
 ## 2026-10-15 — Milestone 2: independent double-slit optics
 
 Stacked from verified Milestone1 head3e61e2b (PR#6, unmerged). Added independent scalar Fraunhofer optics, exact screen angles, finite-width envelope, seeded discrete detection statistics, specialized Canvas, six presets, bilingual content and generic event-count runtime; shared AI/usage policy unchanged. See [Milestone2 log](development/2026-10-15-m2-double-slit.md) and [scientific model](physics-double-slit.md). Exact tests/PR/CI are recorded after verification.
+
+## 2026-10-15 — Milestone3: Keplerian two-body relative orbits
+
+Stacked from verified Milestone2 head09f7f44, no merges of new feature PRs. Independent safeguarded Kepler solution, three-law visuals, six presets, compact SI context and inherited governance. Full assumptions, units/bounds/root method/independent tests in [scientific contract](physics-kepler.md); actual milestone record in [dated log](development/2026-10-15-m3-kepler.md). Counts and exact-head CI confirmed in delivery report.
