@@ -175,3 +175,30 @@ def test_context_is_deeply_immutable_but_serializes_as_normal_json():
     data=c.model_dump();data['parameters']['mass']=2e-7
     assert c.parameters['mass']==1e-7
     assert ExperimentContext.model_validate_json(c.model_dump_json())==c
+
+@pytest.mark.parametrize('mutation',['numeric-confirmation','boolean-observable'])
+def test_observation_rejects_boolean_numeric_coercion_before_provider(mutation):
+    e=experiment('lorentz-force-2d');plan=enrich(e,draft(),params())
+    if mutation=='numeric-confirmation':plan['steps'][0]['requires_confirmation']=1
+    else:plan['steps'][0]['predicted_observables']['force']['x']=False
+    calls=[]
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(200,json=envelope(dict(assessment='correct',feedback='Correct.',explanation='Magnetic force is perpendicular.',hint=None,next_action='continue')))
+    app.dependency_overrides[get_provider]=lambda:OpenAICompatibleProvider(SETTINGS,httpx.MockTransport(handler))
+    data=request();data.update(lesson=plan,step_id='step-1',prompt='Clockwise.');data['context']=context(e.id,plan['steps'][0]['after'],{'time':1}).model_dump()
+    r=post('evaluate-observation',data);assert r.status_code==422 and calls==[]
+
+@pytest.mark.parametrize('mutation',['steps-string','step-scalar','invalid-id'])
+def test_malformed_lesson_shapes_return_422_before_provider(mutation):
+    e=experiment('lorentz-force-2d');plan=enrich(e,draft(),params())
+    if mutation=='steps-string':plan['steps']='bad'
+    elif mutation=='step-scalar':plan['steps']=[1]
+    else:plan['lesson_id']='x'*36
+    calls=[]
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(200,json=envelope({}))
+    app.dependency_overrides[get_provider]=lambda:OpenAICompatibleProvider(SETTINGS,httpx.MockTransport(handler))
+    data=request();data.update(lesson=plan,step_id='step-1',prompt='Clockwise.')
+    r=post('evaluate-observation',data);assert r.status_code==422 and calls==[]

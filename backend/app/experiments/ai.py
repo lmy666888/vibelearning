@@ -1,6 +1,6 @@
 """One experiment-independent AI workflow. All scientific assumptions come from registered plugins."""
 import asyncio,json
-from uuid import uuid4
+from uuid import uuid4,UUID
 from typing import Annotated,Literal
 from pydantic import Field,StringConstraints,TypeAdapter,model_validator,field_validator
 from fastapi import APIRouter,Depends,Request,HTTPException
@@ -105,9 +105,17 @@ def validate_lesson(plan,plugin):
     keys={'status','schema_version','title','language','learning_objectives','steps','experiment_id','experiment_version','lesson_id','initial_parameters'}
     if type(plan.get('schema_version')) is not int or type(plan.get('experiment_version')) is not int or not isinstance(plan.get('lesson_id'),str) or len(plan['lesson_id'])!=36:raise ValueError('Invalid lesson metadata')
     if set(plan)!=keys or plan['experiment_id']!=plugin.id or plan['experiment_version']!=plugin.version or plan['schema_version']!=2:raise ValueError('Incompatible lesson')
+    if not isinstance(plan['steps'],list) or not 1<=len(plan['steps'])<=5 or any(not isinstance(s,dict) for s in plan['steps']):raise ValueError('Invalid lesson step shape')
+    if str(UUID(plan['lesson_id']))!=plan['lesson_id']:raise ValueError('Invalid lesson UUID')
     draft={k:plan[k] for k in ['status','schema_version','title','language','learning_objectives']};draft['steps']=[{k:v for k,v in s.items() if k not in {'before','after','predicted_observables','requires_confirmation'}} for s in plan['steps']]
     typed=LessonDraft.model_validate(draft);rebuilt=enrich(plugin,typed,plan['initial_parameters'])
-    if plan['steps']!=rebuilt['steps']:raise ValueError('Lesson predictions or confirmation invalid')
+    def same(a,b):
+        if type(a) in (int,float) and type(b) in (int,float):return a==b
+        if type(a) is not type(b):return False
+        if isinstance(a,dict):return set(a)==set(b) and all(same(a[k],b[k]) for k in a)
+        if isinstance(a,list):return len(a)==len(b) and all(same(x,y) for x,y in zip(a,b))
+        return a==b
+    if not same(plan['steps'],rebuilt['steps']):raise ValueError('Lesson predictions or confirmation invalid')
     return plan
 
 def get_provider():
