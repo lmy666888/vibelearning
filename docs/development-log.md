@@ -67,3 +67,7 @@ Added backend-local .env loading, Gemini endpoint regression tests and safe mode
 ## Gemini integration completed with real generation
 
 The user-authorized gemini-3.5-flash-lite now returned real HTTP 200 through the production adapter, all three requested physics scenarios and the React interface. Correct force/acceleration directions and SI values were manually reviewed, including Chinese output and doubled-field behavior. Regression suites passed (76 Vitest, 79 Pytest, 19 Chromium; strict/build). Exact remaining project quota is not available; no billing configuration was changed. See development/gemini-live-validation-2026-10-14.md and the Day 3 daily log.
+
+## Day 4 Phase 0 — CI and merge gate
+
+Inspected PR #1 and confirmed it is still open. Added a two-job GitHub Actions workflow on the Day 3 branch; local and remote validation outcomes are recorded in development/2026-10-14-day4.md. Day 4 application development waits for the explicit Day 3 merge gate.
