@@ -1720,5 +1720,573 @@
       "AU",
       "JSON"
     ]
+  },
+  {
+    "id": "momentum-collisions",
+    "version": 1,
+    "title": "Momentum & Collisions",
+    "subject": "physics / classical mechanics",
+    "description": "Isolated two-body 1D collisions and frictionless 2D disk impacts with exact time of contact.",
+    "parameters": [
+      {
+        "id": "mass-a",
+        "target": "massA",
+        "label": "Mass A",
+        "label_zh": "物体甲质量",
+        "unit": "kg",
+        "min": 0.1,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "radius-a",
+        "target": "radiusA",
+        "label": "Radius A",
+        "label_zh": "物体甲半径",
+        "unit": "m",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "position-a-x",
+        "target": "positionA.x",
+        "label": "Initial A x",
+        "label_zh": "物体甲初始位置x",
+        "unit": "m",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "velocity-a-x",
+        "target": "velocityA.x",
+        "label": "Velocity A x",
+        "label_zh": "物体甲初始速度x",
+        "unit": "m/s",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "position-a-y",
+        "target": "positionA.y",
+        "label": "Initial A y",
+        "label_zh": "物体甲初始位置y",
+        "unit": "m",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "velocity-a-y",
+        "target": "velocityA.y",
+        "label": "Velocity A y",
+        "label_zh": "物体甲初始速度y",
+        "unit": "m/s",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "mass-b",
+        "target": "massB",
+        "label": "Mass B",
+        "label_zh": "物体乙质量",
+        "unit": "kg",
+        "min": 0.1,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "radius-b",
+        "target": "radiusB",
+        "label": "Radius B",
+        "label_zh": "物体乙半径",
+        "unit": "m",
+        "min": 0.1,
+        "max": 2,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "position-b-x",
+        "target": "positionB.x",
+        "label": "Initial B x",
+        "label_zh": "物体乙初始位置x",
+        "unit": "m",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "velocity-b-x",
+        "target": "velocityB.x",
+        "label": "Velocity B x",
+        "label_zh": "物体乙初始速度x",
+        "unit": "m/s",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "position-b-y",
+        "target": "positionB.y",
+        "label": "Initial B y",
+        "label_zh": "物体乙初始位置y",
+        "unit": "m",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "velocity-b-y",
+        "target": "velocityB.y",
+        "label": "Velocity B y",
+        "label_zh": "物体乙初始速度y",
+        "unit": "m/s",
+        "min": -20,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "dimensions",
+        "target": "dimensions",
+        "label": "Dimensions",
+        "label_zh": "维度",
+        "unit": "",
+        "min": 1,
+        "max": 2,
+        "step": 1,
+        "scale": 1,
+        "choices": [
+          {
+            "value": 1,
+            "label": "1D: zero transverse components"
+          },
+          {
+            "value": 2,
+            "label": "2D frictionless disks"
+          }
+        ]
+      },
+      {
+        "id": "restitution",
+        "target": "restitution",
+        "label": "Restitution e",
+        "label_zh": "恢复系数 e",
+        "unit": "",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "scale": 1
+      },
+      {
+        "id": "frame",
+        "target": "frame",
+        "label": "Reference frame",
+        "label_zh": "参考系",
+        "unit": "",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "scale": 1,
+        "choices": [
+          {
+            "value": 0,
+            "label": "Laboratory"
+          },
+          {
+            "value": 1,
+            "label": "Center of mass"
+          }
+        ]
+      },
+      {
+        "id": "collision-duration",
+        "target": "duration",
+        "label": "Observation duration",
+        "label_zh": "观察时长",
+        "unit": "s",
+        "min": 0.1,
+        "max": 20,
+        "step": 0.1,
+        "scale": 1
+      }
+    ],
+    "operations": [
+      "explain",
+      "set_parameter",
+      "scale_parameter",
+      "select_preset",
+      "reset",
+      "generate_lesson",
+      "evaluate_observation"
+    ],
+    "observables": [
+      {
+        "id": "momentum",
+        "label": "Total laboratory momentum",
+        "unit": "kg m/s"
+      },
+      {
+        "id": "kinetic_energy",
+        "label": "Current laboratory kinetic energy",
+        "unit": "J"
+      },
+      {
+        "id": "initial_energy",
+        "label": "Before collision energy",
+        "unit": "J"
+      },
+      {
+        "id": "post_energy",
+        "label": "Predicted post-collision energy",
+        "unit": "J"
+      },
+      {
+        "id": "energy_loss",
+        "label": "Energy lost so far",
+        "unit": "J"
+      },
+      {
+        "id": "predicted_energy_loss",
+        "label": "Predicted collision energy loss",
+        "unit": "J"
+      },
+      {
+        "id": "momentum_error",
+        "label": "Momentum conservation error",
+        "unit": "kg m/s"
+      },
+      {
+        "id": "center_of_mass_velocity",
+        "label": "Center-of-mass velocity",
+        "unit": "m/s"
+      },
+      {
+        "id": "display_momentum",
+        "label": "Momentum in displayed frame",
+        "unit": "kg m/s"
+      },
+      {
+        "id": "display_kinetic_energy",
+        "label": "Kinetic energy in displayed frame",
+        "unit": "J"
+      },
+      {
+        "id": "collision_time",
+        "label": "Collision time within observation window",
+        "unit": "s"
+      },
+      {
+        "id": "impulse",
+        "label": "Normal impulse on B",
+        "unit": "N s"
+      },
+      {
+        "id": "normal_before",
+        "label": "Relative normal velocity before",
+        "unit": "m/s"
+      },
+      {
+        "id": "normal_after",
+        "label": "Relative normal velocity after",
+        "unit": "m/s"
+      },
+      {
+        "id": "pre_velocityA",
+        "label": "Before velocity A",
+        "unit": "m/s"
+      },
+      {
+        "id": "pre_velocityB",
+        "label": "Before velocity B",
+        "unit": "m/s"
+      },
+      {
+        "id": "post_velocityA",
+        "label": "After velocity A",
+        "unit": "m/s"
+      },
+      {
+        "id": "post_velocityB",
+        "label": "After velocity B",
+        "unit": "m/s"
+      }
+    ],
+    "presets": [
+      {
+        "id": "equal-elastic",
+        "title": "Equal-mass elastic",
+        "description": "Equal masses exchange their 1D velocities.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Equal masses exchange their 1D velocities.",
+        "parameters": {
+          "massA": 1,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": -2,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 1,
+          "frame": 0,
+          "duration": 4
+        }
+      },
+      {
+        "id": "unequal-elastic",
+        "title": "Unequal-mass elastic",
+        "description": "Unequal masses do not simply exchange velocities.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Unequal masses do not simply exchange velocities.",
+        "parameters": {
+          "massA": 3,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": -2,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 1,
+          "frame": 0,
+          "duration": 4
+        }
+      },
+      {
+        "id": "stationary-target",
+        "title": "Stationary target",
+        "description": "An equal-mass stationary target receives the incoming velocity.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "An equal-mass stationary target receives the incoming velocity.",
+        "parameters": {
+          "massA": 1,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": 0,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 1,
+          "frame": 0,
+          "duration": 5
+        }
+      },
+      {
+        "id": "partial-inelastic",
+        "title": "Partially inelastic",
+        "description": "Total momentum remains constant while kinetic energy decreases.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Total momentum remains constant while kinetic energy decreases.",
+        "parameters": {
+          "massA": 1,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": -2,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 0.5,
+          "frame": 0,
+          "duration": 4
+        }
+      },
+      {
+        "id": "sticking-1d",
+        "title": "Perfectly inelastic 1D",
+        "description": "Both bodies share the center-of-mass velocity after contact.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Both bodies share the center-of-mass velocity after contact.",
+        "parameters": {
+          "massA": 1,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": 0,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 0,
+          "frame": 0,
+          "duration": 5
+        }
+      },
+      {
+        "id": "oblique-2d",
+        "title": "Oblique 2D disks",
+        "description": "Only the normal relative velocity changes; tangential components persist.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Only the normal relative velocity changes; tangential components persist.",
+        "parameters": {
+          "massA": 1,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0.3
+          },
+          "positionB": {
+            "x": 0,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": 0,
+            "y": 0
+          },
+          "dimensions": 2,
+          "restitution": 1,
+          "frame": 0,
+          "duration": 3
+        }
+      },
+      {
+        "id": "com-frame",
+        "title": "Center-of-mass frame",
+        "description": "Total display momentum is zero in the center-of-mass frame.",
+        "objective": "Compare conservation of momentum, energy and normal restitution.",
+        "expected": "Total display momentum is zero in the center-of-mass frame.",
+        "parameters": {
+          "massA": 3,
+          "massB": 1,
+          "radiusA": 0.5,
+          "radiusB": 0.5,
+          "positionA": {
+            "x": -3,
+            "y": 0
+          },
+          "positionB": {
+            "x": 3,
+            "y": 0
+          },
+          "velocityA": {
+            "x": 2,
+            "y": 0
+          },
+          "velocityB": {
+            "x": 0,
+            "y": 0
+          },
+          "dimensions": 1,
+          "restitution": 1,
+          "frame": 1,
+          "duration": 5
+        }
+      }
+    ],
+    "initial_query": {
+      "time": 0
+    },
+    "equations": [
+      "P=m_A v_A+m_B v_B",
+      "K=½m_A|v_A|²+½m_B|v_B|²",
+      "J=−(1+e)(v_B−v_A)·n/(1/m_A+1/m_B)",
+      "v_A′=v_A−Jn/m_A; v_B′=v_B+Jn/m_B"
+    ],
+    "renderer": "collisions-canvas",
+    "evolution": {
+      "kind": "event-based",
+      "max_duration": 20,
+      "reset_trace_label": "Reset event replay"
+    },
+    "lesson_capabilities": [
+      "momentum conservation",
+      "elastic and inelastic energy",
+      "normal restitution",
+      "center of mass frame",
+      "1D exact solution",
+      "2D frictionless impulse"
+    ],
+    "limitations": [
+      "Exactly two isolated nonrotating bodies; no walls, friction, gravity, simultaneous multi-body contacts or contact deformation.",
+      "1D requires zero transverse position and velocity. Initial overlap is rejected.",
+      "2D e=0 removes normal relative speed at contact; it does not permanently bind disks.",
+      "No collision in the selected time window is reported explicitly; preview evaluates t=0 and includes predicted collision quantities."
+    ]
   }
 ]
