@@ -1,4 +1,4 @@
-import hashlib,hmac,json
+import hashlib,hmac,json,asyncio
 from starlette.requests import Request
 from starlette.responses import JSONResponse,Response
 from app.governance.quota import Limits,GovernanceError,secret,session_identity
@@ -36,10 +36,10 @@ class AIGovernanceMiddleware:
             except (ValueError,TypeError,AttributeError):
                 # Preserve Pydantic's safe structured errors for malformed bodies.
                 body=None
-            who.language=language;token=identity.set(who);delivered=False
+            who.language=language;token=identity.set(who);delivered=False;body_read=asyncio.Event()
             async def replay():
                 nonlocal delivered
-                if not delivered:delivered=True;return {'type':'http.request','body':bytes(data),'more_body':False}
+                if not delivered:delivered=True;body_read.set();return {'type':'http.request','body':bytes(data),'more_body':False}
                 return await receive()
             async def guarded_send(message):
                 if message['type']=='http.response.start':
@@ -47,8 +47,22 @@ class AIGovernanceMiddleware:
                     if who.remaining_daily is not None:headers.extend([(b'x-ai-remaining-daily',str(who.remaining_daily).encode()),(b'x-ai-remaining-minute',str(who.remaining_minute).encode())])
                     message={**message,'headers':headers}
                 await send(message)
-            try:await self.app(scope,replay,guarded_send)
-            finally:identity.reset(token)
+            async def disconnect():
+                await body_read.wait()
+                return (await receive())['type']=='http.disconnect'
+            task=asyncio.create_task(self.app(scope,replay,guarded_send));watch=asyncio.create_task(disconnect())
+            try:
+                done,_=await asyncio.wait({task,watch},return_when=asyncio.FIRST_COMPLETED)
+                if task in done:await task
+                elif await watch:
+                    from app.observability import count
+                    count('api_cancelled');task.cancel();await asyncio.gather(task,return_exceptions=True)
+                else:await task
+            finally:
+                for pending in (task,watch):
+                    if not pending.done():pending.cancel()
+                await asyncio.gather(task,watch,return_exceptions=True)
+                identity.reset(token)
         except (GovernanceError,ValueError) as e:
             code=e.code if isinstance(e,GovernanceError) else 'quota_unavailable';status=e.status if isinstance(e,GovernanceError) else 503
             response=JSONResponse({'detail':{'code':code,'message':localized(code,language)}},status,headers={'Retry-After':str(e.retry)} if isinstance(e,GovernanceError) and e.retry else None)

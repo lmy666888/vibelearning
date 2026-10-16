@@ -1,0 +1,10 @@
+bind 0.0.0.0
+protected-mode yes
+port 6379
+dir /data
+appendonly yes
+appendfsync always
+maxmemory 128mb
+maxmemory-policy noeviction
+# Create a protected, untracked deployment secret from this template.
+# Set: requirepass <operator-generated-random-secret>

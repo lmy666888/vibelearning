@@ -9,6 +9,8 @@ from app.api.routes.health import router as health_router
 from app.api.routes.ai import router as ai_router
 from app.experiments.ai import router as experiment_ai_router
 from app.request_limits import TutorBodyLimit
+from app.observability import TelemetryMiddleware,router as telemetry_router
+from app.readiness import router as readiness_router
 from app.governance.middleware import AIGovernanceMiddleware
 
 load_backend_environment()
@@ -21,7 +23,10 @@ app.state.frontend_origins = origins
 app.add_middleware(TutorBodyLimit)
 app.add_middleware(AIGovernanceMiddleware)
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, expose_headers=["Retry-After","X-AI-Remaining-Daily","X-AI-Remaining-Minute"], allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
+app.add_middleware(TelemetryMiddleware)
 app.include_router(health_router, prefix="/api")
+app.include_router(telemetry_router,prefix="/api")
+app.include_router(readiness_router,prefix="/api")
 app.include_router(ai_router, prefix="/api")
 app.include_router(experiment_ai_router,prefix="/api")
 

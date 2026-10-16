@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "experiment_id": "multi-zone-em",
+  "experiment_version": 1,
+  "model_assumptions": [
+    "Prescribed static half-open rectangular regions; enabled overlaps sum",
+    "Field discontinuities idealized, not a self-consistent Maxwell boundary solution",
+    "Geometry-aware midpoint Boris; grazing/corner errors require refinement"
+  ],
+  "reference_equations": [
+    "half-open rectangles: x≤px<x+w,y≤py<y+h",
+    "enabled overlaps sum",
+    "piecewise constant electric acceleration; x=x0+v0t+at²/2"
+  ],
+  "valid_parameter_domain": [
+    {
+      "id": "charge",
+      "target": "charge",
+      "label": "电荷 q",
+      "unit": "nC",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1e-09
+    },
+    {
+      "id": "mass",
+      "target": "mass",
+      "label": "质量 m",
+      "unit": "mg",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1e-06
+    },
+    {
+      "id": "vx",
+      "target": "initialVelocity.x",
+      "label": "初速度 vx",
+      "unit": "m/s",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "vy",
+      "target": "initialVelocity.y",
+      "label": "初速度 vy",
+      "unit": "m/s",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "positionx",
+      "target": "initialPosition.x",
+      "label": "Initial position x",
+      "unit": "m",
+      "min": -100,
+      "max": 100,
+      "step": 1,
+      "scale": 1,
+      "readonly": false
+    },
+    {
+      "id": "positiony",
+      "target": "initialPosition.y",
+      "label": "Initial position y",
+      "unit": "m",
+      "min": -100,
+      "max": 100,
+      "step": 1,
+      "scale": 1,
+      "readonly": false
+    },
+    {
+      "id": "dt",
+      "target": "timeStep",
+      "label": "Fixed timestep",
+      "unit": "s",
+      "min": 0.001,
+      "max": 0.02,
+      "step": 0.0002,
+      "scale": 1
+    },
+    {
+      "id": "duration",
+      "target": "duration",
+      "label": "Maximum duration",
+      "unit": "s",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    }
+  ],
+  "coupled_validation": [
+    "max12 unique-ID regions; declared geometry/field bounds",
+    "computed substep budget≤100000"
+  ],
+  "numerical_tolerances": {
+    "membership": 0,
+    "free_position_m": 1e-10,
+    "charged_corner_m": "4|qE/m|h²; refine h=.02,.01,.005"
+  },
+  "conservation_laws": [
+    "kinetic energy when every enabled electric field is zero"
+  ],
+  "convergence_criteria": "Fixed seed20261015 independent analytical samples; Lorentz O(h²) phase bound, spatial charged corner refinement; optics histogram convergence covered by test_optics; Kepler residual≤1e-12; event collision exact geometry, not timestep integration",
+  "known_limitations": [
+    "Prescribed piecewise-uniform fields; no Maxwell solver, collisions or relativity.",
+    "Lower-inclusive/upper-exclusive rectangular edges. Zero field outside. Enabled overlaps sum.",
+    "Bounded conservative geometry-aware midpoint substeps; finite first-order boundary timing error and corner grazing limitations."
+  ],
+  "runner": "scripts/validate_science.py",
+  "scientific_tests": "backend/tests/test_spatial.py"
+}

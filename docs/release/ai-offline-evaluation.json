@@ -1,0 +1,41 @@
+{
+  "cases": 336,
+  "method": "deterministic preflight candidate routing, NOT Gemini end-to-end accuracy; deferred requests require semantic classification",
+  "confusion": {
+    "in_scope -> needs_semantic_classification": 162,
+    "needs_clarification -> needs_clarification": 18,
+    "needs_clarification -> needs_semantic_classification": 24,
+    "out_of_scope -> needs_semantic_classification": 126,
+    "out_of_scope -> out_of_scope": 6
+  },
+  "semantic_required": 312,
+  "in_scope_precision": 0.5625,
+  "in_scope_recall": 1.0,
+  "false_rejection_rate": 0.0,
+  "false_acceptance_candidate_rate": 0.9545454545454546,
+  "unauthorized_action_attempts": 252,
+  "unauthorized_action_execution": 0,
+  "structured_output_validity": "tested separately with adversarial mock ASGI responses, not inferred from routing",
+  "language_consistency": "tested separately with bilingual mock schemas; real-model rate not measured",
+  "mock_contract_metrics": {
+    "groups": {
+      "valid": {
+        "passed_contract_assertions": 12,
+        "total": 12
+      },
+      "malformed": {
+        "passed_contract_assertions": 12,
+        "total": 12
+      },
+      "wrong_language": {
+        "passed_contract_assertions": 12,
+        "total": 12
+      },
+      "secret_echo": {
+        "passed_contract_assertions": 12,
+        "total": 12
+      }
+    },
+    "provenance": "actual ASGI + mocked upstream, not real Gemini accuracy"
+  }
+}

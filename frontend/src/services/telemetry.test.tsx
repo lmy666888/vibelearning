@@ -1,0 +1,7 @@
+// @vitest-environment jsdom
+import {it,expect,vi} from 'vitest';
+import {render,screen,cleanup} from '@testing-library/react';
+import {reportClientError,installErrorReporting} from './telemetry';
+import {RuntimeBoundary} from '../components/RuntimeBoundary';
+it('reports only bounded kind and experiment, throttles duplicates and excludes exception text',()=>{const send=vi.fn().mockResolvedValue({});vi.stubGlobal('fetch',send);const remove=installErrorReporting();window.dispatchEvent(new ErrorEvent('error',{message:'private prompt token stack URL'}));window.dispatchEvent(new ErrorEvent('error',{message:'another secret'}));expect(send).toHaveBeenCalledTimes(1);expect(Object.keys(JSON.parse(send.mock.calls[0][1].body)).sort()).toEqual(['experiment_id','kind']);expect(JSON.stringify(send.mock.calls)).not.toContain('private prompt');reportClientError('scientific');expect(send).toHaveBeenCalledTimes(2);remove();vi.unstubAllGlobals();});
+it('render failure offers recovery without disclosing internal errors',()=>{vi.stubGlobal('fetch',vi.fn().mockResolvedValue({}));const error=vi.spyOn(console,'error').mockImplementation(()=>{});const Broken=()=>{throw new Error('PRIVATE_INTERNAL_DETAILS');};render(<RuntimeBoundary><Broken/></RuntimeBoundary>);expect(screen.getByRole('alert').textContent).not.toContain('PRIVATE_INTERNAL_DETAILS');expect(screen.getByRole('button',{name:'重新加载 / Reload'})).toBeTruthy();cleanup();error.mockRestore();vi.unstubAllGlobals();});

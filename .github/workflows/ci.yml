@@ -28,21 +28,23 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - name: Install locked frontend dependencies
         run: npm ci
+      - name: Audit frontend dependencies
+        run: npm audit --audit-level=high
       - name: Run Vitest
         run: npm test
       - name: Run strict TypeScript checks
         run: npm run typecheck
       - name: Build production assets
         run: npm run build
-      - name: Install Chromium and Linux system dependencies
-        run: npx playwright install --with-deps chromium
-      - name: Run mocked Chromium end-to-end tests
+      - name: Install browser runtimes and Linux system dependencies
+        run: npx playwright install --with-deps chromium firefox webkit
+      - name: Run mocked Chromium, Firefox and WebKit end-to-end tests
         run: npm run test:e2e
 
   backend:
     services:
       redis:
-        image: redis:7-alpine
+        image: redis:7.4.11-alpine
         ports: ["6379:6379"]
         options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
     name: Backend
@@ -71,4 +73,13 @@ jobs:
       - name: Install locked backend dependencies
         run: uv sync --python 3.13 --locked
       - name: Run mocked backend tests
-        run: uv run --locked pytest
+        run: uv run --locked pytest --junitxml=/tmp/release-pytest.xml
+      - name: Reproduce scientific and offline AI reports
+        run: |
+          uv run --locked python ../scripts/validate_science.py
+          uv run --locked python ../scripts/evaluate_ai.py --junit /tmp/release-pytest.xml
+          uv run --locked python ../scripts/production_smoke.py --redis-url redis://127.0.0.1:6379/14
+      - name: Audit locked backend dependencies
+        run: |
+          uv export --locked --format requirements-txt --no-hashes > /tmp/release-requirements.txt
+          uvx pip-audit -r /tmp/release-requirements.txt

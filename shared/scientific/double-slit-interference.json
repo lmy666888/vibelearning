@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "experiment_id": "double-slit-interference",
+  "experiment_version": 1,
+  "model_assumptions": [
+    "Coherent monochromatic scalar illumination",
+    "Ideal finite-width slits; Fraunhofer far field",
+    "No polarization or near-field Fresnel propagation; finite-window detection probability"
+  ],
+  "reference_equations": [
+    "cos²(πd sinθ/λ)sinc²(πa sinθ/λ)",
+    "sinθ=y/hypot(L,y)",
+    "Σp=1; Fraunhofer ratio≤.1"
+  ],
+  "valid_parameter_domain": [
+    {
+      "id": "wavelength",
+      "target": "wavelength",
+      "label": "Wavelength λ",
+      "label_zh": "波长 λ",
+      "unit": "nm",
+      "min": 380,
+      "max": 780,
+      "step": 10,
+      "scale": 1e-09
+    },
+    {
+      "id": "separation",
+      "target": "slitSeparation",
+      "label": "Slit separation d",
+      "label_zh": "缝间距 d",
+      "unit": "μm",
+      "min": 10,
+      "max": 300,
+      "step": 5,
+      "scale": 1e-06
+    },
+    {
+      "id": "slit-width",
+      "target": "slitWidth",
+      "label": "Slit width a",
+      "label_zh": "缝宽 a",
+      "unit": "μm",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "scale": 1e-06
+    },
+    {
+      "id": "screen-distance",
+      "target": "screenDistance",
+      "label": "Screen distance L",
+      "label_zh": "屏幕距离 L",
+      "unit": "m",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "screen-range",
+      "target": "screenHalfRange",
+      "label": "Screen half-range",
+      "label_zh": "屏幕半范围",
+      "unit": "mm",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "scale": 0.001
+    },
+    {
+      "id": "events",
+      "target": "detectionEvents",
+      "label": "Maximum detections",
+      "label_zh": "最大探测数",
+      "unit": "",
+      "min": 0,
+      "max": 5000,
+      "step": 100,
+      "scale": 1
+    },
+    {
+      "id": "sampling-rate",
+      "target": "samplingRate",
+      "label": "Detection rate",
+      "label_zh": "探测速率",
+      "unit": "s⁻¹",
+      "min": 10,
+      "max": 2000,
+      "step": 10,
+      "scale": 1
+    },
+    {
+      "id": "seed",
+      "target": "seed",
+      "label": "Random seed",
+      "label_zh": "随机种子",
+      "unit": "",
+      "min": 1,
+      "max": 4294967295,
+      "step": 1,
+      "scale": 1
+    },
+    {
+      "id": "detection-mode",
+      "target": "detectionMode",
+      "label": "Display mode",
+      "label_zh": "显示模式",
+      "unit": "",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "scale": 1,
+      "choices": [
+        {
+          "value": 0,
+          "label": "Continuous intensity"
+        },
+        {
+          "value": 1,
+          "label": "Detection accumulation"
+        }
+      ]
+    }
+  ],
+  "coupled_validation": [
+    "a<d",
+    "(d+a)²/(λL)≤.1",
+    "event/mode/seed integral"
+  ],
+  "numerical_tolerances": {
+    "symmetry": 1e-12,
+    "probability_sum": 1e-12,
+    "histogram_l1_at_5000": 0.15
+  },
+  "conservation_laws": [
+    "finite-window probability normalization"
+  ],
+  "convergence_criteria": "Fixed seed20261015 independent analytical samples; Lorentz O(h²) phase bound, spatial charged corner refinement; optics histogram convergence covered by test_optics; Kepler residual≤1e-12; event collision exact geometry, not timestep integration",
+  "known_limitations": [
+    "Coherent monochromatic scalar Fraunhofer model; ideal slits, no polarization or near-field propagation.",
+    "Validated (d+a)²/(λL) ≤ 0.1. Screen-angle relation is exact; fringe-spacing label is paraxial.",
+    "1001 discrete screen bins and ≤5000 seeded events, conditioned on the observation window; not a full quantum simulation."
+  ],
+  "runner": "scripts/validate_science.py",
+  "scientific_tests": "backend/tests/test_optics.py"
+}

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "experiment_id": "momentum-collisions",
+  "experiment_version": 1,
+  "model_assumptions": [
+    "Two isolated nonrotating frictionless disks, no external forces",
+    "Instantaneous normal restitution, one event; no deformation or multi-body contact",
+    "2D e=0 does not impose a persistent sticking joint"
+  ],
+  "reference_equations": [
+    "P=Σmv",
+    "ΔK=μred(1−e²)u_normal²/2",
+    "|r+ut|²=(rA+rB)²",
+    "vA′=Vcm−e mB(uA−uB)/(mA+mB)"
+  ],
+  "valid_parameter_domain": [
+    {
+      "id": "mass-a",
+      "target": "massA",
+      "label": "Mass A",
+      "label_zh": "物体甲质量",
+      "unit": "kg",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "radius-a",
+      "target": "radiusA",
+      "label": "Radius A",
+      "label_zh": "物体甲半径",
+      "unit": "m",
+      "min": 0.1,
+      "max": 2,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "position-a-x",
+      "target": "positionA.x",
+      "label": "Initial A x",
+      "label_zh": "物体甲初始位置x",
+      "unit": "m",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "velocity-a-x",
+      "target": "velocityA.x",
+      "label": "Velocity A x",
+      "label_zh": "物体甲初始速度x",
+      "unit": "m/s",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "position-a-y",
+      "target": "positionA.y",
+      "label": "Initial A y",
+      "label_zh": "物体甲初始位置y",
+      "unit": "m",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "velocity-a-y",
+      "target": "velocityA.y",
+      "label": "Velocity A y",
+      "label_zh": "物体甲初始速度y",
+      "unit": "m/s",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "mass-b",
+      "target": "massB",
+      "label": "Mass B",
+      "label_zh": "物体乙质量",
+      "unit": "kg",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "radius-b",
+      "target": "radiusB",
+      "label": "Radius B",
+      "label_zh": "物体乙半径",
+      "unit": "m",
+      "min": 0.1,
+      "max": 2,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "position-b-x",
+      "target": "positionB.x",
+      "label": "Initial B x",
+      "label_zh": "物体乙初始位置x",
+      "unit": "m",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "velocity-b-x",
+      "target": "velocityB.x",
+      "label": "Velocity B x",
+      "label_zh": "物体乙初始速度x",
+      "unit": "m/s",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "position-b-y",
+      "target": "positionB.y",
+      "label": "Initial B y",
+      "label_zh": "物体乙初始位置y",
+      "unit": "m",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "velocity-b-y",
+      "target": "velocityB.y",
+      "label": "Velocity B y",
+      "label_zh": "物体乙初始速度y",
+      "unit": "m/s",
+      "min": -20,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "dimensions",
+      "target": "dimensions",
+      "label": "Dimensions",
+      "label_zh": "维度",
+      "unit": "",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "scale": 1,
+      "choices": [
+        {
+          "value": 1,
+          "label": "1D: zero transverse components"
+        },
+        {
+          "value": 2,
+          "label": "2D frictionless disks"
+        }
+      ]
+    },
+    {
+      "id": "restitution",
+      "target": "restitution",
+      "label": "Restitution e",
+      "label_zh": "恢复系数 e",
+      "unit": "",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "scale": 1
+    },
+    {
+      "id": "frame",
+      "target": "frame",
+      "label": "Reference frame",
+      "label_zh": "参考系",
+      "unit": "",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "scale": 1,
+      "choices": [
+        {
+          "value": 0,
+          "label": "Laboratory"
+        },
+        {
+          "value": 1,
+          "label": "Center of mass"
+        }
+      ]
+    },
+    {
+      "id": "collision-duration",
+      "target": "duration",
+      "label": "Observation duration",
+      "label_zh": "观察时长",
+      "unit": "s",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    }
+  ],
+  "coupled_validation": [
+    "initial distance≥radiusA+radiusB",
+    "1D transverse positions and velocities=0",
+    "dimensions and frame integral"
+  ],
+  "numerical_tolerances": {
+    "velocity_m_per_s": 1e-11,
+    "momentum_kg_m_per_s": 1e-10,
+    "energy_loss_J": 1e-09
+  },
+  "conservation_laws": [
+    "linear momentum",
+    "kinetic energy for e=1"
+  ],
+  "convergence_criteria": "Fixed seed20261015 independent analytical samples; Lorentz O(h²) phase bound, spatial charged corner refinement; optics histogram convergence covered by test_optics; Kepler residual≤1e-12; event collision exact geometry, not timestep integration",
+  "known_limitations": [
+    "Exactly two isolated nonrotating bodies; no walls, friction, gravity, simultaneous multi-body contacts or contact deformation.",
+    "1D requires zero transverse position and velocity. Initial overlap is rejected.",
+    "2D e=0 removes normal relative speed at contact; it does not permanently bind disks.",
+    "No collision in the selected time window is reported explicitly; preview evaluates t=0 and includes predicted collision quantities."
+  ],
+  "runner": "scripts/validate_science.py",
+  "scientific_tests": "backend/tests/test_collisions.py"
+}

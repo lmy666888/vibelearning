@@ -1,3 +1,4 @@
+import {reportClientError} from '../services/telemetry';
 import {useEffect,useRef,useState} from 'react';
 import {useStore} from 'zustand';
 import type {Runtime} from '../experiments/runtime';
@@ -15,7 +16,7 @@ export function WorkspaceCanvas({runtime,editor}:{runtime:Runtime;editor:Editor}
  useEffect(()=>{const canvas=canvasRef.current!,host=wrapper.current!,ctx=canvas.getContext('2d')!;let frame=0,last=0;
  const resize=()=>{const rect=host.getBoundingClientRect(),dpr=Math.min(4,window.devicePixelRatio||1);size.current={width:rect.width,height:rect.height};if(canvas.width!==Math.round(rect.width*dpr)||canvas.height!==Math.round(rect.height*dpr)){canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);}ctx.setTransform(dpr,0,0,dpr,0,0);};const observer=new ResizeObserver(()=>{resize();const declared=Number.parseFloat(host.style.height);if(Number.isFinite(declared)&&declared>=360&&declared<=900&&workspaceStore.getState().height!==declared)workspaceStore.setState({height:declared});});observer.observe(host);resize();
  const wheel=(event:WheelEvent)=>{event.preventDefault();const r=canvas.getBoundingClientRect(),state=workspaceStore.getState();state.setCamera(zoomAt(state.camera,{x:event.clientX-r.left,y:event.clientY-r.top},size.current,Math.exp(-Math.max(-100,Math.min(100,event.deltaY))*.003)));};canvas.addEventListener('wheel',wheel,{passive:false});
- const draw=(time:number)=>{resize();try{if(last)runtime.advance(Math.min(.05,(time-last)/1000));}catch(e){runtime.pause();runtime.store.setState({error:(e as Error).message});}last=time;
+ const draw=(time:number)=>{resize();try{if(last)runtime.advance(Math.min(.05,(time-last)/1000));}catch(e){reportClientError('scientific');runtime.pause();runtime.store.setState({error:(e as Error).message});}last=time;
  const s=runtime.store.getState(),ws=workspaceStore.getState(),c=ws.camera,sz=size.current,to=(p:{x:number;y:number})=>worldToScreen(p,c,sz);ctx.clearRect(0,0,sz.width,sz.height);ctx.fillStyle='#0b1421';ctx.fillRect(0,0,sz.width,sz.height);
  const step=10**Math.floor(Math.log10(80/c.scale)),lo=screenToWorld({x:0,y:sz.height},c,sz),hi=screenToWorld({x:sz.width,y:0},c,sz);ctx.lineWidth=1;ctx.font='11px system-ui';
  for(let x=Math.ceil(lo.x/step)*step,count=0;x<=hi.x&&count<150;x+=step,count++){const sx=to({x,y:0}).x;ctx.strokeStyle=Math.abs(x)<step*1e-6?'#64758c':'#1c2c40';ctx.beginPath();ctx.moveTo(sx,0);ctx.lineTo(sx,sz.height);ctx.stroke();ctx.fillStyle='#7f94ae';if(count%2===0)ctx.fillText(`${Number(x.toPrecision(4))}`,sx+4,sz.height-12);}
