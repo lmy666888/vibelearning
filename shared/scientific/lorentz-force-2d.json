@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "experiment_id": "lorentz-force-2d",
+  "experiment_version": 1,
+  "model_assumptions": [
+    "Nonrelativistic planar point particle; uniform prescribed Ex,Ey,Bz",
+    "Boris rotation; finite-step phase error remains despite energy conservation"
+  ],
+  "reference_equations": [
+    "ω=qB/m",
+    "v(t)=rotation(−ωt)v0",
+    "Boris phase=−2atan(ωh/2) per step"
+  ],
+  "valid_parameter_domain": [
+    {
+      "id": "charge",
+      "target": "charge",
+      "label": "电荷 q",
+      "unit": "nC",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1e-09
+    },
+    {
+      "id": "mass",
+      "target": "mass",
+      "label": "质量 m",
+      "unit": "mg",
+      "min": 0.1,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1e-06
+    },
+    {
+      "id": "ex",
+      "target": "field.x",
+      "label": "电场 Ex",
+      "unit": "N/C",
+      "min": -500,
+      "max": 500,
+      "step": 10,
+      "scale": 1
+    },
+    {
+      "id": "ey",
+      "target": "field.y",
+      "label": "电场 Ey",
+      "unit": "N/C",
+      "min": -500,
+      "max": 500,
+      "step": 10,
+      "scale": 1
+    },
+    {
+      "id": "vx",
+      "target": "initialVelocity.x",
+      "label": "初速度 vx",
+      "unit": "m/s",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "vy",
+      "target": "initialVelocity.y",
+      "label": "初速度 vy",
+      "unit": "m/s",
+      "min": -10,
+      "max": 10,
+      "step": 0.1,
+      "scale": 1
+    },
+    {
+      "id": "positionx",
+      "target": "initialPosition.x",
+      "label": "Initial position x",
+      "unit": "m",
+      "min": -1000000.0,
+      "max": 1000000.0,
+      "step": 1,
+      "scale": 1,
+      "readonly": true
+    },
+    {
+      "id": "positiony",
+      "target": "initialPosition.y",
+      "label": "Initial position y",
+      "unit": "m",
+      "min": -1000000.0,
+      "max": 1000000.0,
+      "step": 1,
+      "scale": 1,
+      "readonly": true
+    },
+    {
+      "id": "bz",
+      "target": "magneticFieldZ",
+      "label": "Magnetic field Bz",
+      "unit": "T",
+      "min": -500,
+      "max": 500,
+      "step": 1,
+      "scale": 1
+    },
+    {
+      "id": "dt",
+      "target": "timeStep",
+      "label": "Fixed timestep",
+      "unit": "s",
+      "min": 0.0002,
+      "max": 0.02,
+      "step": 0.0002,
+      "scale": 1
+    },
+    {
+      "id": "duration",
+      "target": "duration",
+      "label": "Maximum duration",
+      "unit": "s",
+      "min": 0.1,
+      "max": 20,
+      "step": 0.1,
+      "scale": 1
+    }
+  ],
+  "coupled_validation": [
+    "|qB/m|h≤.020000000001",
+    "ceil(duration/h)≤100000"
+  ],
+  "numerical_tolerances": {
+    "speed_m_per_s": 1e-10,
+    "phase_rad": "|ω|³Th²/12+1e-11"
+  },
+  "conservation_laws": [
+    "kinetic energy in magnetic-only fields"
+  ],
+  "convergence_criteria": "Fixed seed20261015 independent analytical samples; Lorentz O(h²) phase bound, spatial charged corner refinement; optics histogram convergence covered by test_optics; Kepler residual≤1e-12; event collision exact geometry, not timestep integration",
+  "known_limitations": [
+    "Uniform E and Bz; nonrelativistic; no collisions, radiation or space charge.",
+    "Synchronized centered Boris/Cayley velocity rotation with trapezoidal position. |qB/m| dt <= 0.02; at most 100000 steps; duration <=20 s."
+  ],
+  "runner": "scripts/validate_science.py",
+  "scientific_tests": "backend/tests/test_experiments.py"
+}

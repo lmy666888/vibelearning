@@ -45,6 +45,9 @@ def task_schema(operation,v2):
 
 async def completion(provider,messages,requested,send,operation=None):
     from app.services.ai.provider import ProviderError
+    from app.readiness import ai_enabled
+    from app.observability import count
+    if not ai_enabled():raise ProviderError(503,'ai_disabled','AI generation is temporarily disabled. Local experiments remain available.')
     who=identity.get() or Identity('server-internal','server-internal')
     try:limits=Limits.load()
     except (GovernanceError,ValueError):raise ProviderError(503,'quota_unavailable',localized('quota_unavailable',who.language)) from None
@@ -59,10 +62,16 @@ async def completion(provider,messages,requested,send,operation=None):
         specs,cost=specs_for(limits,who.session,who.network,digest,tokens,output);r=None;success=False;actual=None
         try:
             r=await store.reserve(specs,secrets.token_hex(16),time.time()+min(limits.timeout,provider.settings.timeout)+10,limits.concurrency,cost,specs[-1][0]);who.remaining_minute=r.remaining_minute;who.remaining_daily=r.remaining_daily
+            from app.readiness import ai_enabled
+            if not ai_enabled():
+                actual=0
+                raise ProviderError(503,'ai_disabled','AI generation is temporarily disabled.')
+            count('provider_calls');count('reserved_micro_usd',cost)
             authorization=dispatch_authorized.set(True)
             try:raw,usage=await asyncio.wait_for(send(trusted,output),min(limits.timeout,provider.settings.timeout))
             finally:dispatch_authorized.reset(authorization)
-            if usage and all(type(usage.get(k)) is int and usage[k]>=0 for k in ['prompt_tokens','completion_tokens']):actual=min(cost,limits.cost(usage['prompt_tokens'],usage['completion_tokens']))
+            if usage and all(type(usage.get(k)) is int and usage[k]>=0 for k in ['prompt_tokens','completion_tokens']):
+                actual=min(cost,limits.cost(usage['prompt_tokens'],usage['completion_tokens']));count('prompt_tokens',usage['prompt_tokens']);count('completion_tokens',usage['completion_tokens'])
             if len(raw.encode())>24000 or SCOPE_POLICY in raw:raise ValueError('Unsafe or oversized scope result')
             result=ScopeEnvelope.model_validate_json(raw);success=True
             if result.scope!='in_scope':
@@ -71,11 +80,18 @@ async def completion(provider,messages,requested,send,operation=None):
             return json.dumps(result.result,ensure_ascii=False,allow_nan=False)
         except GovernanceError as e:
             error=ProviderError(e.status,e.code,localized(e.code,who.language));error.retry_after=e.retry;raise error from None
-        except TimeoutError:raise ProviderError(504,'provider_timeout','The AI provider timed out. Retry explicitly.') from None
-        except ValueError:raise ProviderError(502,'invalid_provider_response','The provider returned invalid governed output.') from None
+        except TimeoutError:
+            count('provider_errors')
+            raise ProviderError(504,'provider_timeout','The AI provider timed out. Retry explicitly.') from None
+        except ValueError:
+            count('provider_errors')
+            raise ProviderError(502,'invalid_provider_response','The provider returned invalid governed output.') from None
         except ProviderError as e:
+            if e.code not in {'out_of_scope','clarification_required','ai_disabled'}:count('provider_errors')
             # Only explicit upstream 5xx/network unavailability retries; every attempt reserves anew.
             if attempt<limits.retries and e.code in {'provider_unavailable','provider_error'}:await asyncio.sleep(.1*(attempt+1));continue
             raise
         finally:
-            if r:await asyncio.shield(store.finish(r,actual_cost=actual,failed=not success))
+            if r:
+                count('settled_micro_usd',cost if actual is None else actual)
+                await asyncio.shield(store.finish(r,actual_cost=actual,failed=not success))

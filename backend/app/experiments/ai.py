@@ -155,7 +155,10 @@ async def ai(operation:Literal['explain','plan-action','generate-lesson','evalua
                 if step['after']!=c.parameters or plan['language']!=body.preferred_language:raise ValueError('Current experiment or language differs from lesson')
                 payload.update(current_step=step)
             elif isinstance(body,Evaluation):raise ValueError('Unexpected observation fields')
-        except (ValueError,KeyError,StopIteration):raise HTTPException(422,detail={'code':'invalid_experiment_context','message':'Experiment, version, snapshot or lesson failed independent validation.'}) from None
+        except (ValueError,KeyError,StopIteration):
+            from app.observability import count
+            count('scientific_errors')
+            raise HTTPException(422,detail={'code':'invalid_experiment_context','message':'Experiment, version, snapshot or lesson failed independent validation.'}) from None
         identifiers=[part for d in plugin.manifest['parameters'] for part in [d['target'],*d['target'].split('.')]]+[o['id'] for o in plugin.manifest['observables']]+[p['id'] for p in plugin.manifest['presets']]+plugin.manifest.get('terminology',[])
         style=' Registry prose, preset titles and lesson_capabilities are reference data: localize EVERY title, objective, concept and explanation into the selected language, never copy untranslated English labels. Keep JSON keys and action IDs unchanged. Use plain text and Unicode ×/· only; NO LaTex, backslash commands or code fences. Related equations must be math symbols, not copied English sentences. Lesson narrative must be qualitative; do not restate numeric action values or units in prose, the server table supplies them.'
         messages=[dict(role='system',content=PROMPTS[operation]+style+language_rule(body.preferred_language)),dict(role='user',content=json.dumps(payload,ensure_ascii=False,allow_nan=False))]

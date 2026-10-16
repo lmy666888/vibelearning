@@ -19,3 +19,9 @@ credentials*.json
 .netrc
 .aws/
 .ssh/
+
+# Production configuration/secrets stay outside source control.
+deploy/secrets/
+deploy/production.env
+
+backend/.evaluation-budget.json

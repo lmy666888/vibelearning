@@ -1,0 +1,51 @@
+services:
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/frontend.Dockerfile
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      backend: {condition: service_healthy}
+    networks: [edge]
+    security_opt: ["no-new-privileges:true"]
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/backend.Dockerfile
+    env_file: production.env
+    environment:
+      LLM_API_KEY_FILE: /run/secrets/llm_key
+      AI_REDIS_URL_FILE: /run/secrets/redis_url
+      AI_SESSION_SECRET_FILE: /run/secrets/session_secret
+      OPS_METRICS_TOKEN_FILE: /run/secrets/metrics_token
+    secrets: [llm_key, redis_url, session_secret, metrics_token]
+    depends_on:
+      redis: {condition: service_started}
+    networks: [edge, quota]
+    security_opt: ["no-new-privileges:true"]
+    read_only: true
+    tmpfs: [/tmp]
+    healthcheck:
+      test: ["CMD", "/app/backend/.venv/bin/python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/ready',timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    stop_grace_period: 140s
+  redis:
+    image: redis:7.4.11-alpine
+    command: ["redis-server", "/run/secrets/redis_config"]
+    secrets: [redis_config]
+    volumes: [redis-data:/data]
+    networks: [quota]
+    security_opt: ["no-new-privileges:true"]
+networks:
+  edge: {}
+  quota: {internal: true}
+volumes:
+  redis-data: {}
+secrets:
+  llm_key: {file: ./secrets/llm_key}
+  redis_url: {file: ./secrets/redis_url}
+  session_secret: {file: ./secrets/session_secret}
+  metrics_token: {file: ./secrets/metrics_token}
+  redis_config: {file: ./secrets/redis.conf}

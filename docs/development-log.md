@@ -113,3 +113,7 @@ Stacked from verified Milestone2 head09f7f44, no merges of new feature PRs. Inde
 ## 2026-10-15 — Milestone4: Momentum & Collisions
 
 Sequential start after verified M3 head7663dc5 CI190/333/39. Independent1D/2D event model with analytical continuous impact, restitution/COM,7presets and charts, shared six-plugin workflows. See [daily details](development/2026-10-15-m4-collisions.md), [physics](physics-collisions.md). Earlier stacked PRs remain unmerged. Final actual tests and CI recorded after verification in the PR/acceptance report.
+
+## 2026-10-15–16 — Milestone5 integration and controlled beta hardening
+
+Normal-merge PR6→7→8→9 after exact-head CI/review/credential/target checks; finalmain ee31ae64c6cb5aeae10dda2f068ccfff69b6d49a. Full baseline198Vitest/371Pytest+3localRedis skips/41Chromium/type/build. Independent hardening worktree preserves the source folder's uncommitted whitespace edit. Details in [2026-10-16 release log](development/2026-10-16-m5-release-hardening.md). No public deployment, paid infrastructure or large real Gemini evaluation.

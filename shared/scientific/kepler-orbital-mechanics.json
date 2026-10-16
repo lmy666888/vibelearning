@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "experiment_id": "kepler-orbital-mechanics",
+  "experiment_version": 1,
+  "model_assumptions": [
+    "Newtonian planar two-point-mass relative coordinates",
+    "Bound ellipse e≤.9; no perturbations or relativity"
+  ],
+  "reference_equations": [
+    "M=E−e sinE",
+    "r=a(1−e cosE)",
+    "h²=μa(1−e²)",
+    "ε=−μ/(2a)",
+    "T²=4π²a³/μ"
+  ],
+  "valid_parameter_domain": [
+    {
+      "id": "central-mass",
+      "target": "centralMass",
+      "label": "Central mass",
+      "label_zh": "中心质量",
+      "unit": "M☉",
+      "min": 0.1,
+      "max": 5,
+      "step": 0.1,
+      "scale": 1.98847e+30
+    },
+    {
+      "id": "orbiting-mass",
+      "target": "orbitingMass",
+      "label": "Orbiting mass",
+      "label_zh": "绕行质量",
+      "unit": "M⊕",
+      "min": 0.01,
+      "max": 10000,
+      "step": 1,
+      "scale": 5.9722e+24
+    },
+    {
+      "id": "semimajor-axis",
+      "target": "semimajorAxis",
+      "label": "Semimajor axis a",
+      "label_zh": "半长轴 a",
+      "unit": "AU",
+      "min": 0.2,
+      "max": 5,
+      "step": 0.1,
+      "scale": 149597870700
+    },
+    {
+      "id": "eccentricity",
+      "target": "eccentricity",
+      "label": "Eccentricity e",
+      "label_zh": "偏心率 e",
+      "unit": "",
+      "min": 0,
+      "max": 0.9,
+      "step": 0.01,
+      "scale": 1
+    },
+    {
+      "id": "initial-phase",
+      "target": "initialMeanAnomaly",
+      "label": "Initial mean anomaly",
+      "label_zh": "初始平近点角",
+      "unit": "°",
+      "min": 0,
+      "max": 360,
+      "step": 5,
+      "scale": 0.017453292519943295
+    },
+    {
+      "id": "periods",
+      "target": "durationPeriods",
+      "label": "Playback periods",
+      "label_zh": "播放周期数",
+      "unit": "",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "scale": 1
+    },
+    {
+      "id": "areas",
+      "target": "showAreas",
+      "label": "Equal-area sectors",
+      "label_zh": "等时面积扇区",
+      "unit": "",
+      "min": 0,
+      "max": 1,
+      "step": 1,
+      "scale": 1,
+      "choices": [
+        {
+          "value": 0,
+          "label": "Hide sectors"
+        },
+        {
+          "value": 1,
+          "label": "Show equal-time sectors"
+        }
+      ]
+    }
+  ],
+  "coupled_validation": [
+    "0≤e≤.9",
+    "integer durationPeriods and showAreas",
+    "query≤period×durationPeriods"
+  ],
+  "numerical_tolerances": {
+    "residual_rad": 1e-12,
+    "energy_relative": 1e-11,
+    "angular_momentum_relative": 1e-11
+  },
+  "conservation_laws": [
+    "specific orbital energy",
+    "specific angular momentum"
+  ],
+  "convergence_criteria": "Fixed seed20261015 independent analytical samples; Lorentz O(h²) phase bound, spatial charged corner refinement; optics histogram convergence covered by test_optics; Kepler residual≤1e-12; event collision exact geometry, not timestep integration",
+  "known_limitations": [
+    "Newtonian isolated point-mass two-body relative orbit; e≤0.9, no relativity or perturbations.",
+    "Central-focus view is a relative coordinate frame, not a claim the star is inertially stationary.",
+    "Orbital elements are planar; drawn body radii are illustrative, not to scale."
+  ],
+  "runner": "scripts/validate_science.py",
+  "scientific_tests": "backend/tests/test_kepler.py"
+}

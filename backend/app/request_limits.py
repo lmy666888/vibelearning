@@ -6,7 +6,7 @@ class TutorBodyLimit:
         self.app, self.limit = app, limit
 
     async def __call__(self, scope, receive, send):
-        if scope["type"] != "http" or (not scope["path"].startswith("/api/v2/ai/") and scope["path"] not in {"/api/ai/explain", "/api/ai/plan-action", "/api/ai/generate-lesson", "/api/ai/evaluate-observation"}):
+        if scope["type"] != "http" or (scope["path"] != "/api/telemetry/client-error" and not scope["path"].startswith("/api/v2/ai/") and scope["path"] not in {"/api/ai/explain", "/api/ai/plan-action", "/api/ai/generate-lesson", "/api/ai/evaluate-observation"}):
             return await self.app(scope, receive, send)
         data = bytearray()
         while True:
@@ -14,7 +14,7 @@ class TutorBodyLimit:
             if message["type"] == "http.disconnect":
                 return
             data.extend(message.get("body", b""))
-            if len(data) > self.limit:
+            if len(data) > (256 if scope["path"] == "/api/telemetry/client-error" else self.limit):
                 return await JSONResponse({"detail": {"code": "request_too_large", "message": "Request body exceeds 64 KiB."}}, 413)(scope, receive, send)
             if not message.get("more_body", False):
                 break

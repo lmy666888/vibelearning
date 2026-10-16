@@ -245,3 +245,7 @@ The fifth plugin solves bounded Newtonian elliptical two-body relative motion an
 ### Momentum & Collisions
 
 Six experiments now share one workspace. `momentum-collisions` adds exact1D and continuous-time2D frictionless pair impacts, restitution, laboratory/COM frames,7presets and before/after momentum-energy charts. All use the same governed AI/confirmed actions/lessons and paused recovery. No general rigid-body or permanent2D sticking claim; see [collision physics](docs/physics-collisions.md) and [M4 log](docs/development/2026-10-15-m4-collisions.md). Stacked merge order: AI governance → double slit → Kepler → collisions; new PRs remain unmerged.
+
+### Milestone5 — release integration and hardening
+
+PR6–9 are integrated by normal merge commits; main baseline ee31ae64c6cb5aeae10dda2f068ccfff69b6d49a. Hardening adds per-experiment machine-readable scientific validation,336labeled offline AI cases, privacy-safe aggregate metrics, liveness/readiness, a server AI kill switch, production configuration and cross-browser/state-isolation QA. No public deployment/billing/model evaluation is implied. See [deployment and rollback](docs/release/deployment.md), [AI evaluation limits](docs/release/ai-evaluation.md), [UX audit](docs/release/ux-audit.md), [science report](docs/release/scientific-validation.json) and [daily log](docs/development/2026-10-16-m5-release-hardening.md). Production defaults AI off; real provider and deployment image checks remain operator gates.

@@ -150,7 +150,8 @@ test('numeric draft supports keyboard entry of negative charge', async ({ page }
   await expect(acceleration(page)).toHaveText('0.000, -0.200');
 });
 
-test('canvas follows DPR changes without a CSS dimension change', async ({ page }) => {
+test('canvas respects DPR: dynamic Chromium, fixed-size contexts in Firefox/WebKit', async ({ page, browser, browserName }) => {
+  if(browserName!=='chromium'){for(const factor of [2,1.5,1]){const context=await browser.newContext({viewport:{width:1280,height:720},deviceScaleFactor:factor});try{const p=await context.newPage();await p.goto('http://127.0.0.1:5174/?context=v1');await expect.poll(()=>p.locator('canvas').evaluate(c=>Math.abs((c as HTMLCanvasElement).width-Math.round(c.getBoundingClientRect().width*devicePixelRatio))<=1)).toBe(true);expect(await p.evaluate(()=>devicePixelRatio)).toBeCloseTo(factor,1);}finally{await context.close();}}return;}
   const canvas = page.locator('canvas');
   const rect = await canvas.boundingBox();
   expect(rect).not.toBeNull();

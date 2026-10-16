@@ -1,0 +1,13 @@
+# Focused first-time journey audit — 2026-10-16
+
+Scope:6experiment existing workspace, no redesign or new experiment. Tests choose a domain, read objective, alter restitution, observe contact/energy, ask a mocked AI explanation, preview/confirm a change and finish a lesson observation through shared UI. Existing collision/optics/Kepler and regional E2E supply actual confirmation and lesson completion; `release.spec.ts` adds cross-experiment disappearance of stale proposals and Chinese objective content. All30ordered experiment pairs additionally reject old-context mutations even after switching back.
+
+High-priority issue1: learning objective was buried in the education accordion or preset card. Fixed: a localized objective appears immediately below experiment title. No extra introductory modal/step. Preserve parameter/preset/Canvas/AI layout.
+
+High-priority issue2: an unexpected React render error could leave no recovery action. Fixed: bounded privacy-safe telemetry plus bilingual error boundary with explicit reload. It explains saved setup restores paused; no internal error/prompt text appears in fallback. Does not automatically reset student parameters.
+
+Browser test portability: old tests assumed Chromium CDP everywhere and fractional injected pointer precision. Fixed: dynamic DPR on Chromium; isolated same-size DPR contexts in Firefox/WebKit; drag/resize checks use actual observed pointer deltas with the original1e-5precision, rather than weakening scientific tolerances. Native Safari was not tested; Playwright WebKit is the tested engine. Local long runs also experienced multi-minute scheduling stalls/timeouts despite20sconfigured test timeout; keep these failures distinct from passes and report CI separately. No retries or timeout increases mask them.
+
+Remaining UX limits: technical scientific labels/presets/renderer legends are still predominantly English; AI response language and educational guide/objective support Chinese. Local persistence is one active workspace, not cloud account synchronization. Anonymous quotas are not user accounts. New-domain real Gemini output was not exercised in this audit. These limits should be disclosed to the controlled beta cohort.
+
+Concrete CI issue fixed: initial125/126E2E identified LinuxWebKit native CSS resize handle nonfunctional. Replaced it with a shared visible24px pointer-captured handle and keyboard Arrow/Home/End control, bounded360–900px. Scientific/EM Canvas share it; camera/parameters remain unaffected. Native3engine focused resize3/3passed and a keyboard regression passed. No assertion was skipped or precision relaxed. Final exact-head CI must confirm the Linux result.

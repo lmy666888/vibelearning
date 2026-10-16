@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "transport": "real ASGI, production policy and real Redis; upstream mocked",
+  "readiness": 200,
+  "secure_cookie": true,
+  "kill_switch": 503,
+  "upstream_mock_calls": 1,
+  "real_provider_calls": 0
+}
