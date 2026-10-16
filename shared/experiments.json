@@ -1418,5 +1418,307 @@
       "LCG",
       "JSON"
     ]
+  },
+  {
+    "id": "kepler-orbital-mechanics",
+    "version": 1,
+    "title": "Kepler's Laws & Orbital Mechanics",
+    "subject": "physics / orbital mechanics",
+    "description": "Analytical Newtonian two-body relative motion, bounded Kepler root solving and three-law verification.",
+    "parameters": [
+      {
+        "id": "central-mass",
+        "target": "centralMass",
+        "label": "Central mass",
+        "label_zh": "中心质量",
+        "unit": "M☉",
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "scale": 1.98847e+30
+      },
+      {
+        "id": "orbiting-mass",
+        "target": "orbitingMass",
+        "label": "Orbiting mass",
+        "label_zh": "绕行质量",
+        "unit": "M⊕",
+        "min": 0.01,
+        "max": 10000,
+        "step": 1,
+        "scale": 5.9722e+24
+      },
+      {
+        "id": "semimajor-axis",
+        "target": "semimajorAxis",
+        "label": "Semimajor axis a",
+        "label_zh": "半长轴 a",
+        "unit": "AU",
+        "min": 0.2,
+        "max": 5,
+        "step": 0.1,
+        "scale": 149597870700
+      },
+      {
+        "id": "eccentricity",
+        "target": "eccentricity",
+        "label": "Eccentricity e",
+        "label_zh": "偏心率 e",
+        "unit": "",
+        "min": 0,
+        "max": 0.9,
+        "step": 0.01,
+        "scale": 1
+      },
+      {
+        "id": "initial-phase",
+        "target": "initialMeanAnomaly",
+        "label": "Initial mean anomaly",
+        "label_zh": "初始平近点角",
+        "unit": "°",
+        "min": 0,
+        "max": 360,
+        "step": 5,
+        "scale": 0.017453292519943295
+      },
+      {
+        "id": "periods",
+        "target": "durationPeriods",
+        "label": "Playback periods",
+        "label_zh": "播放周期数",
+        "unit": "",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "scale": 1
+      },
+      {
+        "id": "areas",
+        "target": "showAreas",
+        "label": "Equal-area sectors",
+        "label_zh": "等时面积扇区",
+        "unit": "",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "scale": 1,
+        "choices": [
+          {
+            "value": 0,
+            "label": "Hide sectors"
+          },
+          {
+            "value": 1,
+            "label": "Show equal-time sectors"
+          }
+        ]
+      }
+    ],
+    "operations": [
+      "set_parameter",
+      "scale_parameter",
+      "select_preset",
+      "reset_simulation"
+    ],
+    "observables": [
+      {
+        "id": "period",
+        "label": "Orbital period",
+        "unit": "s"
+      },
+      {
+        "id": "radius",
+        "label": "Relative separation",
+        "unit": "m"
+      },
+      {
+        "id": "speed",
+        "label": "Relative speed",
+        "unit": "m/s"
+      },
+      {
+        "id": "periapsis",
+        "label": "Periapsis distance",
+        "unit": "m"
+      },
+      {
+        "id": "apoapsis",
+        "label": "Apoapsis distance",
+        "unit": "m"
+      },
+      {
+        "id": "specific_angular_momentum",
+        "label": "Specific angular momentum",
+        "unit": "m²/s"
+      },
+      {
+        "id": "specific_energy",
+        "label": "Specific orbital energy",
+        "unit": "J/kg"
+      },
+      {
+        "id": "orbital_energy",
+        "label": "Relative orbital energy",
+        "unit": "J"
+      },
+      {
+        "id": "swept_area",
+        "label": "Area swept since start",
+        "unit": "m²"
+      },
+      {
+        "id": "equal_time_area",
+        "label": "Area per T/12 interval",
+        "unit": "m²"
+      },
+      {
+        "id": "kepler_residual",
+        "label": "Kepler equation residual",
+        "unit": "rad"
+      },
+      {
+        "id": "energy_relative_error",
+        "label": "Energy relative error",
+        "unit": ""
+      },
+      {
+        "id": "angular_momentum_relative_error",
+        "label": "Angular momentum relative error",
+        "unit": ""
+      }
+    ],
+    "presets": [
+      {
+        "id": "circular",
+        "title": "Circular orbit",
+        "description": "Constant radius and speed in the circular limit.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "Constant radius and speed in the circular limit.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 149597870700,
+          "eccentricity": 0,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      },
+      {
+        "id": "low-eccentricity",
+        "title": "Low-eccentricity ellipse",
+        "description": "The central body is at a focus, not the ellipse center.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "The central body is at a focus, not the ellipse center.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 149597870700,
+          "eccentricity": 0.2,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      },
+      {
+        "id": "high-eccentricity",
+        "title": "High-eccentricity ellipse",
+        "description": "Periapsis speed is much larger than apoapsis speed.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "Periapsis speed is much larger than apoapsis speed.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 149597870700,
+          "eccentricity": 0.85,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      },
+      {
+        "id": "equal-areas",
+        "title": "Equal-area demonstration",
+        "description": "Equal elapsed times sweep equal areas despite changing speed.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "Equal elapsed times sweep equal areas despite changing speed.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 149597870700,
+          "eccentricity": 0.6,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      },
+      {
+        "id": "period-comparison",
+        "title": "Period comparison",
+        "description": "Increasing semimajor axis increases period according to T²∝a³.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "Increasing semimajor axis increases period according to T²∝a³.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 299195741400,
+          "eccentricity": 0.1,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      },
+      {
+        "id": "periapsis-apoapsis",
+        "title": "Periapsis versus apoapsis",
+        "description": "Compare distance and speed at opposite apsides.",
+        "objective": "Test the three Kepler laws against verified orbital quantities.",
+        "expected": "Compare distance and speed at opposite apsides.",
+        "parameters": {
+          "centralMass": 1.98847e+30,
+          "orbitingMass": 5.9722e+24,
+          "semimajorAxis": 149597870700,
+          "eccentricity": 0.75,
+          "initialMeanAnomaly": 0,
+          "durationPeriods": 2,
+          "showAreas": 1
+        }
+      }
+    ],
+    "initial_query": {
+      "time": 0
+    },
+    "equations": [
+      "μ = G(M+m)",
+      "r″ = −μr/|r|³",
+      "M = E − e sin E",
+      "r = a(1 − e cos E)",
+      "T² = 4π²a³/μ",
+      "h = r × v; dA/dt = |h|/2",
+      "ε = |v|²/2 − μ/r = −μ/(2a)"
+    ],
+    "renderer": "kepler-canvas",
+    "evolution": {
+      "kind": "analytical",
+      "max_duration": 1000000000000.0
+    },
+    "lesson_capabilities": [
+      "Ellipse and focus geometry",
+      "Equal areas in equal times",
+      "Period versus semimajor-axis scaling",
+      "Periapsis and apoapsis speed",
+      "Relative and barycentric coordinates"
+    ],
+    "limitations": [
+      "Newtonian isolated point-mass two-body relative orbit; e≤0.9, no relativity or perturbations.",
+      "Central-focus view is a relative coordinate frame, not a claim the star is inertially stationary.",
+      "Orbital elements are planar; drawn body radii are illustrative, not to scale."
+    ],
+    "terminology": [
+      "Kepler",
+      "Newton",
+      "AU",
+      "JSON"
+    ]
   }
 ]

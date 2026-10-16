@@ -237,3 +237,7 @@ All Gemini-backed v1/v2 workflows share signed server-issued anonymous sessions,
 ### Double-slit interference
 
 The fourth registered experiment uses independent coherent scalar Fraunhofer optics with finite-width envelope, exact screen-angle geometry and bounded reproducible detection sampling. Specialized optical Canvas, six presets and bilingual learning reuse the same reviewed AI/governance/session workspace. [Scientific model and limitations](docs/physics-double-slit.md).
+
+### Kepler's laws and orbital mechanics
+
+The fifth plugin solves bounded Newtonian elliptical two-body relative motion analytically via safeguarded Kepler root finding. Focus geometry, equal-time sectors, T²/a³ graph, astronomical units and six presets reuse shared governed AI/lessons/confirmation and paused recovery. [Scientific contract](docs/physics-kepler.md).

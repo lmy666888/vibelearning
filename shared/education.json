@@ -102,5 +102,31 @@
       "misconceptions": "这是给定概率分布的抽样，不是完整量子轨迹或测量过程模拟。",
       "ask": "为什么缝间距减小时条纹变宽？"
     }
+  },
+  "kepler-orbital-mechanics": {
+    "en": {
+      "overview": "Kepler's laws and two-body motion",
+      "background": "An inverse-square attractive force generates an ellipse in bound two-body relative motion.",
+      "objectives": "Identify foci, compare equal-time areas and test T² against a³.",
+      "equations": "μ=G(M+m); M=E−e sinE; T²=4π²a³/μ",
+      "setup": "Select mass, semimajor axis, eccentricity and initial mean anomaly.",
+      "instructions": "Play, pause at apsides, show equal-time sectors and inspect the period comparison graph.",
+      "observations": "Why does speed rise near periapsis? Are equal-time areas equal?",
+      "expected": "Specific energy and angular momentum remain constant; period depends on a and total mass.",
+      "misconceptions": "The central body is at a focus in this relative view, not at the geometric center or stationary in every inertial frame.",
+      "ask": "Why does the orbiting body move faster near periapsis?"
+    },
+    "zh-CN": {
+      "overview": "开普勒定律与二体运动",
+      "background": "反平方引力在有界二体相对运动中产生椭圆轨道。",
+      "objectives": "识别焦点、比较等时面积，并检验 T² 与 a³。",
+      "equations": "μ=G(M+m)；M=E−e sinE；T²=4π²a³/μ",
+      "setup": "设置质量、半长轴、偏心率和初始平近点角。",
+      "instructions": "播放并在近远点暂停，显示等时扇区并检查周期比较图。",
+      "observations": "为什么近点运动更快？相等时间扫过的面积相等吗？",
+      "expected": "比机械能与比角动量保持恒定，周期由半长轴及总质量决定。",
+      "misconceptions": "相对坐标中中心天体位于焦点，不在几何中心，也不代表它在所有惯性系中静止。",
+      "ask": "为什么绕行天体在近点运动更快？"
+    }
   }
 }

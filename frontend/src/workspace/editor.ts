@@ -3,7 +3,7 @@ import type {Runtime} from '../experiments/runtime';
 import type {Data} from '../experiments/contract';
 import type {Region} from '../experiments/spatial';
 import {defaultCamera,validCamera,type Camera} from './camera';
-export const workspaceStore=createStore<{camera:Camera;height:number;selected:string|null;visible:{fields:boolean;vectors:boolean;trail:boolean};panel:'parameters'|'canvas'|'ai';setCamera:(c:Camera)=>void}>(set=>({camera:defaultCamera,height:560,selected:null,visible:{fields:true,vectors:true,trail:true},panel:'canvas',setCamera:camera=>set({camera:validCamera(camera)})}));
+export const workspaceStore=createStore<{camera:Camera;cameraRestored?:boolean;height:number;selected:string|null;visible:{fields:boolean;vectors:boolean;trail:boolean};panel:'parameters'|'canvas'|'ai';setCamera:(c:Camera)=>void}>(set=>({camera:defaultCamera,height:560,selected:null,visible:{fields:true,vectors:true,trail:true},panel:'canvas',setCamera:camera=>set({camera:validCamera(camera)})}));
 export function makeEditor(runtime:Runtime){let undo:Data[]=[],redo:Data[]=[],ownRevision=runtime.store.getState().revision;
  const sync=()=>{if(runtime.store.getState().revision!==ownRevision){undo=[];redo=[];ownRevision=runtime.store.getState().revision;}};
  const commit=(p:Data)=>{sync();const old=structuredClone(runtime.store.getState().parameters);runtime.commit(p,runtime.context());undo=[...undo,old].slice(-40);redo=[];ownRevision=runtime.store.getState().revision;};

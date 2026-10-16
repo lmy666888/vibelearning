@@ -58,4 +58,6 @@ from app.experiments.spatial import SpatialPlugin
 REGISTRY['multi-zone-em']=SpatialPlugin(manifest('multi-zone-em'))
 from app.experiments.optics import OpticalPlugin
 REGISTRY['double-slit-interference']=OpticalPlugin(manifest('double-slit-interference'))
+from app.experiments.kepler import KeplerPlugin
+REGISTRY['kepler-orbital-mechanics']=KeplerPlugin(manifest('kepler-orbital-mechanics'))
 if len(REGISTRY)!=len(MANIFESTS):raise ValueError('Manifest has no registered engine')
