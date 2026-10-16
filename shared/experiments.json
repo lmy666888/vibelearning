@@ -1104,5 +1104,319 @@
       "enabled",
       "schema_version"
     ]
+  },
+  {
+    "id": "double-slit-interference",
+    "version": 1,
+    "title": "Double-Slit Interference",
+    "subject": "physics / wave optics",
+    "description": "Coherent scalar Fraunhofer interference with finite-width diffraction envelope and seeded detection events.",
+    "parameters": [
+      {
+        "id": "wavelength",
+        "target": "wavelength",
+        "label": "Wavelength λ",
+        "label_zh": "波长 λ",
+        "unit": "nm",
+        "min": 380,
+        "max": 780,
+        "step": 10,
+        "scale": 1e-09
+      },
+      {
+        "id": "separation",
+        "target": "slitSeparation",
+        "label": "Slit separation d",
+        "label_zh": "缝间距 d",
+        "unit": "μm",
+        "min": 10,
+        "max": 300,
+        "step": 5,
+        "scale": 1e-06
+      },
+      {
+        "id": "slit-width",
+        "target": "slitWidth",
+        "label": "Slit width a",
+        "label_zh": "缝宽 a",
+        "unit": "μm",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "scale": 1e-06
+      },
+      {
+        "id": "screen-distance",
+        "target": "screenDistance",
+        "label": "Screen distance L",
+        "label_zh": "屏幕距离 L",
+        "unit": "m",
+        "min": 0.5,
+        "max": 10,
+        "step": 0.1,
+        "scale": 1
+      },
+      {
+        "id": "screen-range",
+        "target": "screenHalfRange",
+        "label": "Screen half-range",
+        "label_zh": "屏幕半范围",
+        "unit": "mm",
+        "min": 2,
+        "max": 50,
+        "step": 1,
+        "scale": 0.001
+      },
+      {
+        "id": "events",
+        "target": "detectionEvents",
+        "label": "Maximum detections",
+        "label_zh": "最大探测数",
+        "unit": "",
+        "min": 0,
+        "max": 5000,
+        "step": 100,
+        "scale": 1
+      },
+      {
+        "id": "sampling-rate",
+        "target": "samplingRate",
+        "label": "Detection rate",
+        "label_zh": "探测速率",
+        "unit": "s⁻¹",
+        "min": 10,
+        "max": 2000,
+        "step": 10,
+        "scale": 1
+      },
+      {
+        "id": "seed",
+        "target": "seed",
+        "label": "Random seed",
+        "label_zh": "随机种子",
+        "unit": "",
+        "min": 1,
+        "max": 4294967295,
+        "step": 1,
+        "scale": 1
+      },
+      {
+        "id": "detection-mode",
+        "target": "detectionMode",
+        "label": "Display mode",
+        "label_zh": "显示模式",
+        "unit": "",
+        "min": 0,
+        "max": 1,
+        "step": 1,
+        "scale": 1,
+        "choices": [
+          {
+            "value": 0,
+            "label": "Continuous intensity"
+          },
+          {
+            "value": 1,
+            "label": "Detection accumulation"
+          }
+        ]
+      }
+    ],
+    "operations": [
+      "set_parameter",
+      "scale_parameter",
+      "select_preset",
+      "reset_simulation"
+    ],
+    "observables": [
+      {
+        "id": "central_intensity",
+        "label": "Central normalized intensity",
+        "unit": ""
+      },
+      {
+        "id": "central_fringe_spacing",
+        "label": "Central paraxial fringe spacing",
+        "unit": "m"
+      },
+      {
+        "id": "envelope_first_zero",
+        "label": "Envelope first zero position",
+        "unit": "m"
+      },
+      {
+        "id": "probability_sum",
+        "label": "Window probability sum",
+        "unit": ""
+      },
+      {
+        "id": "sample_count",
+        "label": "Detection count",
+        "unit": ""
+      },
+      {
+        "id": "sample_mean",
+        "label": "Sample mean position",
+        "unit": "m"
+      },
+      {
+        "id": "histogram_l1_error",
+        "label": "Histogram L1 discrepancy",
+        "unit": ""
+      },
+      {
+        "id": "far_field_ratio",
+        "label": "Aperture Fresnel ratio",
+        "unit": ""
+      },
+      {
+        "id": "far_field_warning",
+        "label": "Approximation warning",
+        "unit": ""
+      }
+    ],
+    "presets": [
+      {
+        "id": "wide-separation",
+        "title": "Wide slit separation",
+        "description": "Fringes become closer at fixed wavelength and screen distance.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Fringes become closer at fixed wavelength and screen distance.",
+        "parameters": {
+          "wavelength": 5.5e-07,
+          "slitSeparation": 0.00015,
+          "slitWidth": 2e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 2000,
+          "samplingRate": 200,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      },
+      {
+        "id": "narrow-separation",
+        "title": "Narrow slit separation",
+        "description": "Fringes become wider.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Fringes become wider.",
+        "parameters": {
+          "wavelength": 5.5e-07,
+          "slitSeparation": 5e-05,
+          "slitWidth": 2e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 2000,
+          "samplingRate": 200,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      },
+      {
+        "id": "short-wavelength",
+        "title": "Short wavelength",
+        "description": "Shorter wavelength narrows central fringe spacing.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Shorter wavelength narrows central fringe spacing.",
+        "parameters": {
+          "wavelength": 4e-07,
+          "slitSeparation": 0.0001,
+          "slitWidth": 2e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 2000,
+          "samplingRate": 200,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      },
+      {
+        "id": "long-wavelength",
+        "title": "Long wavelength",
+        "description": "Longer wavelength widens central fringe spacing.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Longer wavelength widens central fringe spacing.",
+        "parameters": {
+          "wavelength": 7e-07,
+          "slitSeparation": 0.0001,
+          "slitWidth": 2e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 2000,
+          "samplingRate": 200,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      },
+      {
+        "id": "diffraction-envelope",
+        "title": "Diffraction envelope",
+        "description": "Finite slit width modulates the interference peaks.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Finite slit width modulates the interference peaks.",
+        "parameters": {
+          "wavelength": 5.5e-07,
+          "slitSeparation": 0.00012,
+          "slitWidth": 4e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 2000,
+          "samplingRate": 200,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      },
+      {
+        "id": "single-detections",
+        "title": "Single-particle accumulation",
+        "description": "Seeded individual detections accumulate toward the prescribed probability pattern.",
+        "objective": "Predict interference spacing and compare the sampled distribution.",
+        "expected": "Seeded individual detections accumulate toward the prescribed probability pattern.",
+        "parameters": {
+          "wavelength": 5.5e-07,
+          "slitSeparation": 0.0001,
+          "slitWidth": 2e-05,
+          "screenDistance": 2,
+          "screenHalfRange": 0.03,
+          "detectionEvents": 5000,
+          "samplingRate": 500,
+          "seed": 42,
+          "detectionMode": 1
+        }
+      }
+    ],
+    "initial_query": {
+      "events": 0
+    },
+    "equations": [
+      "I(y) = cos²(πd sinθ/λ) sinc²(πa sinθ/λ)",
+      "sinθ = y/√(L²+y²)",
+      "sinc(u) = sin(u)/u; sinc(0)=1",
+      "Δy ≈ λL/d (central paraxial estimate)",
+      "pⱼ = I(yⱼ)/Σ I(yₖ)"
+    ],
+    "renderer": "optics-canvas",
+    "evolution": {
+      "kind": "events",
+      "max_duration": 5000,
+      "reset_trace_label": "Clear detections"
+    },
+    "lesson_capabilities": [
+      "Constructive and destructive interference",
+      "Wavelength and separation dependence",
+      "Finite-width diffraction envelope",
+      "Seeded detection probability and accumulation"
+    ],
+    "limitations": [
+      "Coherent monochromatic scalar Fraunhofer model; ideal slits, no polarization or near-field propagation.",
+      "Validated (d+a)²/(λL) ≤ 0.1. Screen-angle relation is exact; fringe-spacing label is paraxial.",
+      "1001 discrete screen bins and ≤5000 seeded events, conditioned on the observation window; not a full quantum simulation."
+    ],
+    "terminology": [
+      "Fraunhofer",
+      "sinc",
+      "LCG",
+      "JSON"
+    ]
   }
 ]

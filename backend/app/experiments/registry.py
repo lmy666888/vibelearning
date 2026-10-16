@@ -23,7 +23,7 @@ def bounds(p,manifest):
     import math
     for c in manifest['parameters']:
         v=value(p,c['target'])
-        if type(v) not in (int,float) or not math.isfinite(v) or not c['min']*c['scale'] <= v <= c['max']*c['scale']:
+        if type(v) not in (int,float) or not math.isfinite(v) or not c['min']*c['scale']-math.ulp(1.)*abs(c['min']*c['scale']) <= v <= c['max']*c['scale']+math.ulp(1.)*abs(c['max']*c['scale']):
             raise ValueError('Parameter outside supported SI bounds')
 
 def time_query(query):
@@ -56,4 +56,6 @@ from app.experiments.lorentz import LorentzPlugin
 REGISTRY['lorentz-force-2d']=LorentzPlugin(manifest('lorentz-force-2d'))
 from app.experiments.spatial import SpatialPlugin
 REGISTRY['multi-zone-em']=SpatialPlugin(manifest('multi-zone-em'))
+from app.experiments.optics import OpticalPlugin
+REGISTRY['double-slit-interference']=OpticalPlugin(manifest('double-slit-interference'))
 if len(REGISTRY)!=len(MANIFESTS):raise ValueError('Manifest has no registered engine')

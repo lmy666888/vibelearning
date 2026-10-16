@@ -1,0 +1,16 @@
+import {it,expect} from 'vitest';
+import {experiment} from './registry';
+import {intensity,sinc,opticalDetections,type OpticalParameters} from './optics';
+import {validateContext} from './context';
+import {createRuntime} from './runtime';
+import {validateLesson} from './learning';
+import {applyActions} from './actions';
+import {platformLesson} from '../test/platformFixture';
+import fixtures from '../../../shared/fixtures/optics-contexts.json' with {type:'json'};
+const e=experiment('double-slit-interference'),p=()=>structuredClone(e.manifest.presets[0].parameters),typed=()=>p() as unknown as OpticalParameters;
+it('independent destructive phase zero, sinc origin and symmetric intensity',()=>{const q=typed(),sn=q.wavelength/(2*q.slitSeparation),y=q.screenDistance*sn/Math.sqrt(1-sn*sn);expect(intensity(q,y)).toBeLessThan(1e-25);expect(sinc(0)).toBe(1);expect(intensity(q,.013)).toBeCloseTo(intensity(q,-.013),14);});
+it('seeded events reproduce and converge to normalized profile',()=>{const q={...typed(),detectionEvents:5000},a=opticalDetections(q,5000);expect(a).toEqual(opticalDetections(q,5000));expect(a).not.toEqual(opticalDetections({...q,seed:43},5000));const r=e.evaluate(q as unknown as Record<string,unknown>,{events:5000});expect(r.observables.probability_sum).toBeCloseTo(1,12);expect(Number(r.observables.histogram_l1_error)).toBeLessThan(.15);});
+it('all cross-runtime optical snapshots independently verify without full event arrays',()=>{for(const c of fixtures){expect(validateContext(c).snapshot_id).toBe(c.snapshot_id);expect(JSON.stringify(c).length).toBeLessThan(6000);}});
+it('far-field, distinct-slit and integral-count limits fail clearly',()=>{expect(()=>e.validateParameters({...p(),slitWidth:.001})).toThrow();expect(()=>e.validateParameters({...p(),slitSeparation:300e-6,slitWidth:100e-6,screenDistance:.5})).toThrow('Fraunhofer');expect(()=>e.evaluate(p(),{events:1.5})).toThrow();});
+it('shared event runtime plays deterministic samples and restores paused validated setup',()=>{const r=createRuntime(e.id);r.play();r.advance(.05);expect(r.store.getState().query.events).toBe(10);r.reset();expect(r.store.getState().status).toBe('paused');expect(r.store.getState().query.events).toBe(0);r.destroy();});
+it('same confirmed actions and sequential lesson contracts drive an independent wave model',()=>{const after=applyActions(e,p(),[{schema_version:1,action:'scale_parameter',target:'slitSeparation',factor:2}]);expect(after.slitSeparation).toBeCloseTo(300e-6,10);expect(validateLesson(platformLesson(e.id,p()),e).steps).toHaveLength(3);});

@@ -233,3 +233,7 @@ See [spatial experiment guide](docs/spatial-field-experiment-guide.md), [scienti
 ### AI guardrails and usage governance
 
 All Gemini-backed v1/v2 workflows share signed server-issued anonymous sessions, educational scope routing, strict output contracts and atomic pre-dispatch usage reservations. Defaults: 5 requests/minute and 30/day per session, 1200 ordinary output tokens. Production requires shared Redis, stable signing secret and explicit estimated token prices; quota outage pauses new model calls while local experiments remain usable. See [AI policy and deployment limits](docs/ai/guardrails.md). Application allowance is distinct from Google project quota. CI uses mocked models and a real isolated Redis service.
+
+### Double-slit interference
+
+The fourth registered experiment uses independent coherent scalar Fraunhofer optics with finite-width envelope, exact screen-angle geometry and bounded reproducible detection sampling. Specialized optical Canvas, six presets and bilingual learning reuse the same reviewed AI/governance/session workspace. [Scientific model and limitations](docs/physics-double-slit.md).
