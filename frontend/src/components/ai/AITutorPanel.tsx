@@ -1,3 +1,4 @@
+import {AIUsageFeedback} from './AIUsageFeedback';
 import { ExperimentActionForm } from './ExperimentActionForm';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useSimulationStore } from '../../stores/simulationStore';
@@ -55,7 +56,7 @@ export function AITutorPanel() {
       if (pending.current === controller) { pending.current = null; setLoading(false); }
     }
   }
-  return <section className="panel ai-tutor" aria-labelledby="ai-tutor-heading">
+  return <section className="panel ai-tutor" aria-labelledby="ai-tutor-heading"><AIUsageFeedback/>
     <span className="eyebrow">CONTEXT-AWARE PHYSICS EXPLANATIONS</span>
     <h2 id="ai-tutor-heading">AI Tutor</h2>
     <div className="buttons" aria-label="Tutor mode">

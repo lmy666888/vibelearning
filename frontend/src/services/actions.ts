@@ -1,3 +1,4 @@
+import {aiFetch} from './aiGovernance';
 import { captureTutorRequest, TutorRequestError } from './tutor';
 import type { SimulationContext } from '../simulations/core/simulationContext';
 import type { SimulationParameters } from '../simulations/physics/uniform-electric-field/types';
@@ -94,7 +95,7 @@ export function planIsCurrent(request: PlanRequest, state: CaptureState): boolea
   return request.parameter_revision === state.parameterRevision && same(request.simulation_context.parameters, state.parameters) && request.simulation_context.activePresetId === (state.activePresetId ?? null);
 }
 export async function planAction(request: PlanRequest, signal?: AbortSignal): Promise<PlanResult> {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL ?? ''}/api/ai/plan-action`, {
+  const response = await aiFetch(`${import.meta.env.VITE_API_BASE_URL ?? ''}/api/ai/plan-action`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request),
     signal: AbortSignal.any([...(signal ? [signal] : []), AbortSignal.timeout(130000)]),
   });

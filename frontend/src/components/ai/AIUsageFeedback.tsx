@@ -1,0 +1,3 @@
+import {useAIUsage} from '../../services/aiGovernance';
+import {useLanguageStore} from '../../stores/languageStore';
+export function AIUsageFeedback(){const usage=useAIUsage(),zh=useLanguageStore(s=>s.language)==='zh-CN';return <div aria-label="AI usage guidance" className="ai-usage-feedback">{usage.remaining!==null&&<p role="status">{zh?'最近一次确认的应用每日剩余额度：':'Last confirmed application daily allowance: '}{usage.remaining}{zh?' 次。这不是 Gemini 项目配额。':' requests. This is not your Gemini project quota.'}</p>}{usage.retry!==null&&usage.retry>0&&<p role="status">{zh?'重试等待：':'Retry after: '}{usage.retry} s</p>}</div>;}

@@ -15,7 +15,8 @@ def get_tutor_service() -> TutorService:
 
 def check_access(request: Request):
     # Local-only MVP; this is not a substitute for authentication behind a public reverse proxy.
-    if request.client is None or request.client.host not in {"127.0.0.1", "::1", "localhost"}:
+    import os
+    if os.getenv("AI_ENV","development")!="production" and (request.client is None or request.client.host not in {"127.0.0.1", "::1", "localhost"}):
         raise HTTPException(403, detail={"code": "local_only", "message": "AI Tutor is available only on the local development server."})
     origin = request.headers.get("origin")
     if origin and origin not in request.app.state.frontend_origins:
@@ -34,7 +35,7 @@ async def complete(call):
         raise HTTPException(503, detail={"code": "tutor_not_configured", "message": "AI Tutor is not configured on this backend."}) from None
     except ProviderError as exc:
         raise HTTPException(exc.status, detail={"code": exc.code, "message": exc.message},
-                            headers={"Retry-After": "1"} if exc.status == 429 else None) from None
+                            headers={"Retry-After": str(getattr(exc,"retry_after",1))} if exc.status == 429 else None) from None
     except Exception:
         # Never echo provider exceptions, upstream bodies, prompts, questions, or credentials.
         raise HTTPException(500, detail={"code": "tutor_error", "message": "AI Tutor could not complete the request."}) from None

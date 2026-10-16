@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feat/ai-guardrails-usage-governance, feat/double-slit-interference, feat/kepler-orbital-mechanics]
   push:
     branches: [main]
 
@@ -40,6 +40,11 @@ jobs:
         run: npm run test:e2e
 
   backend:
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10
     name: Backend
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -47,6 +52,7 @@ jobs:
       run:
         working-directory: backend
     env:
+      REDIS_TEST_URL: redis://127.0.0.1:6379/15
       LLM_API_KEY: ''
       LLM_MODEL: ''
     steps:

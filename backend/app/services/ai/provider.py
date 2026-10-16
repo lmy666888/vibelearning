@@ -12,6 +12,7 @@ class ProviderError(Exception):
         super().__init__(message)
         self.status, self.code, self.message = status, code, message
         self.upstream_status = upstream_status
+        self.retry_after = 1
 
 class TutorProvider(Protocol):
     async def explain(self, messages: list[dict[str, str]]) -> Explanation: ...
@@ -32,23 +33,29 @@ class OpenAICompatibleProvider:
 
     async def plan_action(self, messages: list[dict[str, str]]) -> Decision:
         try:
-            return decision_adapter.validate_json(await self._complete(messages))
+            return decision_adapter.validate_json(await self._complete(messages,operation="plan-action"))
         except ValidationError as exc:
             raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid action. Please retry.") from exc
 
     async def generate_lesson(self, messages):
         try:
-            return lesson_decision_adapter.validate_json(await self._complete(messages, completion_limit=3500))
+            return lesson_decision_adapter.validate_json(await self._complete(messages, completion_limit=3500,operation="generate-lesson"))
         except ValidationError as exc:
             raise ProviderError(502, "invalid_provider_response", "The AI provider returned an invalid lesson. Please retry.") from exc
 
     async def evaluate_observation(self, messages):
         try:
-            return ObservationFeedback.model_validate_json(await self._complete(messages))
+            return ObservationFeedback.model_validate_json(await self._complete(messages,operation="evaluate-observation"))
         except ValidationError as exc:
             raise ProviderError(502, "invalid_provider_response", "The AI provider returned invalid feedback. Please retry.") from exc
 
-    async def _complete(self, messages: list[dict[str, str]], completion_limit: int | None = None) -> str:
+    async def _complete(self, messages: list[dict[str, str]], completion_limit: int | None = None, operation: str | None = None) -> str:
+        from app.governance.gateway import completion
+        return await completion(self,messages,completion_limit or self.max_completion_tokens,self._request,operation)
+
+    async def _request(self, messages, completion_limit):
+        from app.governance.gateway import dispatch_authorized
+        if not dispatch_authorized.get():raise ProviderError(503,'quota_unavailable','Provider dispatch requires governance admission.')
         settings = self.settings
         try:
             async with httpx.AsyncClient(timeout=settings.timeout, transport=self.transport,
@@ -77,7 +84,7 @@ class OpenAICompatibleProvider:
             content = choice["message"]["content"]
             if not isinstance(content, str) or settings.api_key in content:
                 raise ValueError("Invalid completion content")
-            return content
+            return content, envelope.get("usage")
         except httpx.TimeoutException as exc:
             raise ProviderError(504, "provider_timeout", "The AI provider timed out. Please retry.") from exc
         except httpx.RequestError as exc:

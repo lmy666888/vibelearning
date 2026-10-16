@@ -160,7 +160,7 @@ def test_timeout_configuration(monkeypatch, timeout):
     with pytest.raises(ConfigurationError): ProviderSettings.from_environment()
 
 def envelope(answer=ANSWER):
-    return {"choices": [{"finish_reason": "stop", "message": {"content": json.dumps(answer)}}]}
+    return {"choices": [{"finish_reason": "stop", "message": {"content": json.dumps({"scope":"in_scope","result":answer})}}]}
 
 @pytest.mark.parametrize("status,payload,code", [
     (200, envelope(), None), (401, {"error": SETTINGS.api_key}, "provider_authentication_error"),
@@ -175,7 +175,7 @@ def test_real_adapter_with_mock_http(status, payload, code):
         assert request.headers["authorization"] == "Bearer " + SETTINGS.api_key
         data = json.loads(request.content)
         assert data["response_format"] == {"type": "json_object"}
-        assert data["max_completion_tokens"] == 1500
+        assert data["max_completion_tokens"] == 1200
         return httpx.Response(status, json=payload)
     adapter = OpenAICompatibleProvider(SETTINGS, httpx.MockTransport(handler))
     if code:

@@ -1,3 +1,4 @@
+import {AIUsageFeedback} from '../ai/AIUsageFeedback';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { useLearningStore } from '../../stores/learningStore';
 import { useSimulationStore } from '../../stores/simulationStore';
@@ -32,7 +33,7 @@ export function AIGuidedLearning(){
   const busy=s.status==='generating'||s.status==='evaluating';
   const stale=active&&s.appliedRevision!==null&&s.appliedRevision!==revision;
   const previewStale=s.status==='awaiting_confirmation'&&!planIsCurrent(s.request,useSimulationStore.getState());
-  return <section className="panel learning-panel ai-guided" aria-label="AI Guided Learning">
+  return <section className="panel learning-panel ai-guided" aria-label="AI Guided Learning"><AIUsageFeedback/>
     <span className="eyebrow">AI-GUIDED LEARNING · HUMAN-CONFIRMED EXPERIMENTS</span><h2>Guided Learning</h2>
     <p>One step at a time. Physics readings are deterministic; generated guidance can be mistaken. Your progress describes this session, not mastery.</p>
     {(!active&&s.status!=='generating'&&s.status!=='error')&&<form onSubmit={generate}><label htmlFor="learning-goal">Learning goal</label><textarea id="learning-goal" rows={3} value={goal} maxLength={2000} onChange={e=>setGoal(e.target.value)} placeholder="Teach me why positive and negative charges accelerate in opposite directions."/><button className="primary" disabled={!goal.trim()} type="submit">Generate lesson</button></form>}
